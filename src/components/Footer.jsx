@@ -9,7 +9,7 @@ import { Grid, Link, Typography, styled } from '@mui/material';
 
 const Container = styled('div')({
     width: '100%',
-    backgroundColor: '#161616',
+    backgroundColor: '#1b1b1b',
 })
 
 const ContainerSections = styled('div')({
@@ -64,7 +64,7 @@ const GridP = styled(Grid)({
           maxWidth: '50%',
           padding: '10px'
         }
-      }
+      },
 })
 
 const LinkT = styled(Link)({
