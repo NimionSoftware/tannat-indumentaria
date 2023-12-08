@@ -9,8 +9,7 @@ import { Grid, Link, Typography, styled } from '@mui/material';
 
 const Container = styled('div')({
     width: '100%',
-    backgroundColor: 'rgb(0,185,189)',
-    background: 'linear-gradient(180deg, rgba(0,185,189,1) 0%, rgba(22,26,255,1) 100%)'
+    backgroundColor: '#161616',
 })
 
 const ContainerSections = styled('div')({
@@ -119,6 +118,14 @@ const LastText = styled(Typography)({
       }
 })
 
+const HrT = styled('hr')({
+    width: '100%',
+    height:'2px',
+    border: 'none',
+    backgroundColor: 'rgb(0,185,189)',
+    background: 'linear-gradient(90deg, rgba(0,185,189,1) 0%, rgba(22,26,255,1) 100%)'
+})
+
 const Copy = styled('img')({
     width: '.9rem',
     height: '.9rem',
@@ -138,7 +145,7 @@ export default function Footer() {
                 <Link href="https://www.instagram.com/"><Images src={insta} alt="Icon Instagram" /></Link>
                 <Link href="https://www.instagram.com/"><Images src={twi} alt="Icon Twitter" /></Link>
             </ContainerImages>
-            <hr style={{width:'100%'}} />
+            <HrT />
             <GridP container>
                 <ContainerService>
                     <Subtitle>Nosotros</Subtitle>
@@ -156,13 +163,13 @@ export default function Footer() {
                     <LinkT to="/not found" className="link">Rastrear mi pedido</LinkT>
                 </ContainerService>
             </GridP>
-            <hr style={{width:'100%'}} />
+            <HrT />
             <ContainerCards>
                 <Card src={visa} alt="Icon visa card" />
                 <Card src={masterCard} alt="Icon masterCard card" />
                 <Card src={mercadoPago} alt="Icon mercadoPago" />
             </ContainerCards>
-            <hr style={{width:'100%'}} />
+            <HrT />
             <ContainerInfo>
                 <LastText><Copy src={copy} alt='Copyright' />Copyright 2023 Tannat Indumentaria</LastText>
                 <LastText>Developed by: Nimion Software Solutions</LastText>
