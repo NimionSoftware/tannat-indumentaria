@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography, styled } from '@mui/material';
-import logo from '../assets/logoTannat1.png';
+import { styled } from '@mui/material';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import X from '../assets/x.png';
@@ -10,7 +9,7 @@ import burguerMenu from '../assets/burguerMenu.png';
 
 const ContainerN = styled('nav')({
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent:'space-between',
     minHeight:'1rem',
     width: '100%',
     marginBottom: '12rem',
@@ -26,12 +25,11 @@ const OrderL = styled('ul')({
     top: '0',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems:'center',
-    margin:'0',
+    alignItems:'end',
     width:'50%',
     height:'100%',
-    backgroundColor: '#1b1b1b',
+    transition: '0.3s ease-in-out',
+    backgroundColor: '#1b1b1bee',
     '@media (min-width: 768px)': {
         display: 'none'
       }
@@ -45,18 +43,6 @@ const ItemList = styled('li')({
     },
 })
 
-const Images = styled('img')({
-    position: 'relative',
-    right:'1rem',
-    width: '3rem',
-    height: '3rem',
-    transition: '.3s all',
-    filter: 'drop-shadow(0 0 .2px #fff)',
-    '@media (min-width: 768px)': {
-        display: 'none'
-      }
-})
-
 const Icon = styled('img')({
     display:'flex',
     alignSelf:'center',
@@ -64,7 +50,7 @@ const Icon = styled('img')({
     right:'1rem',
     width: '1.3rem',
     height: '1.3rem',
-    margin: '0 3rem',
+    margin: '0 1rem',
     filter: 'invert()',
     cursor: 'pointer',
     transition: '.3s all',
@@ -72,12 +58,10 @@ const Icon = styled('img')({
 
 const Cruz = styled('img')({
     display:'flex',
-    alignSelf:'center',
-    position: 'relative',
-    right:'1rem',
+    alignSelf:'end',
     width: '1.2rem',
     height: '1.2rem',
-    margin: '0 3rem',
+    margin: '1rem',
     cursor: 'pointer',
     transition: '.3s all',
 })
@@ -88,37 +72,51 @@ const BurgerMenuIcon = styled('img')({
     transition: '.3s all',
 })
 
+const ContainerUser = styled('div')({
+    display:'flex',
+})
+
+const ContainerLinks = styled('div')({
+    display:'flex',
+    flexDirection: 'column',
+    gap:'2rem',
+    marginRight: '2rem',
+    marginTop: '3rem',
+    textAlign:'end',
+})
+
 const BurgerMenu = () => {
 
     const [open, setOpen] = useState(false);
 
     return (
         <ContainerN>
-            <BurgerMenuIcon src={burguerMenu} onClick={() => setOpen(!open)} />
+            <BurgerMenuIcon src={burguerMenu} onClick={()=> {setOpen(!open)}} />
+            <ContainerUser>
+                    <Icon src={cart} alt='Icono carrito de compras' />
+                    <Icon src={log} alt='Icono Login' />
+            </ContainerUser>
             {open &&
             <>
-                <OrderL>
-                    <Cruz src={X} alt='Cruz para cerrar ventana' />
-                    <Link to='/'><Images src={logo} alt='Logo Tannat'/></Link>
-                    <ItemList>
-                        <Icon src={log} alt='Icono Login' />
-                        <Icon src={cart} alt='Icono carrito de compras' />
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/">Inicio</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/men">Hombres</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/women">Mujeres</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/shoes">Calzados</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
-                    </ItemList>
+                <OrderL style={{ transform: open ? 'translateX(0)' : 'translateX(-100%)' }}>
+                    <Cruz src={X} alt='Cruz para cerrar ventana' onClick={() => setOpen(false)} />
+                    <ContainerLinks>
+                        <ItemList>
+                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/">Inicio</Link>
+                        </ItemList>
+                        <ItemList>
+                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/men">Hombres</Link>
+                        </ItemList>
+                        <ItemList>
+                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/women">Mujeres</Link>
+                        </ItemList>
+                        <ItemList>
+                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/shoes">Calzados</Link>
+                        </ItemList>
+                        <ItemList>
+                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
+                        </ItemList>
+                    </ContainerLinks>
                 </OrderL>
             </>
             }
