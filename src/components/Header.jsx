@@ -1,5 +1,4 @@
 import { Grid, Typography, styled } from '@mui/material';
-import nameLogo from '../assets/logoName.png';
 
 const Container = styled('div')({
     display:'flex',
@@ -19,18 +18,21 @@ const Container = styled('div')({
     },
 })
 
-const Images = styled('img')({
-    width:'13rem',
-    margin:'1rem',
-    filter: 'drop-shadow(0 0 1px #a8a8a8)',
+const TypoText = styled(Typography)({
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#00a2ff',
+    paddingTop: '.5rem',
+    '@media (max-width: 768px)': {
+        fontSize:'.8rem'
+      }
 })
 
 const Header = () => {
     return (
         <Container>
             <Grid>
-                <Images src={nameLogo} alt='Imagen nombre de marca' />
-                {/* <Typography style={{textAlign: 'center', fontWeight: 'bold', color: '#00a2ff'}}>Ultimas oportunidad | productos con hasta 60% OFF</Typography> */}
+                <TypoText>Ultimas oportunidad | productos con hasta 60% OFF</TypoText>
             </Grid>
         </Container>
     )
