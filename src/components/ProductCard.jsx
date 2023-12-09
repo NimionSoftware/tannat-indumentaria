@@ -5,21 +5,11 @@ import {
     Box,
     Button,
     styled,
-    keyframes,
     Typography,
     Divider,
     Collapse,
     IconButton,
 } from "@mui/material"
-
-const scaleAnimation = keyframes`
-  0% {
-    transform: positionY(0);
-  }
-  100%{
-    transform: positionY(-1.5)
-  }
-`;
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -51,10 +41,11 @@ const Description = styled(Typography)({
 })
 
 const Size = styled(Typography)({
+  margin: "15px 0",
   fontSize: 15,
   fontWeight: '600',
   color: 'green',
-  margin: "15px 0"
+  textAlign: 'center',
 })
 
 const Price = styled(Typography)({
@@ -62,6 +53,7 @@ const Price = styled(Typography)({
   fontWeight: '600',
   color: '#F4F4F4',
   marginBottom: 15,
+  textAlign: 'center',
   letterSpacing: 1
 })
 
