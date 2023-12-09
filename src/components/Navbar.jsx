@@ -11,7 +11,6 @@ const ContainerN = styled('nav')({
     display: 'flex',
     minHeight:'1rem',
     width: '100%',
-    marginBottom: '12rem',
     backgroundColor: '#1b1b1bd0',
     '@media (max-width: 768px)': {
         display: 'none'
