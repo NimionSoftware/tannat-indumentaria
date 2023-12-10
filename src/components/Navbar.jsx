@@ -16,10 +16,14 @@ const ContainerN = styled('nav')({
     width: '100%',
     height: '3.3rem',
     backgroundColor: '#1b1b1bd0',
-    '@media (max-width: 768px)': {
-        display: 'none'
+    '@media (max-width: 950px)': {
+        height:'2.5rem'
       },
-    marginBottom: '-3.3rem'
+    '@media (max-width: 900px)': {
+        display: 'none',
+      },
+    marginBottom: '-3.3rem',
+    transition: '.3s all'
 })
 
 const OrderL = styled('ul')({
@@ -54,9 +58,13 @@ const Images = styled('img')({
     "&:hover": {
         transform: 'scale(1.1)'
     },
-    '@media (max-width: 768px)': {
-        display: 'none'
-      }
+    '@media (max-width: 950px)': {
+        width: '2.5rem',
+        height: '2.5rem',
+      },
+    '@media (max-width: 900px)': {
+        display: 'none',
+      },
 })
 
 const Icon = styled('img')({

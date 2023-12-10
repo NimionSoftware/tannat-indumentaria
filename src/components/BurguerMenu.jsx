@@ -8,15 +8,17 @@ import burguerMenu from '../assets/burguerMenu.png';
 
 
 const ContainerN = styled('nav')({
+    zIndex: '9',
     display: 'flex',
     justifyContent:'space-between',
     minHeight:'1rem',
     width: '100%',
-    marginBottom: '12rem',
     backgroundColor: '#1b1b1b',
-    '@media (min-width: 768px)': {
-        display: 'none'
-      }
+    '@media (min-width: 900px)': {
+        display: 'none',
+        marginBottom: '-3.3rem'
+    },
+
 })
 
 const OrderL = styled('ul')({
@@ -30,7 +32,7 @@ const OrderL = styled('ul')({
     height:'100%',
     transition: '0.3s ease-in-out',
     backgroundColor: '#1b1b1bee',
-    '@media (min-width: 768px)': {
+    '@media (min-width: 900px)': {
         display: 'none'
       }
 })

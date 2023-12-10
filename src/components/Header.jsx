@@ -1,6 +1,4 @@
 import { Grid, Typography, styled } from '@mui/material';
-import Banner from './Banner';
-import Navbar from './Navbar';
 
 
 const Container = styled(Grid)({
