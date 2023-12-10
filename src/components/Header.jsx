@@ -1,11 +1,19 @@
 import { Grid, Typography, styled } from '@mui/material';
+import Banner from './Banner';
+import Navbar from './Navbar';
 
-const Container = styled('div')({
+
+const Container = styled(Grid)({
+    position:'relative',
     display:'flex',
+    flexDirection:'column',
     justifyContent: 'center',
-    minHeight:'2.5rem',
+    minHeight:'2rem',
     width: '100%',
     backgroundColor: '#1b1b1b',
+})
+
+const GridT = styled('div')({
     position: 'relative',
     '&::after': {
         content: '""',
@@ -30,11 +38,13 @@ const TypoText = styled(Typography)({
 
 const Header = () => {
     return (
+        <>
         <Container>
-            <Grid>
+            <GridT>
                 <TypoText>Ultimas oportunidad | productos con hasta 60% OFF</TypoText>
-            </Grid>
+            </GridT>
         </Container>
+        </>
     )
 }
 

@@ -8,13 +8,18 @@ import BurgerMenu from './BurguerMenu';
 
 
 const ContainerN = styled('nav')({
+    zIndex:'10',
+    position: 'sticky',
+    top:'0',
     display: 'flex',
     minHeight:'1rem',
     width: '100%',
+    height: '3.3rem',
     backgroundColor: '#1b1b1bd0',
     '@media (max-width: 768px)': {
         display: 'none'
-      }
+      },
+    marginBottom: '-3.3rem'
 })
 
 const OrderL = styled('ul')({
