@@ -11,23 +11,6 @@ import {
     IconButton,
 } from "@mui/material"
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  textAlign: 'center',
-  position: 'relative',
-  top: 10,
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-  '@keyframes floating': {
-    "0%": {transform: "translateY(0)"},
-    "100%": {transform: "translateY(1.5px)"}
-  }
-}));
-
 const Title = styled(Typography)({
   fontSize: 20,
   fontWeight: 'lighter',
@@ -65,6 +48,22 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
     setExpanded(!expanded);
   };
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton
+              onClick={handleExpandClick}
+              {...other}
+              />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+    textAlign: 'center',
+    position: 'relative',
+    top: 10,
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
+
   return (
     <Box
       sx={{
@@ -73,6 +72,8 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
         justifyContent: 'space-between',
         alignItems: 'center',
         maxWidth: "250px",
+        maxHeight: !expanded && "617px",
+        transition: 'all .250s',
         gap: 1,
         margin: 3,
         background: '#f1f1f1',
@@ -145,7 +146,6 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
         </Button>
         <ExpandMore
           expand={expanded}
-          onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
