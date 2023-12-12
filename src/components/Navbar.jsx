@@ -1,22 +1,32 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';
 import logo from '../assets/logoNoName.png';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import BurgerMenu from './BurguerMenu';
-import { useState } from 'react';
 import ModalCart from './ModalCart';
+import SignIn from './SignIn';
 
 
 const ContainerN = styled('nav')({
+    zIndex:'10',
+    position: 'sticky',
+    top:'0',
     display: 'flex',
     minHeight:'1rem',
     width: '100%',
+    height: '3.3rem',
     backgroundColor: '#1b1b1bd0',
-    '@media (max-width: 768px)': {
-        display: 'none'
-      }
+    '@media (max-width: 950px)': {
+        height:'2.5rem'
+      },
+    '@media (max-width: 900px)': {
+        display: 'none',
+      },
+    marginBottom: '-3.3rem',
+    transition: '.3s all'
 })
 
 const OrderL = styled('ul')({
@@ -51,9 +61,13 @@ const Images = styled('img')({
     "&:hover": {
         transform: 'scale(1.1)'
     },
-    '@media (max-width: 768px)': {
-        display: 'none'
-      }
+    '@media (max-width: 950px)': {
+        width: '2.5rem',
+        height: '2.5rem',
+      },
+    '@media (max-width: 900px)': {
+        display: 'none',
+      },
 })
 
 const Icon = styled('img')({
@@ -79,6 +93,17 @@ const Icon = styled('img')({
 const Navbar = () => {
 
     const [openCart, setOpenCart] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(!open);
+      };
+
+      const handleClose = () => {
+        setTimeout(() => {
+            setOpen(false);
+        }, 1500);
+      };
 
     return (
         <>
@@ -101,8 +126,17 @@ const Navbar = () => {
                         <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
                     </ItemList>
                 </OrderL>
-                <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" onClick={() => setOpenCart(!openCart)} />
-                <Icon src={log} alt='Icono Login' title="Iniciar sesión" />
+                <Icon src={cart} onClick={() => {setOpenCart(!openCart)}} alt='Icono carrito de compras' title="Abrir carrito de compras" />
+                <Icon
+                    onClick={handleClick}
+                    src={log} alt='Icono Login'
+                    title="Iniciar sesión"
+                    />
+                <SignIn
+                    handleClick={handleClick}
+                    handleClose={handleClose}
+                    open={open}
+                    />
             </ContainerN>
             {openCart && <ModalCart setOpenCart={setOpenCart} />}
             <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} />
