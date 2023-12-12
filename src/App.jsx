@@ -2,8 +2,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import ProductCard from './components/ProductCard';
-import img from './assets/campera-ufo.png'
 import bannerImg from './assets/Banner.png';
 import Banner from './components/Banner';
 import ProductWall from './components/ProductWall';
