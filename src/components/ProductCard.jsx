@@ -11,7 +11,6 @@ import {
     IconButton,
 } from "@mui/material"
 import { cartContext } from './Context'
-import Toastify from 'toastify-js'
 
 const Title = styled(Typography)({
   fontSize: 20,

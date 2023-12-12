@@ -18,8 +18,9 @@ const ModalStyle = styled('div')({
     display:'flex',
     flexDirection:'column',
     margin:'auto',
+    minWidth:'25rem',
     width:'40%',
-    height:'70%',
+    height:'33rem',
     backgroundColor: '#fff',
     borderRadius:'.1rem'
 })

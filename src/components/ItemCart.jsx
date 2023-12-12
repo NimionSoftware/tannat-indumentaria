@@ -3,22 +3,7 @@ import { cartContext } from "./Context";
 import { styled } from "@mui/material";
 
 const ContainerTable = styled('div')({
-    position: 'relative',
-    '&::before, &::after': {
-        content: '""',
-        position: 'absolute',
-        width: '100%',
-        height: '2px',
-        background: 'linear-gradient(to right, rgba(0,185,189,1) 0%, rgba(22,26,255,1) 100%)',
-    },
-    '&::before': {
-        top: '0',
-        left: '0',
-    },
-    '&::after': {
-        bottom: '0',
-        right: '0',
-    },
+    boxShadow: '0 0 2px black',
     marginBottom: '.5rem',
     marginTop: '.5rem',
     height:'10rem',
@@ -37,6 +22,20 @@ const DeleteItemButton = styled('button')({
     }
 })
 
+const Th = styled('th')({
+    transition: 'all .2s',
+    '@media (max-width: 1000px)': {
+        fontSize: '.7rem',
+      }
+})
+
+const Td = styled('td')({
+    transition: 'all .2s',
+    '@media (max-width: 1000px)': {
+        fontSize: '.8rem',
+      }
+})
+
 const ItemCart = ({item}) => {
 
     const {deleteItem} = useContext(cartContext);
@@ -47,24 +46,24 @@ const ItemCart = ({item}) => {
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Nombre</th>
-                        <th>Talles</th>
-                        <th>Precio</th>
-                        <th>Cant.</th>
-                        <th>Subtotal</th>
+                        <Th>Nombre</Th>
+                        <Th>Talles</Th>
+                        <Th>Precio</Th>
+                        <Th>Cant.</Th>
+                        <Th>Subtotal</Th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style={{width:'20%'}}><img src={item.imgId} style={{width:'70%'}} alt="Imagen del Producto" /></td>
-                        <td>{item.productName}</td>
-                        <td>{item.productSizes}</td>
-                        <td>${item.productPrice}</td>
-                        <td>X{item.qty}</td>
-                        <td>
+                        <td style={{maxWidth:'7rem', width:'20%'}}><img src={item.imgId} style={{width:'70%'}} alt="Imagen del Producto" /></td>
+                        <Td>{item.productName}</Td>
+                        <Td>{item.productSizes}</Td>
+                        <Td>${item.productPrice}</Td>
+                        <Td>X{item.qty}</Td>
+                        <Td>
                             ${item.productPrice * item.qty}
-                        </td>
+                        </Td>
                         <td><DeleteItemButton onClick={()=>{deleteItem(item.id)}} title="Eliminar">&times;</DeleteItemButton></td>
                     </tr>
                 </tbody>

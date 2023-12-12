@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import X from '../assets/x.png';
 import burguerMenu from '../assets/burguerMenu.png';
+import { cartContext } from './Context';
 
 
 const ContainerN = styled('nav')({
@@ -87,15 +88,43 @@ const ContainerLinks = styled('div')({
     textAlign:'end',
 })
 
+const ContainerBaloonCount = styled('div')({
+    display:'flex',
+    cursor: 'pointer',
+    transition: '.3s all',
+    "&:hover": {
+        transform: 'scale(1.1)'
+    },
+})
+
+const BaloonCount = styled('div')({
+    zIndex:'2',
+    position:'relative',
+    top:'.3rem',
+    left:'2rem',
+    backgroundColor: 'red',
+    borderRadius: '100rem',
+    width:'1.1rem',
+    height:'1.1rem',
+    color:'white',
+    fontWeight: 'bold',
+    fontSize: '.8rem',
+    textAlign:'center',
+})
+
 const BurgerMenu = ({openCart, setOpenCart}) => {
 
     const [open, setOpen] = useState(false);
+    const { quantity, qty } = useContext(cartContext);
 
     return (
         <ContainerN>
             <BurgerMenuIcon src={burguerMenu} onClick={()=> {setOpen(!open)}} />
             <ContainerUser>
-                    <Icon src={cart} alt='Icono carrito de compras' onClick={() => setOpenCart(!openCart)} />
+                    <ContainerBaloonCount onClick={() => {setOpenCart(!openCart)}}>
+                        <BaloonCount>{quantity(qty)}</BaloonCount>
+                        <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
+                    </ContainerBaloonCount>
                     <Icon src={log} alt='Icono Login' />
             </ContainerUser>
             {open &&

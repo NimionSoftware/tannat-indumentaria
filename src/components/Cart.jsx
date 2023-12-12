@@ -18,7 +18,6 @@ const ContainerProducts = styled('div')({
     boxShadow: '0 0 10px #1b1b1b8c inset',
     overflowY: 'scroll',
     width:'98%',
-    backgroundColor: '#fff',
      '::-webkit-scrollbar': {
         width: '8px',
     },
@@ -43,23 +42,37 @@ const EmptyButton = styled('button')({
     border:'none',
     cursor:'pointer',
     backgroundColor:'#d3d3d3',
+    transition:'.15s all',
     '&:hover':{
         backgroundColor:'#ce2929',
         color:'white'
-    }
+    },
+    '@media (max-width: 1000px)': {
+        backgroundColor:'#5e5e5e1f',
+        width: '7rem',
+        color: 'red'
+      }
 })
 
 const FinishButton = styled('button')({
     fontWeight: 'bold',
     width:'15rem',
     height:'2rem',
-    backgroundColor: '#1aacd1',
-    color:'white',
     border:'none',
     cursor:'pointer',
-    '&:hover':{
-        background: 'linear-gradient(90deg, rgba(0,185,189,1) 0%, rgba(22,26,255,1) 100%)',
-    }
+    background: 'linear-gradient(90deg, #1aacd1, transparent) #1aacd1',
+    fontFamily: 'inherit',
+    color: '#fff',
+    textDecoration: 'none',
+    transition: 'background-color .5s',
+    placeContent: 'center',
+    '&:hover': {
+        background: 'linear-gradient(90deg, #1aacd1, transparent) #213bcf',
+    },
+    '@media (max-width: 1000px)': {
+        width:'12rem',
+        fontSize:'.9rem'
+      }
 })
 
 const ContainerButton = styled('div')({
@@ -69,19 +82,27 @@ const ContainerButton = styled('div')({
     gap:'1rem'
 })
 
+const CartTitle = styled('h3')({
+    fontSize:'1.5rem',
+    transition:'all .2s',
+    '@media (max-width: 768px)': {
+        fontSize: '1.2rem',
+      }
+})
+
 const Cart = () => {
 
-    const {total, emptyCart, get} = useContext(cartContext);
+    const {total, emptyCart, cart} = useContext(cartContext);
 
 
     return(
         <ContainerCart>
-            <h3 style={{fontSize:'1.5rem'}}>Mi carrito de compras!</h3>
-            {get.length > 0
+            <CartTitle>Mi carrito de compras!</CartTitle>
+            {cart.length > 0
                 ?
                 (
                     <ContainerProducts>
-                        {get.map((item, index) => <ItemCart item={item} key={index} />)}
+                        {cart.map((item, index) => <ItemCart item={item} key={index} />)}
                     </ContainerProducts>
                 )
                 :
@@ -94,7 +115,7 @@ const Cart = () => {
                     </>
                 )
             }
-            {get.length > 0 && (
+            {cart.length > 0 && (
                 <>
                     <p style={{fontWeight: 'bold'}}>Total: US$ {total()}</p>
                     <ContainerButton>
