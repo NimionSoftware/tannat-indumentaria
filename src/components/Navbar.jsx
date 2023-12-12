@@ -1,10 +1,12 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';
 import logo from '../assets/logoNoName.png';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import BurgerMenu from './BurguerMenu';
+import SignIn from './SignIn';
 
 
 const ContainerN = styled('nav')({
@@ -88,6 +90,18 @@ const Icon = styled('img')({
 
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(!open);
+      };
+
+      const handleClose = () => {
+        setTimeout(() => {
+            setOpen(false);
+        }, 1500);
+      };
+
     return (
         <>
             <ContainerN>
@@ -110,7 +124,15 @@ const Navbar = () => {
                     </ItemList>
                 </OrderL>
                 <Icon src={cart} alt='Icono carrito de compras' />
-                <Icon src={log} alt='Icono Login' />
+                <Icon
+                    onClick={handleClick}
+                    src={log} alt='Icono Login'
+                    />
+                <SignIn
+                    handleClick={handleClick}
+                    handleClose={handleClose}
+                    open={open}
+                    />
             </ContainerN>
             <BurgerMenu />
         </>

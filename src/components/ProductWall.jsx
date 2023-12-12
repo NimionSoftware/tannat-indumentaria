@@ -12,7 +12,7 @@ const Wall = styled('div')({
   flexWrap: 'wrap',
   justifyContent: 'space-around',
   background: `linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)),
-    url(${bodyImg})`
+    url(${bodyImg})`,
 })
 
 
