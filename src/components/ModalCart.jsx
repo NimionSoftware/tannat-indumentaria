@@ -50,7 +50,7 @@ const Modal = ({setOpenCart}) => {
     return (
         <ContainerModal>
             <ModalStyle>
-                <Cross style={{color:'#000'}} onClick={() => setOpenCart(false)}>&times;</Cross>
+                <Cross style={{color:'#000'}} onClick={() => setOpenCart(false)} title="Cerrar Ventana">&times;</Cross>
                 <div>
                     <Cart />
                 </div>

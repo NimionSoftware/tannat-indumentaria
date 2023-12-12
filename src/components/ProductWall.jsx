@@ -19,14 +19,6 @@ const Wall = styled('div')({
 
 const ProductWall = ({cards}) => {
 
-  const {isInCart, addItem, quantity} = useContext(cartContext);
-
-  const onAdd = (item) =>{
-    isInCart(item.imgId)
-    addItem(item, quantity)
-  }
-
-
   return (
     <Wall>
       {cards.map((card, index) => (
@@ -37,6 +29,7 @@ const ProductWall = ({cards}) => {
           productDescription={card.productDescription}
           productSizes={card.productSizes}
           productPrice={card.productPrice}
+          card={card}
           />
       ))}
     </Wall>

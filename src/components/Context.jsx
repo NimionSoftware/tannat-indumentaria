@@ -42,7 +42,7 @@ const Context = ({children}) => {
     }
 
     const deleteItem = (id) =>{
-        localStorage.setItem('cart', JSON.stringify(get.filter(product => product.id !== id))) 
+        localStorage.setItem('cart', JSON.stringify(get.filter(product => product.id !== id)))
         setCart(cart.filter(product => product.id !== id))
     }
 
@@ -61,7 +61,7 @@ const Context = ({children}) => {
 
     const total = () =>{
         if(get){
-            return get.reduce((acc, product) => acc + product.price * product.qty, 0)
+            return get.reduce((acc, product) => acc + product.productPrice * product.qty, 0)
         }
     }
 

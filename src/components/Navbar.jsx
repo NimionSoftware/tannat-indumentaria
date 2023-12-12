@@ -101,8 +101,8 @@ const Navbar = () => {
                         <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
                     </ItemList>
                 </OrderL>
-                <Icon src={cart} alt='Icono carrito de compras' onClick={() => setOpenCart(!openCart)} />
-                <Icon src={log} alt='Icono Login' />
+                <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" onClick={() => setOpenCart(!openCart)} />
+                <Icon src={log} alt='Icono Login' title="Iniciar sesión" />
             </ContainerN>
             {openCart && <ModalCart setOpenCart={setOpenCart} />}
             <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} />
