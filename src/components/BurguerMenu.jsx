@@ -85,7 +85,7 @@ const ContainerLinks = styled('div')({
     textAlign:'end',
 })
 
-const BurgerMenu = () => {
+const BurgerMenu = ({openCart, setOpenCart}) => {
 
     const [open, setOpen] = useState(false);
 
@@ -93,7 +93,7 @@ const BurgerMenu = () => {
         <ContainerN>
             <BurgerMenuIcon src={burguerMenu} onClick={()=> {setOpen(!open)}} />
             <ContainerUser>
-                    <Icon src={cart} alt='Icono carrito de compras' />
+                    <Icon src={cart} alt='Icono carrito de compras' onClick={() => setOpenCart(!openCart)} />
                     <Icon src={log} alt='Icono Login' />
             </ContainerUser>
             {open &&

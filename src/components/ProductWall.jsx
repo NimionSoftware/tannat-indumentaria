@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import ProductCard from './ProductCard'
 import bodyImg from '../assets/body.jpeg'
 
 import {
     styled,
 } from '@mui/material'
+import { cartContext } from './Context'
 
 const Wall = styled('div')({
   display: 'flex',
@@ -17,6 +18,15 @@ const Wall = styled('div')({
 
 
 const ProductWall = ({cards}) => {
+
+  const {isInCart, addItem, quantity} = useContext(cartContext);
+
+  const onAdd = (item) =>{
+    isInCart(item.imgId)
+    addItem(item, quantity)
+  }
+
+
   return (
     <Wall>
       {cards.map((card, index) => (

@@ -5,6 +5,8 @@ import logo from '../assets/logoNoName.png';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import BurgerMenu from './BurguerMenu';
+import { useState } from 'react';
+import ModalCart from './ModalCart';
 
 
 const ContainerN = styled('nav')({
@@ -75,6 +77,9 @@ const Icon = styled('img')({
 
 
 const Navbar = () => {
+
+    const [openCart, setOpenCart] = useState(false);
+
     return (
         <>
             <ContainerN>
@@ -96,10 +101,11 @@ const Navbar = () => {
                         <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
                     </ItemList>
                 </OrderL>
-                <Icon src={cart} alt='Icono carrito de compras' />
+                <Icon src={cart} alt='Icono carrito de compras' onClick={() => setOpenCart(!openCart)} />
                 <Icon src={log} alt='Icono Login' />
             </ContainerN>
-            <BurgerMenu />
+            {openCart && <ModalCart setOpenCart={setOpenCart} />}
+            <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} />
         </>
     )
 }
