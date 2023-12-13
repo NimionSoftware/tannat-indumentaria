@@ -15,7 +15,7 @@ const Image = styled('img')({
 
 const ContactButton = () => {
     return(
-        <a href={`https://api.whatsapp.com/send?phone=5493413869246&text=Hola,%20Como%20estas?%20Quiero%20consultarte%20por%20una%20prenda%20de%20ropa%20que%20vi%20en...`}  rel="noreferrer" target="_blank">
+        <a href={`https://wa.me/5493413869246?text=Hola%2C%20Como%20estas%3F%20Quiero%20consultarte%20por%20una%20prenda%20que%20vi%20en...`}  rel="noreferrer" target="_blank">
             <Image src={wpp} alt="Icono de whatsapp" />
         </a>
     )

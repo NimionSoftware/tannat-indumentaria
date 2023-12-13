@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "./Context";
 import ItemCart from "./ItemCart"
 import { Typography, styled } from "@mui/material";
@@ -54,7 +54,8 @@ const EmptyButton = styled('button')({
       }
 })
 
-const FinishButton = styled('button')({
+const FinishButton = styled('a')({
+    paddingTop:'8px',
     fontWeight: 'bold',
     width:'15rem',
     height:'2rem',
@@ -93,7 +94,18 @@ const CartTitle = styled('h3')({
 const Cart = () => {
 
     const {total, emptyCart, cart} = useContext(cartContext);
+    const [itemW, setItemW] = useState(``)
 
+    useEffect(() => {
+        if (cart.length > 0) {
+            setItemW(cart.map((item, index) => {
+                let newIndex = index + 1
+                return (
+                    `%2D%20${newIndex}%3A%20%2A${item.productName}%2C%20T%3A%20${item.productSizes}%2C%20%24${item.productPrice}%2C%20X${item.qty}%2A%0A`
+                );
+            }))
+        }
+      }, [cart]);
 
     return(
         <ContainerCart>
@@ -119,7 +131,12 @@ const Cart = () => {
                 <>
                     <p style={{fontWeight: 'bold'}}>Total: US$ {total()}</p>
                     <ContainerButton>
-                        <FinishButton onClick={()=>{}}>Enviar pedido</FinishButton>
+                        <FinishButton
+                            href={`https://wa.me/5493413869246?text=${itemW}`}
+                            target="_blank"
+                            >
+                                Enviar pedido
+                            </FinishButton>
                         <EmptyButton onClick={()=>{emptyCart()}}>Vaciar Carrito</EmptyButton>
                     </ContainerButton>
                 </>

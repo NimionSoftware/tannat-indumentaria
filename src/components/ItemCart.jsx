@@ -23,6 +23,7 @@ const DeleteItemButton = styled('button')({
 })
 
 const Th = styled('th')({
+    width:'20%',
     transition: 'all .2s',
     '@media (max-width: 1000px)': {
         fontSize: '.7rem',
@@ -30,6 +31,7 @@ const Th = styled('th')({
 })
 
 const Td = styled('td')({
+    width:'20%',
     transition: 'all .2s',
     '@media (max-width: 1000px)': {
         fontSize: '.8rem',
@@ -50,7 +52,6 @@ const ItemCart = ({item}) => {
                         <Th>Talles</Th>
                         <Th>Precio</Th>
                         <Th>Cant.</Th>
-                        <Th>Subtotal</Th>
                         <th></th>
                     </tr>
                 </thead>
@@ -61,9 +62,6 @@ const ItemCart = ({item}) => {
                         <Td>{item.productSizes}</Td>
                         <Td>${item.productPrice}</Td>
                         <Td>X{item.qty}</Td>
-                        <Td>
-                            ${item.productPrice * item.qty}
-                        </Td>
                         <td><DeleteItemButton onClick={()=>{deleteItem(item.id)}} title="Eliminar">&times;</DeleteItemButton></td>
                     </tr>
                 </tbody>
