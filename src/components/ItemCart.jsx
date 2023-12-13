@@ -56,7 +56,7 @@ const ItemCart = ({item}) => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td style={{maxWidth:'7rem', width:'20%'}}><img src={item.imgId} style={{width:'70%'}} alt="Imagen del Producto" /></td>
+                        <td style={{minWidth:'7rem', width:'7rem'}}><img src={item.imgId} style={{width:'70%'}} alt="Imagen del Producto" /></td>
                         <Td>{item.productName}</Td>
                         <Td>{item.productSizes}</Td>
                         <Td>${item.productPrice}</Td>
