@@ -7,6 +7,7 @@ import Banner from './components/Banner';
 import ProductWall from './components/ProductWall';
 import { cards } from './mockup/cards';
 import Context from './components/Context';
+import ContactButton from './components/ContactButton';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Context>
           <Header />
+          <ContactButton />
           <div>
             <Navbar />
             <Banner img={bannerImg} />
