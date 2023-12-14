@@ -6,7 +6,10 @@ import logo from '../assets/logoNoName.png';
 import cart from '../assets/cart.png';
 import log from '../assets/log.png';
 import BurgerMenu from './BurguerMenu';
+import ModalCart from './ModalCart';
 import SignIn from './SignIn';
+import { useContext } from 'react';
+import { cartContext } from './Context';
 
 
 const ContainerN = styled('nav')({
@@ -88,8 +91,37 @@ const Icon = styled('img')({
       }
 })
 
+const ContainerBaloonCount = styled('div')({
+    display:'flex',
+    cursor: 'pointer',
+    transition: '.3s all',
+    "&:hover": {
+        transform: 'scale(1.1)'
+    },
+    '@media (max-width: 768px)': {
+        display: 'none'
+      }
+})
+
+const BaloonCount = styled('div')({
+    zIndex:'2',
+    position:'relative',
+    top:'.3rem',
+    left:'4rem',
+    backgroundColor: 'red',
+    borderRadius: '100rem',
+    width:'1.1rem',
+    height:'1.1rem',
+    color:'white',
+    fontWeight: 'bold',
+    fontSize: '.8rem',
+    textAlign:'center',
+})
+
 
 const Navbar = () => {
+
+    const [openCart, setOpenCart] = useState(false);
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -102,31 +134,37 @@ const Navbar = () => {
         }, 1500);
       };
 
+    const { quantity } = useContext(cartContext);
+
     return (
         <>
             <ContainerN>
                 <Link to='/'><Images src={logo} alt='Logo Tannat'/></Link>
                 <OrderL>
                     <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/">Inicio</Link>
+                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/">Inicio</Link>
                     </ItemList>
                     <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/men">Hombres</Link>
+                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/men">Hombres</Link>
                     </ItemList>
                     <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/women">Mujeres</Link>
+                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/women">Mujeres</Link>
                     </ItemList>
                     <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/shoes">Calzados</Link>
+                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/shoes">Calzados</Link>
                     </ItemList>
                     <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
+                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/news">Novedades</Link>
                     </ItemList>
                 </OrderL>
-                <Icon src={cart} alt='Icono carrito de compras' />
+                <ContainerBaloonCount onClick={() => {setOpenCart(!openCart)}}>
+                    <BaloonCount>{quantity()}</BaloonCount>
+                    <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
+                </ContainerBaloonCount>
                 <Icon
                     onClick={handleClick}
                     src={log} alt='Icono Login'
+                    title="Iniciar sesión"
                     />
                 <SignIn
                     handleClick={handleClick}
@@ -134,7 +172,8 @@ const Navbar = () => {
                     open={open}
                     />
             </ContainerN>
-            <BurgerMenu />
+            {openCart && <ModalCart setOpenCart={setOpenCart} />}
+            <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} />
         </>
     )
 }

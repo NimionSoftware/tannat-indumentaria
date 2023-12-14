@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import ProductCard from './ProductCard'
 import bodyImg from '../assets/body.jpeg'
 
 import {
     styled,
 } from '@mui/material'
+import { cartContext } from './Context'
 
 const Wall = styled('div')({
   display: 'flex',
@@ -17,6 +18,7 @@ const Wall = styled('div')({
 
 
 const ProductWall = ({cards}) => {
+
   return (
     <Wall>
       {cards.map((card, index) => (
@@ -27,6 +29,7 @@ const ProductWall = ({cards}) => {
           productDescription={card.productDescription}
           productSizes={card.productSizes}
           productPrice={card.productPrice}
+          card={card}
           />
       ))}
     </Wall>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import cartImg from "../assets/shopping_cart_white_24dp.svg"
 import expandMoreIcon from "../assets/expand_more_black_24dp.svg"
 import {
@@ -10,6 +10,7 @@ import {
     Collapse,
     IconButton,
 } from "@mui/material"
+import { cartContext } from './Context'
 
 const Title = styled(Typography)({
   fontSize: 20,
@@ -41,7 +42,7 @@ const Price = styled(Typography)({
 })
 
 
-const ProductCard = ({imgId, productName, productDescription, productSizes, productPrice}) => {
+const ProductCard = ({imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => {
@@ -63,6 +64,8 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
       duration: theme.transitions.duration.shortest,
     }),
   }));
+
+  const {addItem, qty} = useContext(cartContext);
 
   return (
     <Box
@@ -128,7 +131,7 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
             paddingBottom: 10,
             background: 'brown'
           }}>
-          {productPrice}
+          ${productPrice}
         </Price>
 
           <Button
@@ -139,7 +142,7 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
             fontSize: 11
           }}
           variant='contained'
-          onClick={()=>{}}
+          onClick={()=>{addItem(card, qty)}}
         >
           <img src={cartImg} alt="imagen del carrito" />
           Al Carrito

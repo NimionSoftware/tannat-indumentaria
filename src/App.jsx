@@ -6,11 +6,13 @@ import bannerImg from './assets/Banner.png';
 import Banner from './components/Banner';
 import ProductWall from './components/ProductWall';
 import { cards } from './mockup/cards';
+import Context from './components/Context';
 
 function App() {
   return (
     <div style={{backgroundColor: '#f3f3f3'}}>
       <BrowserRouter>
+        <Context>
           <Header />
           <div>
             <Navbar />
@@ -21,9 +23,11 @@ function App() {
             </Routes>
             <Footer />
           </div>
+        </Context>
       </BrowserRouter>
     </div>
-    )}
+    )
+  }
 
 
 export default App;
