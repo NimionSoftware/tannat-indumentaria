@@ -101,7 +101,7 @@ const Cart = () => {
             setItemW(cart.map((item, index) => {
                 let newIndex = index + 1
                 return (
-                    `%2D%20${newIndex}%3A%20%2A${item.productName}%2C%20T%3A%20${item.productSizes}%2C%20%24${item.productPrice}%2C%20X${item.qty}%2A%0A`
+                    `${newIndex}%2D%20%3A%20%2A${item.productName}%2C%20T%3A%20${item.productSizes}%2C%20%24${item.productPrice}%2C%20X${item.qty}%2A%0A-%0A`
                 );
             }))
         }
