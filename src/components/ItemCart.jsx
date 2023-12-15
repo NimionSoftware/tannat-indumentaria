@@ -50,6 +50,7 @@ const ItemCart = ({item}) => {
                         <th></th>
                         <Th>Nombre</Th>
                         <Th>Talles</Th>
+                        {item.color && <Th>Color</Th>}
                         <Th>Precio</Th>
                         <Th>Cant.</Th>
                         <th></th>
@@ -60,6 +61,7 @@ const ItemCart = ({item}) => {
                         <td style={{minWidth:'7rem', width:'7rem'}}><img src={item.imgId} style={{width:'70%'}} alt="Imagen del Producto" /></td>
                         <Td>{item.productName}</Td>
                         <Td>{item.productSizes}</Td>
+                        {item.color && <Td>{item.color}</Td>}
                         <Td>${item.productPrice}</Td>
                         <Td>X{item.qty}</Td>
                         <td><DeleteItemButton onClick={()=>{deleteItem(item.id)}} title="Eliminar">&times;</DeleteItemButton></td>

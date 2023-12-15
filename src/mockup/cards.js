@@ -15,6 +15,7 @@ export const cards = [
         productName: 'Chomba',
         productDescription: 'Campera de un material muy fachero, si no sos fachero no te la pongas porque vas a desentonar.',
         productSizes: 'S, M, L',
+        color: 'Black',
         productPrice: 37352
     },
     {
@@ -23,6 +24,7 @@ export const cards = [
         productName: 'Chaqueta Gris',
         productDescription: 'Campera de un material muy fachero, si no sos fachero no te la pongas porque vas a desentonar.',
         productSizes: 'S, M, L',
+        color: 'Blue',
         productPrice: 334563
     },
     {
@@ -55,6 +57,7 @@ export const cards = [
         productName: 'Saco de Lana',
         productDescription: 'Campera de un material muy fachero, si no sos fachero no te la pongas porque vas a desentonar.',
         productSizes: 'S, M, L',
+        color: 'White',
         productPrice: 369965
     },
     {
@@ -103,6 +106,7 @@ export const cards = [
         productName: 'Sudadera con Capucha',
         productDescription: 'Campera de un material muy fachero, si no sos fachero no te la pongas porque vas a desentonar.',
         productSizes: 'S, M, L',
+        color: 'Green',
         productPrice: 364567
     },
     {

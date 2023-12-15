@@ -3,6 +3,7 @@ import { cartContext } from "./Context";
 import ItemCart from "./ItemCart"
 import { Typography, styled } from "@mui/material";
 import carti from '../assets/emptyCart.png';
+import DataCustomer from "./DataCustomer";
 
 const ContainerCart = styled('div')({
     position:'relative',
@@ -54,7 +55,7 @@ const EmptyButton = styled('button')({
       }
 })
 
-const FinishButton = styled('a')({
+const FinishButton = styled('Button')({
     paddingTop:'8px',
     fontWeight: 'bold',
     width:'15rem',
@@ -94,54 +95,46 @@ const CartTitle = styled('h3')({
 const Cart = () => {
 
     const {total, emptyCart, cart} = useContext(cartContext);
-    const [itemW, setItemW] = useState(``)
-
-    useEffect(() => {
-        if (cart.length > 0) {
-            setItemW(cart.map((item, index) => {
-                let newIndex = index + 1
-                return (
-                    `${newIndex}%2D%20%3A%20%2A${item.productName}%2C%20T%3A%20${item.productSizes}%2C%20%24${item.productPrice}%2C%20X${item.qty}%2A%0A-%0A`
-                );
-            }))
-        }
-      }, [cart]);
+    const [openData, setOpenData] = useState(false);
+    const [itemW, setItemW] = useState(``);
 
     return(
-        <ContainerCart>
-            <CartTitle>Mi carrito de compras!</CartTitle>
-            {cart.length > 0
-                ?
-                (
-                    <ContainerProducts>
-                        {cart.map((item, index) => <ItemCart item={item} key={index} />)}
-                    </ContainerProducts>
-                )
-                :
-                (
+        <>
+            {!openData && <ContainerCart>
+                <CartTitle>Mi carrito de compras!</CartTitle>
+                {cart.length > 0
+                    ?
+                    (
+                        <ContainerProducts>
+                            {cart.map((item, index) => <ItemCart item={item} key={index} />)}
+                        </ContainerProducts>
+                    )
+                    :
+                    (
+                        <>
+                            <img src={carti} alt="Icono carrito vacio" style={{width:'5rem', margin:'0 auto'}}/>
+                            <EmptyCart>
+                                El carrito esta vacío, comienza a cargarlo con productos!
+                            </EmptyCart>
+                        </>
+                    )
+                }
+                {cart.length > 0 && (
                     <>
-                        <img src={carti} alt="Icono carrito vacio" style={{width:'5rem', margin:'0 auto'}}/>
-                        <EmptyCart>
-                            El carrito esta vacío, comienza a cargarlo con productos!
-                        </EmptyCart>
-                    </>
-                )
-            }
-            {cart.length > 0 && (
-                <>
-                    <p style={{fontWeight: 'bold'}}>Total: US$ {total()}</p>
-                    <ContainerButton>
-                        <FinishButton
-                            href={`https://wa.me/5493413869246?text=${itemW}`}
-                            target="_blank"
-                            >
-                                Enviar pedido
+                        <p style={{fontWeight: 'bold'}}>Total: ${total()}</p>
+                        <ContainerButton>
+                            <FinishButton
+                                onClick={() => {setOpenData(!openData)}}
+                                >
+                                    Hacer pedido
                             </FinishButton>
-                        <EmptyButton onClick={()=>{emptyCart()}}>Vaciar Carrito</EmptyButton>
-                    </ContainerButton>
-                </>
-                )}
-        </ContainerCart>
+                            <EmptyButton onClick={()=>{emptyCart()}}>Vaciar Carrito</EmptyButton>
+                        </ContainerButton>
+                    </>
+                    )}
+            </ContainerCart>}
+            {openData && <DataCustomer openData={openData} setOpenData={setOpenData} itemW={itemW} setItemW={setItemW} />}
+        </>
     )
 }
 
