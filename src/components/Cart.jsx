@@ -1,8 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "./Context";
 import ItemCart from "./ItemCart"
 import { Typography, styled } from "@mui/material";
 import carti from '../assets/emptyCart.png';
+import DataCustomer from "./DataCustomer";
 
 const ContainerCart = styled('div')({
     position:'relative',
@@ -54,7 +55,8 @@ const EmptyButton = styled('button')({
       }
 })
 
-const FinishButton = styled('button')({
+const FinishButton = styled('Button')({
+    paddingTop:'8px',
     fontWeight: 'bold',
     width:'15rem',
     height:'2rem',
@@ -93,38 +95,46 @@ const CartTitle = styled('h3')({
 const Cart = () => {
 
     const {total, emptyCart, cart} = useContext(cartContext);
-
+    const [openData, setOpenData] = useState(false);
+    const [itemW, setItemW] = useState(``);
 
     return(
-        <ContainerCart>
-            <CartTitle>Mi carrito de compras!</CartTitle>
-            {cart.length > 0
-                ?
-                (
-                    <ContainerProducts>
-                        {cart.map((item, index) => <ItemCart item={item} key={index} />)}
-                    </ContainerProducts>
-                )
-                :
-                (
+        <>
+            {!openData && <ContainerCart>
+                <CartTitle>Mi carrito de compras!</CartTitle>
+                {cart.length > 0
+                    ?
+                    (
+                        <ContainerProducts>
+                            {cart.map((item, index) => <ItemCart item={item} key={index} />)}
+                        </ContainerProducts>
+                    )
+                    :
+                    (
+                        <>
+                            <img src={carti} alt="Icono carrito vacio" style={{width:'5rem', margin:'0 auto'}}/>
+                            <EmptyCart>
+                                El carrito esta vacío, comienza a cargarlo con productos!
+                            </EmptyCart>
+                        </>
+                    )
+                }
+                {cart.length > 0 && (
                     <>
-                        <img src={carti} alt="Icono carrito vacio" style={{width:'5rem', margin:'0 auto'}}/>
-                        <EmptyCart>
-                            El carrito esta vacío, comienza a cargarlo con productos!
-                        </EmptyCart>
+                        <p style={{fontWeight: 'bold'}}>Total: ${total()}</p>
+                        <ContainerButton>
+                            <FinishButton
+                                onClick={() => {setOpenData(!openData)}}
+                                >
+                                    Hacer pedido
+                            </FinishButton>
+                            <EmptyButton onClick={()=>{emptyCart()}}>Vaciar Carrito</EmptyButton>
+                        </ContainerButton>
                     </>
-                )
-            }
-            {cart.length > 0 && (
-                <>
-                    <p style={{fontWeight: 'bold'}}>Total: US$ {total()}</p>
-                    <ContainerButton>
-                        <FinishButton onClick={()=>{}}>Enviar pedido</FinishButton>
-                        <EmptyButton onClick={()=>{emptyCart()}}>Vaciar Carrito</EmptyButton>
-                    </ContainerButton>
-                </>
-                )}
-        </ContainerCart>
+                    )}
+            </ContainerCart>}
+            {openData && <DataCustomer openData={openData} setOpenData={setOpenData} itemW={itemW} setItemW={setItemW} />}
+        </>
     )
 }
 
