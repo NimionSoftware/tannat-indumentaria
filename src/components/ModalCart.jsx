@@ -20,7 +20,7 @@ const ModalStyle = styled('div')({
     margin:'auto',
     minWidth:'25rem',
     width:'40%',
-    height:'33rem',
+    height:'35rem',
     backgroundColor: '#fff',
     borderRadius:'.1rem'
 })

@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { cartContext } from "./Context";
 import { TextField, Grid, styled } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 const FinishButton = styled('button')({
-    paddingTop:'8px',
     fontWeight: 'bold',
     width:'15rem',
     height:'2rem',
@@ -37,7 +36,7 @@ const ContainerForm = styled(Grid)({
     marginTop:'2rem'
 })
 
-const DataCustomer = ({openData, setOpenData, itemW, setItemW}) => {
+const DataCustomer = ({ itemW, setItemW }) => {
 
     const {cart} = useContext(cartContext);
 
@@ -55,7 +54,7 @@ const DataCustomer = ({openData, setOpenData, itemW, setItemW}) => {
       const { register, handleSubmit, formState: { errors } } = useForm();
 
       const onSubmit = (data) => {
-        window.open(`https://wa.me/5493413869246?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2E%0A-%0A${itemW}`, '_blank');
+        window.open(`https://wa.me/5493413869246?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2C%20Pago%20con:%20${data.paymentMethod}%2E%0A-%0A${itemW}`, '_blank');
       };
 
     return (
@@ -122,6 +121,32 @@ const DataCustomer = ({openData, setOpenData, itemW, setItemW}) => {
                             error={!!errors.direccion}
                             helperText={errors.direccion ? errors.direccion.message : ''}
                         />
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        flexDirection:'column',
+                        maxWidth: '20rem',
+                        width: '100%',
+                        minWidth: '13rem',
+                        minHeight: '3rem',
+                        }}
+                    >
+                        <select
+                        style={{ width: '100%', height:'3.5rem' }}
+                        {...register('paymentMethod', { required: 'Selecciona un método de pago' })}
+                        error={!!errors.paymentMethod}
+                        >
+                        <option value="">Método de pago</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="efectivo">Efectivo</option>
+                        </select>
+                        {errors.paymentMethod && (
+                        <span style={{ color: 'red', fontSize:'.8rem', paddingLeft:'.8rem', marginBottom:'-1.05rem' }}>{errors.paymentMethod.message}</span>
+                        )}
                     </Grid>
                     <FinishButton
                         type="submit"

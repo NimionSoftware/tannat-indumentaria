@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { cartContext } from "./Context";
 import ItemCart from "./ItemCart"
 import { Typography, styled } from "@mui/material";
@@ -56,7 +56,6 @@ const EmptyButton = styled('button')({
 })
 
 const FinishButton = styled('Button')({
-    paddingTop:'8px',
     fontWeight: 'bold',
     width:'15rem',
     height:'2rem',
