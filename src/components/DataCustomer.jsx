@@ -1,7 +1,9 @@
 import { useContext, useEffect } from "react";
 import { cartContext } from "./Context";
-import { TextField, Grid, styled } from '@mui/material';
+import { TextField, Grid, styled, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import Joi from 'joi';
+import { joiResolver } from '@hookform/resolvers/joi';
 
 const FinishButton = styled('button')({
     fontWeight: 'bold',
@@ -36,6 +38,53 @@ const ContainerForm = styled(Grid)({
     marginTop:'2rem'
 })
 
+const TitleDataCustomer = styled(Typography)({
+    textAlign:'center',
+    fontSize: '1.2rem',
+    '@media (max-width: 1150px)': {
+        fontSize:'.9rem',
+        textAlign:'center',
+      },
+})
+
+const schema = Joi.object({
+    nombre: Joi.string()
+        .min(3)
+        .regex(/^[a-zA-Z ]+$/)
+        .messages({
+            'string.base': 'El nombre solo debe contener letras',
+            'string.empty': 'Este campo es requerido',
+            'string.minDomainSegments': 'El nombre al menos debe tener 3 letras',
+            'string.min': 'El nombre al menos debe tener 3 letras',
+            'string.pattern.base': 'El nombre solo debe contener letras'
+        }),
+    numero: Joi.string()
+        .min(8)
+        .max(12)
+        .messages({
+            'string.base': 'El número de celular debe ser solo numeros',
+            'string.empty': 'Este campo es requerido',
+            'string.min': 'El número de celular al menos debe tener 8 digitos',
+            'string.max': 'El número de celular no debe tener mas de 12 digitos'
+        })
+        .required(),
+    direccion: Joi.string()
+        .regex(/^(?=.*[a-zA-Z]{2})(?=.*\d{4})[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\d.]+$/)
+        .required()
+        .messages({
+            'string.pattern.base':
+            'La direccion debe contener nombre de la calle y número de puerta.',
+            'string.min': 'Minimo debe tener 8 letras y 3 numeros',
+            'string.empty': 'Este campo es requerido'
+        }),
+    paymentMethod: Joi.string()
+        .messages({
+        'alternatives.types': 'Este campo es requerido',
+        'string.empty': 'Este campo es requerido'
+        })
+        .required()
+  });
+
 const DataCustomer = ({ itemW, setItemW }) => {
 
     const {cart} = useContext(cartContext);
@@ -51,7 +100,10 @@ const DataCustomer = ({ itemW, setItemW }) => {
         }
       }, [cart]);
 
-      const { register, handleSubmit, formState: { errors } } = useForm();
+      const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: 'onBlur',
+        resolver: joiResolver(schema)
+      });
 
       const onSubmit = (data) => {
         window.open(`https://wa.me/5493413869246?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2C%20Pago%20con:%20${data.paymentMethod}%2E%0A-%0A${itemW}`, '_blank');
@@ -59,7 +111,7 @@ const DataCustomer = ({ itemW, setItemW }) => {
 
     return (
         <>
-            <p style={{textAlign:'center', fontSize: '1.2rem'}}>Completa los campos para poder realizar el pedido!</p>
+            <TitleDataCustomer>Completa los campos para poder realizar el pedido!</TitleDataCustomer>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ContainerForm container>
                     <Grid
