@@ -8,6 +8,7 @@ import ProductWall from './components/ProductWall';
 import { cards } from './mockup/cards';
 import Context from './components/Context';
 import ContactButton from './components/ContactButton';
+import AdminInterface from './components/AdminInterface';
 
 function App() {
 
@@ -15,7 +16,7 @@ function App() {
     <div style={{backgroundColor: '#f3f3f3'}}>
       <BrowserRouter>
         <Context>
-          <Header />
+          {/* <Header />
           <ContactButton />
           <div>
             <Navbar />
@@ -25,7 +26,8 @@ function App() {
               <Route path='/' element=''/>
             </Routes>
             <Footer />
-          </div>
+          </div> */}
+        <AdminInterface />
         </Context>
       </BrowserRouter>
     </div>
