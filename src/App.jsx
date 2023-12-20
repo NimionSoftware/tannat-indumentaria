@@ -8,7 +8,7 @@ import ProductWall from './components/ProductWall';
 import { cards } from './mockup/cards';
 import Context from './components/Context';
 import ContactButton from './components/ContactButton';
-import AdminInterface from './components/AdminInterface';
+import AdminInterface from './components/admin-interface/AdminInterface';
 
 function App() {
 
