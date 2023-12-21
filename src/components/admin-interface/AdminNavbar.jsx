@@ -1,11 +1,11 @@
 import React from 'react';
-import addClothesIcon from '../assets/clothes-icon.png'
-import updateClothesIcon from '../assets/update-product.png'
-import deleteClothesIcon from '../assets/delete-product.png'
-import logOutIcon from '../assets/log-out.png'
+import addClothesIcon from '../../assets/clothes-icon.png'
+import updateClothesIcon from '../../assets/update-product.png'
+import deleteClothesIcon from '../../assets/delete-product.png'
+import logOutIcon from '../../assets/log-out.png'
+import { Link } from 'react-router-dom';
 import {
 Box,
-SwipeableDrawer,
 List,
 ListItem,
 ListItemButton,
@@ -27,15 +27,15 @@ const AdminNavbar = () => {
   const list = () => (
     <Box
       sx={{
-        height: '100%',
         width: '250px',
-        backgroundColor: '#1C2536'
+        backgroundColor: '#1C2536',
+        height: '100vh'
     }}
     >
       <List sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '90%'
+        height:'90%'
       }}>
         {['Agregar Producto', 'Modificar Producto', 'Eliminar Producto'].map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -46,6 +46,7 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
+            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
             <ToggleButton sx={{color: '#9AA1AB'}} value={text} aria-label={option}>
 
               <ListItemIcon>
@@ -54,6 +55,7 @@ const AdminNavbar = () => {
               <ListItemText primary={text} />
 
             </ToggleButton>
+            {/* </Link> */}
             </ToggleButtonGroup>
           </ListItem>
         ))}
@@ -71,17 +73,16 @@ const AdminNavbar = () => {
   );
 
   return (
-    <div>
+    <div style={{width:'250px', height: '100%'}}>
       {['left'].map((anchor) => (
-        <div key={anchor} style={{backgroundColor: '#1C2536',}}>
-          <SwipeableDrawer
+        <div key={anchor} style={{height: 'auto', backgroundColor: '#1C2536',}}>
+          <Box
             sx={{
                 backgroundColor: '#1C2536',
             }}
-            variant='permanent'
           >
             {list(anchor)}
-          </SwipeableDrawer>
+          </Box>
         </div>
       ))}
     </div>
