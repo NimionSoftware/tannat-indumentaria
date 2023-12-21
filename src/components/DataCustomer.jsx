@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { cartContext } from "./Context";
 import { TextField, Grid, styled, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
@@ -59,13 +59,15 @@ const schema = Joi.object({
             'string.pattern.base': 'El nombre solo debe contener letras'
         }),
     numero: Joi.string()
+        .pattern(/^\d+$/)
         .min(8)
         .max(12)
         .messages({
             'string.base': 'El número de celular debe ser solo numeros',
             'string.empty': 'Este campo es requerido',
             'string.min': 'El número de celular al menos debe tener 8 digitos',
-            'string.max': 'El número de celular no debe tener mas de 12 digitos'
+            'string.max': 'El número de celular no debe tener mas de 12 digitos',
+            'string.pattern.base': 'El número de celular debe contener solo números',
         })
         .required(),
     direccion: Joi.string()
@@ -85,9 +87,10 @@ const schema = Joi.object({
         .required()
   });
 
-const DataCustomer = ({ itemW, setItemW }) => {
+const DataCustomer = () => {
 
-    const {cart} = useContext(cartContext);
+
+    const {cart, itemW, setItemW, popUp, setPopUp, formData, setFormData} = useContext(cartContext);
 
     useEffect(() => {
         if (cart.length > 0) {
@@ -105,9 +108,17 @@ const DataCustomer = ({ itemW, setItemW }) => {
         resolver: joiResolver(schema)
       });
 
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
       const onSubmit = (data) => {
         window.open(`https://wa.me/5493413869246?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2C%20Pago%20con:%20${data.paymentMethod}%2E%0A-%0A${itemW}`, '_blank');
-      };
+        setPopUp(!popUp)
+    };
 
     return (
         <>
@@ -132,6 +143,7 @@ const DataCustomer = ({ itemW, setItemW }) => {
                             {...register('nombre', { required: 'Este campo es requerido' })}
                             error={!!errors.nombre}
                             helperText={errors.nombre ? errors.nombre.message : ''}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
@@ -152,6 +164,7 @@ const DataCustomer = ({ itemW, setItemW }) => {
                             {...register('numero', { required: 'Este campo es requerido' })}
                             error={!!errors.numero}
                             helperText={errors.numero ? errors.numero.message : ''}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
@@ -172,6 +185,7 @@ const DataCustomer = ({ itemW, setItemW }) => {
                             {...register('direccion', { required: 'Este campo es requerido' })}
                             error={!!errors.direccion}
                             helperText={errors.direccion ? errors.direccion.message : ''}
+                            onChange={handleChange}
                         />
                     </Grid>
                     <Grid
@@ -188,13 +202,14 @@ const DataCustomer = ({ itemW, setItemW }) => {
                         }}
                     >
                         <select
-                        style={{ width: '100%', height:'3.5rem' }}
-                        {...register('paymentMethod', { required: 'Selecciona un método de pago' })}
-                        error={!!errors.paymentMethod}
+                            style={{ width: '100%', height:'3.5rem' }}
+                            {...register('paymentMethod', { required: 'Selecciona un método de pago' })}
+                            error={!!errors.paymentMethod}
+                            onChange={handleChange}
                         >
-                        <option value="">Método de pago</option>
-                        <option value="tarjeta">Tarjeta</option>
-                        <option value="efectivo">Efectivo</option>
+                            <option value="">Método de pago</option>
+                            <option value="tarjeta">Tarjeta</option>
+                            <option value="efectivo">Efectivo</option>
                         </select>
                         {errors.paymentMethod && (
                         <span style={{ color: 'red', fontSize:'.8rem', paddingLeft:'.8rem', marginBottom:'-1.05rem' }}>{errors.paymentMethod.message}</span>
