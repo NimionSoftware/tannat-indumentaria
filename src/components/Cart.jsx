@@ -95,7 +95,6 @@ const Cart = () => {
 
     const {total, emptyCart, cart} = useContext(cartContext);
     const [openData, setOpenData] = useState(false);
-    const [itemW, setItemW] = useState(``);
 
     return(
         <>
@@ -132,7 +131,7 @@ const Cart = () => {
                     </>
                     )}
             </ContainerCart>}
-            {openData && <DataCustomer openData={openData} setOpenData={setOpenData} itemW={itemW} setItemW={setItemW} />}
+            {openData && <DataCustomer openData={openData} setOpenData={setOpenData} />}
         </>
     )
 }
