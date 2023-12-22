@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import ProductCard from './ProductCard'
 import bodyImg from '../assets/body.jpeg'
 
@@ -16,22 +16,24 @@ const Wall = styled('div')({
     url(${bodyImg})`,
 })
 
-
 const ProductWall = ({cards}) => {
+  const [isExpandedIndex, setIsExpandedIndex] = useState(null)
 
   return (
     <Wall>
-        {cards.map((card, index) => (
-            <ProductCard
-            key={index}
-            imgId={card.imgId}
-            productName={card.productName}
-            productDescription={card.productDescription}
-            productSizes={card.productSizes}
-            productPrice={card.productPrice}
-            card={card}
-            />
-        ))}
+      {cards?.map((card) => (
+          <ProductCard
+          key={card?._id}
+          imgId={`http://drive.google.com/uc?export=view&id=${card?.image}`}
+          productName={card?.title}
+          productDescription={card?.description}
+          productSizes={card?.sizes}
+          productPrice={card?.price}
+          card={card}
+          index={card?._id}
+          isExpanded={{isExpandedIndex, setIsExpandedIndex}}
+          />
+      ))}
     </Wall>
   )
 }
