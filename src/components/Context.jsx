@@ -70,7 +70,25 @@ const Context = ({ children }) => {
   };
 
   return (
-    <Provider value={{cart, isInCart, addItem, deleteItem, emptyCart, quantity, total, qty, setQty, openCart, setOpenCart, itemW, setItemW, popUp, setPopUp, formData, setFormData}}>{children}</Provider>
+    <Provider
+      value={{
+        cart,
+        isInCart,
+        addItem,
+        deleteItem,
+        emptyCart,
+        quantity,
+        total,
+        qty,
+        setQty,
+        openCart,
+        setOpenCart,
+        itemW,
+        setItemW,
+        popUp,
+        setPopUp,
+        formData,
+        setFormData}}>{children}</Provider>
   );
 };
 

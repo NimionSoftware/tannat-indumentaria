@@ -75,7 +75,7 @@ const schema = Joi.object({
         .required()
         .messages({
             'string.pattern.base':
-            'La direccion debe contener nombre de la calle y número de puerta.',
+            "La direccion debe contener nombre de la calle y número de puerta. Ej: 'Av.Libertador 1234'",
             'string.min': 'Minimo debe tener 8 letras y 3 numeros',
             'string.empty': 'Este campo es requerido'
         }),
