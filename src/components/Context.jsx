@@ -7,6 +7,16 @@ const { Provider } = cartContext;
 const Context = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [qty, setQty] = useState(1);
+  const [openCart, setOpenCart] = useState(false);
+  const [itemW, setItemW] = useState(``);
+  const [popUp, setPopUp] = useState(false);
+  const [formData, setFormData] = useState({
+    nombre: '',
+    numero: '',
+    direccion: '',
+    paymentMethod: ''
+});
+
 
   useEffect(() => {
     const get = JSON.parse(localStorage.getItem('cart'));
@@ -60,7 +70,25 @@ const Context = ({ children }) => {
   };
 
   return (
-    <Provider value={{cart, isInCart, addItem, deleteItem, emptyCart, quantity, total, qty, setQty}}>{children}</Provider>
+    <Provider
+      value={{
+        cart,
+        isInCart,
+        addItem,
+        deleteItem,
+        emptyCart,
+        quantity,
+        total,
+        qty,
+        setQty,
+        openCart,
+        setOpenCart,
+        itemW,
+        setItemW,
+        popUp,
+        setPopUp,
+        formData,
+        setFormData}}>{children}</Provider>
   );
 };
 

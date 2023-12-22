@@ -10,8 +10,8 @@ import { cartContext } from './Context'
 const Wall = styled('div')({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'center',
   flexWrap: 'wrap',
-  justifyContent: 'space-around',
   background: `linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)),
     url(${bodyImg})`,
 })

@@ -1,5 +1,8 @@
 import { styled } from "@mui/material";
 import Cart from "./Cart";
+import { cartContext } from "./Context";
+import { useContext } from "react";
+import PopUp from "./PopUp";
 
 const ContainerModal = styled('div')({
     zIndex:'9999',
@@ -48,14 +51,18 @@ const Cross = styled('p')({
 
 const Modal = ({setOpenCart}) => {
 
+    const {itemW, setItemW, popUp, setPopUp } = useContext(cartContext);
+
+
     return (
         <ContainerModal>
-            <ModalStyle>
+            {!popUp && <ModalStyle>
                 <Cross style={{color:'#000'}} onClick={() => setOpenCart(false)} title="Cerrar Ventana">&times;</Cross>
                 <div>
                     <Cart />
                 </div>
-            </ModalStyle>
+            </ModalStyle>}
+            {popUp && <PopUp setPopUp={setPopUp} itemW={itemW} setItemW={setItemW} />}
         </ContainerModal>
     )
 }

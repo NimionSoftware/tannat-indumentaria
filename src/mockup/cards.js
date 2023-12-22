@@ -165,4 +165,12 @@ export const cards = [
         productSizes: 'S, M, L',
         productPrice: 36999
     },
+    {
+        id: 21,
+        imgId: cartImg,
+        productName: 'Campera Boss',
+        productDescription: 'Campera de un material muy fachero, si no sos fachero no te la pongas porque vas a desentonar.',
+        productSizes: 'S, M, L',
+        productPrice: 36999
+    },
 ]

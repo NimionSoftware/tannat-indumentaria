@@ -121,7 +121,6 @@ const BaloonCount = styled('div')({
 
 const Navbar = () => {
 
-    const [openCart, setOpenCart] = useState(false);
     const [open, setOpen] = useState(false);
 
     const handleClick = () => {
@@ -134,7 +133,7 @@ const Navbar = () => {
         }, 1500);
       };
 
-    const { quantity } = useContext(cartContext);
+    const { quantity, openCart, setOpenCart } = useContext(cartContext);
 
     return (
         <>
@@ -157,7 +156,10 @@ const Navbar = () => {
                         <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/news">Novedades</Link>
                     </ItemList>
                 </OrderL>
-                <ContainerBaloonCount onClick={() => {setOpenCart(!openCart)}}>
+                <ContainerBaloonCount onClick={() => {
+                    setOpenCart(!openCart)
+                    }}
+                    >
                     <BaloonCount>{quantity()}</BaloonCount>
                     <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
                 </ContainerBaloonCount>
