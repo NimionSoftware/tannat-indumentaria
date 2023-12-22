@@ -1,4 +1,6 @@
 import React from 'react'
+import { useForm } from 'react-hook-form';
+import {useAxiosPost} from '../custom-hooks/useAxios'
 import {
     styled,
     Typography,
@@ -36,6 +38,16 @@ const Description = styled (Typography)({
 })
 
 const CreateProductForm = () => {
+  const {postData} = useAxiosPost()
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    mode: 'onBlur',
+  });
+
+
+  const onSubmit = (data) => {
+
+  }
+
   return (
     <FormContainer>
         <Form>
@@ -44,7 +56,7 @@ const CreateProductForm = () => {
                 flexDirection: 'column',
                 alignItems: 'center'
                 }}
-                action=""
+                onSubmit={handleSubmit(onSubmit)}
             >
 
                 <Text
@@ -72,6 +84,8 @@ const CreateProductForm = () => {
                         marginTop: '10px',
                         background: 'white',
                     }}
+                    label="Titulo"
+                    {...register('titulo', { required: 'Este campo es requerido' })}
                 />
                 <Text
                     sx={{

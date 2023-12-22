@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import cartImg from "../assets/shopping_cart_white_24dp.svg"
 import expandMoreIcon from "../assets/expand_more_black_24dp.svg"
 import {
@@ -13,8 +13,12 @@ import {
 import { cartContext } from './Context'
 
 const Title = styled(Typography)({
+  display: 'flex',
+  alignItems:'center',
+  height: '50px',
   fontSize: 20,
   fontWeight: 'lighter',
+  textAlign: 'center'
 })
 
 const Description = styled(Typography)({
@@ -42,11 +46,16 @@ const Price = styled(Typography)({
 })
 
 
-const ProductCard = ({imgId, productName, productDescription, productSizes, productPrice, card}) => {
+const ProductCard = ({index, isExpanded, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [expanded, setExpanded] = useState(false);
+  const [expandedPress, setExpandedPress] = useState(false)
+  const {isExpandedIndex, setIsExpandedIndex} = isExpanded
 
   const handleExpandClick = () => {
-    setExpanded(!expanded);
+    setExpandedPress(!expandedPress)
+    setTimeout(() => {
+      setExpanded(!expanded);
+    }, 300);
   };
 
   const ExpandMore = styled((props) => {
@@ -67,6 +76,21 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
 
   const {addItem, qty} = useContext(cartContext);
 
+  useEffect(() => {
+    if(expandedPress){
+      setIsExpandedIndex(index)
+    }
+
+  }, [expandedPress]);
+
+  useEffect(() => {
+      if(isExpandedIndex !== index){
+        setExpanded(false);
+        setExpandedPress(false)
+      }
+  }, [isExpandedIndex])
+  
+
   return (
     <Box
       sx={{
@@ -75,7 +99,7 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
         justifyContent: 'space-between',
         alignItems: 'center',
         maxWidth: "250px",
-        maxHeight: !expanded && "617px",
+        maxHeight: !expanded && "630px",
         transition: 'all .250s',
         gap: 1,
         margin: 3,
@@ -121,7 +145,7 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
             {productDescription}
           </Description>
           <Size>
-            <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes}
+            <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
           </Size>
         </Collapse>
           <Price
@@ -151,8 +175,9 @@ const ProductCard = ({imgId, productName, productDescription, productSizes, prod
           expand={expanded}
           aria-expanded={expanded}
           aria-label="show more"
+          onClick={handleExpandClick}
         >
-          <img onClick={handleExpandClick} src={expandMoreIcon} alt="expand icon" />
+          <img src={expandMoreIcon} alt="expand icon" />
         </ExpandMore>
     </Box>
   )

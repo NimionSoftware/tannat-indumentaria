@@ -1,15 +1,24 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Context from './Context'
 import Header from './Header'
 import BannerImg from '../assets/banner.gif';
-import { cards } from '../mockup/cards';
 import ContactButton from './ContactButton'
 import Navbar from './Navbar'
 import Banner from './Banner'
 import ProductWall from './ProductWall'
 import Footer from './Footer'
+import {useAxiosFetch} from './custom-hooks/useAxios'
+
 
 const MainWall = () => {
+  const {fetchData, apiData} = useAxiosFetch()
+
+  useEffect(() => {
+    fetchData('http://localhost:4000/api/product')
+
+  }, [!apiData])
+
+
   return (
     <div style={{backgroundColor: '#f3f3f3'}}>
         <Context>
@@ -18,7 +27,7 @@ const MainWall = () => {
           <div>
             <Navbar />
             <Banner img={BannerImg} />
-            <ProductWall cards={cards} />
+            <ProductWall cards={apiData?.data} />
             <Footer />
           </div>
         </Context>
