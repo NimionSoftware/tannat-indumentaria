@@ -11,6 +11,7 @@ import {
     IconButton,
 } from "@mui/material"
 import { cartContext } from './Context'
+import Loader from './Loader';
 
 const Title = styled(Typography)({
   display: 'flex',
@@ -45,23 +46,29 @@ const Price = styled(Typography)({
   letterSpacing: 1
 })
 
+const ContainerCardImage = styled('div')({
+  width:'100%',
+  height:'100%',
+})
+
 
 const ProductCard = ({index, isExpanded, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [expanded, setExpanded] = useState(false);
-  const [expandedPress, setExpandedPress] = useState(false)
+  const [expandedPress, setExpandedPress] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
   const {isExpandedIndex, setIsExpandedIndex} = isExpanded
-
+  
   const handleExpandClick = () => {
     setExpandedPress(!expandedPress)
     setTimeout(() => {
       setExpanded(!expanded);
     }, 300);
   };
-
+  
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton
-              onClick={handleExpandClick}
+    onClick={handleExpandClick}
               {...other}
               />;
   })(({ theme, expand }) => ({
@@ -75,22 +82,21 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   }));
 
   const {addItem, qty} = useContext(cartContext);
-
+  
   useEffect(() => {
     if(expandedPress){
       setIsExpandedIndex(index)
     }
-
+    
   }, [expandedPress]);
 
   useEffect(() => {
-      if(isExpandedIndex !== index){
-        setExpanded(false);
-        setExpandedPress(false)
-      }
+    if(isExpandedIndex !== index){
+      setExpanded(false);
+      setExpandedPress(false)
+    }
   }, [isExpandedIndex])
   
-
   return (
     <Box
       sx={{
@@ -107,14 +113,19 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
         boxShadow: 5,
       }}
     >
-      <img style={{
-        position: 'relative',
-        width: "100%",
-        maxHeight: "550px",
-        }}
-        src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
-        alt="card Img"
-        />
+      <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
+            <img style={{
+                  position: 'relative',
+                  width: "100%",
+                  maxHeight: "550px",
+                  }}
+                  src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
+                  alt="card Img"
+              />
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                {imageLoaded && <Loader />}
+            </div>
+      </ContainerCardImage>
         <Divider
           variant="middle"
           style={{
