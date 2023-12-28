@@ -6,10 +6,12 @@ import log from '../assets/log.png';
 import X from '../assets/x.png';
 import burguerMenu from '../assets/burguerMenu.png';
 import { cartContext } from './Context';
+import SignIn from './SignIn';
+import { providerContext } from './ProviderContextComponent';
 
 
 const ContainerN = styled('nav')({
-    zIndex: '9',
+    zIndex: '99',
     display: 'flex',
     justifyContent:'space-between',
     minHeight:'1rem',
@@ -112,41 +114,60 @@ const BaloonCount = styled('div')({
     textAlign:'center',
 })
 
-const BurgerMenu = ({openCart, setOpenCart}) => {
+const BurgerMenu = ({openCart, setOpenCart, open, setOpen}) => {
 
-    const [open, setOpen] = useState(false);
+    const [openBurger, setOpenBurger] = useState(false);
     const { quantity, qty } = useContext(cartContext);
+    const { rol } = useContext(providerContext);
+
+    const routes = [
+        { path: '/', label: 'Inicio' },
+        { path: '/hombres', label: 'Hombres' },
+        { path: '/mujeres', label: 'Mujeres' },
+        { path: '/calzados', label: 'Calzados' },
+        { path: '/novedades', label: 'Novedades' }
+      ];
 
     return (
         <ContainerN>
-            <BurgerMenuIcon src={burguerMenu} onClick={()=> {setOpen(!open)}} />
+            <BurgerMenuIcon src={burguerMenu} onClick={()=> {setOpenBurger(!openBurger)}} />
             <ContainerUser>
                     <ContainerBaloonCount onClick={() => {setOpenCart(!openCart)}}>
                         <BaloonCount>{quantity(qty)}</BaloonCount>
                         <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
                     </ContainerBaloonCount>
-                    <Icon src={log} alt='Icono Login' />
+                    <Icon
+                        src={log}
+                        alt='Icono Login'
+                        onClick={()=>{
+                            setOpen(true)
+                        }}
+                     />
             </ContainerUser>
-            {open &&
+            {open && <SignIn setOpen={setOpen} />}
+            {openBurger &&
             <>
-                <OrderL style={{ transform: open ? 'translateX(0)' : 'translateX(-100%)' }}>
-                    <Cruz src={X} alt='Cruz para cerrar ventana' onClick={() => setOpen(false)} />
+                <OrderL style={{ transform: openBurger ? 'translateX(0)' : 'translateX(-100%)' }}>
+                    <Cruz src={X} alt='Cruz para cerrar ventana' onClick={() => setOpenBurger(false)} />
                     <ContainerLinks>
-                        <ItemList>
-                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/">Inicio</Link>
+                    {routes.map((route, index) => (
+                        <ItemList key={index}>
+                            <Link
+                            style={{
+                                textDecoration: 'none',
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '.9rem'
+                            }}
+                            to={route.path}
+                            >
+                            {route.label}
+                            </Link>
                         </ItemList>
-                        <ItemList>
-                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/men">Hombres</Link>
-                        </ItemList>
-                        <ItemList>
-                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/women">Mujeres</Link>
-                        </ItemList>
-                        <ItemList>
-                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/shoes">Calzados</Link>
-                        </ItemList>
-                        <ItemList>
-                            <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold'}} to="/news">Novedades</Link>
-                        </ItemList>
+                        ))}
+                    {rol && <ItemList>
+                        <Link style={{textDecoration:'none', color: '#04a0dd', fontWeight: 'bold', fontSize:'1rem'}} to="/admin">Mi tienda</Link>
+                    </ItemList>}
                     </ContainerLinks>
                 </OrderL>
             </>

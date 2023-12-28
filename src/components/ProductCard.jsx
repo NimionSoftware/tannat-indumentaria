@@ -16,10 +16,14 @@ import Loader from './Loader';
 const Title = styled(Typography)({
   display: 'flex',
   alignItems:'center',
-  height: '50px',
-  fontSize: 20,
+  minHeight:'38px',
+  maxHeight: '40px',
   fontWeight: 'lighter',
   textAlign: 'center'
+})
+
+const TextTitle = styled(Typography)({
+  fontSize:'1.3rem',
 })
 
 const Description = styled(Typography)({
@@ -27,6 +31,18 @@ const Description = styled(Typography)({
   marginBottom: 20,
   padding: "0 10px",
   textAlign: 'center',
+  maxHeight:'5rem',
+  overflowY:'scroll',
+  '::-webkit-scrollbar': {
+    width: '3px',
+},
+'::-webkit-scrollbar-track': {
+    backgroundColor: '#f1f1f1',
+},
+'::-webkit-scrollbar-thumb': {
+    backgroundColor: '#888',
+    borderRadius: '5px',
+},
 })
 
 const Size = styled(Typography)({
@@ -57,14 +73,14 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   const [expandedPress, setExpandedPress] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(true);
   const {isExpandedIndex, setIsExpandedIndex} = isExpanded
-  
+
   const handleExpandClick = () => {
     setExpandedPress(!expandedPress)
     setTimeout(() => {
       setExpanded(!expanded);
     }, 300);
   };
-  
+
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton
@@ -82,12 +98,12 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   }));
 
   const {addItem, qty} = useContext(cartContext);
-  
+
   useEffect(() => {
     if(expandedPress){
       setIsExpandedIndex(index)
     }
-    
+
   }, [expandedPress]);
 
   useEffect(() => {
@@ -96,7 +112,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
       setExpandedPress(false)
     }
   }, [isExpandedIndex])
-  
+
   return (
     <Box
       sx={{
@@ -137,7 +153,9 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
           }}
         />
         <Title>
-          {productName}
+          <TextTitle>
+            {productName}
+          </TextTitle>
         </Title>
         <Divider
           variant="middle"

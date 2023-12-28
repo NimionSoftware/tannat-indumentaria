@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import addClothesIcon from '../../assets/clothes-icon.png'
 import updateClothesIcon from '../../assets/update-product.png'
 import deleteClothesIcon from '../../assets/delete-product.png'
 import logOutIcon from '../../assets/log-out.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
 Box,
 List,
@@ -14,6 +14,7 @@ ListItemText,
 ToggleButton,
 ToggleButtonGroup
 } from '@mui/material';
+import { providerContext } from '../ProviderContextComponent';
 
 const AdminNavbar = () => {
   const [option, setOption] = React.useState('Agregar Producto');
@@ -23,6 +24,10 @@ const AdminNavbar = () => {
         setOption(option);
       }
   };
+
+  const { setRol } = useContext(providerContext);
+  const navigate = useNavigate();
+
 
   const list = () => (
     <Box
@@ -59,12 +64,45 @@ const AdminNavbar = () => {
             </ToggleButtonGroup>
           </ListItem>
         ))}
-          <ListItem sx={{color: '#9AA1AB', position: 'absolute', bottom: '10px'}}disablePadding>
+        <ListItem disablePadding>
+            <ToggleButtonGroup
+                color="primary"
+                value={option}
+                exclusive
+                onChange={handleChange}
+                aria-label="Platform"
+            >
+            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
+            <ToggleButton sx={{color: '#9AA1AB'}} value={'Volver al inicio'} aria-label={option}>
+
+              <ListItemIcon>
+                {/* <img style={{width: '25px'}} src={''} alt="list icon" /> */}
+                <p style={{color: '#9AA1AB', fontSize:'1.5rem', fontWeight:'bolder'}}>↩</p>
+              </ListItemIcon>
+              <Link to={'/'}
+              style={{
+                textDecoration:'none',
+                color:'#9AA1AB',
+                fontSize:'1.1rem',
+              }}>
+                Volver al inicio
+            </Link>
+
+            </ToggleButton>
+            {/* </Link> */}
+            </ToggleButtonGroup>
+          </ListItem>
+          <ListItem sx={{color: '#9AA1AB', position: 'absolute', bottom: '10px', display:'flex', flexDirection:'column', gap:'3rem'}}disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <img style={{width: '25px'}} src={logOutIcon} alt="list icon" />
               </ListItemIcon>
-              <ListItemText primary={'Salir'} />
+              <ListItemText onClick={()=>{
+                sessionStorage.clear();
+                setRol(null);
+                navigate('/');
+              }}
+              primary={'Salir'} />
             </ListItemButton>
           </ListItem>
       </List>
