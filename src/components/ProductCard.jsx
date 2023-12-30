@@ -11,14 +11,19 @@ import {
     IconButton,
 } from "@mui/material"
 import { cartContext } from './Context'
+import Loader from './Loader';
 
 const Title = styled(Typography)({
   display: 'flex',
   alignItems:'center',
-  height: '50px',
-  fontSize: 20,
+  minHeight:'38px',
+  maxHeight: '40px',
   fontWeight: 'lighter',
   textAlign: 'center'
+})
+
+const TextTitle = styled(Typography)({
+  fontSize:'1.3rem',
 })
 
 const Description = styled(Typography)({
@@ -26,6 +31,18 @@ const Description = styled(Typography)({
   marginBottom: 20,
   padding: "0 10px",
   textAlign: 'center',
+  maxHeight:'5rem',
+  overflowY:'scroll',
+  '::-webkit-scrollbar': {
+    width: '3px',
+},
+'::-webkit-scrollbar-track': {
+    backgroundColor: '#f1f1f1',
+},
+'::-webkit-scrollbar-thumb': {
+    backgroundColor: '#888',
+    borderRadius: '5px',
+},
 })
 
 const Size = styled(Typography)({
@@ -45,10 +62,16 @@ const Price = styled(Typography)({
   letterSpacing: 1
 })
 
+const ContainerCardImage = styled('div')({
+  width:'100%',
+  height:'100%',
+})
+
 
 const ProductCard = ({index, isExpanded, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [expanded, setExpanded] = useState(false);
-  const [expandedPress, setExpandedPress] = useState(false)
+  const [expandedPress, setExpandedPress] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
   const {isExpandedIndex, setIsExpandedIndex} = isExpanded
 
   const handleExpandClick = () => {
@@ -61,7 +84,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
     return <IconButton
-              onClick={handleExpandClick}
+    onClick={handleExpandClick}
               {...other}
               />;
   })(({ theme, expand }) => ({
@@ -84,12 +107,11 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   }, [expandedPress]);
 
   useEffect(() => {
-      if(isExpandedIndex !== index){
-        setExpanded(false);
-        setExpandedPress(false)
-      }
+    if(isExpandedIndex !== index){
+      setExpanded(false);
+      setExpandedPress(false)
+    }
   }, [isExpandedIndex])
-  
 
   return (
     <Box
@@ -107,14 +129,19 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
         boxShadow: 5,
       }}
     >
-      <img style={{
-        position: 'relative',
-        width: "100%",
-        maxHeight: "550px",
-        }}
-        src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
-        alt="card Img"
-        />
+      <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
+            <img style={{
+                  position: 'relative',
+                  width: "100%",
+                  maxHeight: "550px",
+                  }}
+                  src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
+                  alt="card Img"
+              />
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                {imageLoaded && <Loader />}
+            </div>
+      </ContainerCardImage>
         <Divider
           variant="middle"
           style={{
@@ -126,7 +153,9 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
           }}
         />
         <Title>
-          {productName}
+          <TextTitle>
+            {productName}
+          </TextTitle>
         </Title>
         <Divider
           variant="middle"

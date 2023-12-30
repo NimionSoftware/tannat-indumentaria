@@ -27,11 +27,11 @@ const useAxiosFetch = () => {
     };
 
     useEffect(() => {
-      console.log({
-        apiData: apiData,
-        isLoading: isLoading,
-        serverError:serverError
-      })
+      // console.log({
+      //   apiData: apiData,
+      //   isLoading: isLoading,
+      //   serverError:serverError
+      // })
     }, [apiData, isLoading, serverError]);
 
       return { fetchData, isLoading, apiData, serverError };

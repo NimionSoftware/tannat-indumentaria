@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ProductCard from './ProductCard'
 import bodyImg from '../assets/body.jpeg'
 
 import {
     styled,
 } from '@mui/material'
-import { cartContext } from './Context'
 
 const Wall = styled('div')({
   display: 'flex',

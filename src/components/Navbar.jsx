@@ -10,6 +10,7 @@ import ModalCart from './ModalCart';
 import SignIn from './SignIn';
 import { useContext } from 'react';
 import { cartContext } from './Context';
+import { providerContext } from './ProviderContextComponent';
 
 
 const ContainerN = styled('nav')({
@@ -123,38 +124,40 @@ const Navbar = () => {
 
     const [open, setOpen] = useState(false);
 
-    const handleClick = () => {
-        setOpen(!open);
-      };
-
-      const handleClose = () => {
-        setTimeout(() => {
-            setOpen(false);
-        }, 1500);
-      };
-
     const { quantity, openCart, setOpenCart } = useContext(cartContext);
+    const { rol } = useContext(providerContext);
+
+    const routes = [
+        { path: '/', label: 'Inicio' },
+        { path: '/hombres', label: 'Hombres' },
+        { path: '/mujeres', label: 'Mujeres' },
+        { path: '/calzados', label: 'Calzados' },
+        { path: '/novedades', label: 'Novedades' }
+      ];
 
     return (
         <>
             <ContainerN>
                 <Link to='/'><Images src={logo} alt='Logo Tannat'/></Link>
                 <OrderL>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/">Inicio</Link>
+                {routes.map((route, index) => (
+                    <ItemList key={index}>
+                        <Link
+                        style={{
+                            textDecoration: 'none',
+                            color: 'white',
+                            fontWeight: 'bold',
+                            fontSize: '.9rem'
+                        }}
+                        to={route.path}
+                        >
+                        {route.label}
+                        </Link>
                     </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/men">Hombres</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/women">Mujeres</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/shoes">Calzados</Link>
-                    </ItemList>
-                    <ItemList>
-                        <Link style={{textDecoration:'none', color: 'white', fontWeight: 'bold', fontSize:'.9rem'}} to="/news">Novedades</Link>
-                    </ItemList>
+                    ))}
+                {rol && <ItemList>
+                    <Link style={{textDecoration:'none', color: '#04a0dd', fontWeight: 'bold', fontSize:'1rem'}} to="/admin">Mi tienda</Link>
+                </ItemList>}
                 </OrderL>
                 <ContainerBaloonCount onClick={() => {
                     setOpenCart(!openCart)
@@ -164,18 +167,17 @@ const Navbar = () => {
                     <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
                 </ContainerBaloonCount>
                 <Icon
-                    onClick={handleClick}
+                    onClick={()=>setOpen(true)}
                     src={log} alt='Icono Login'
                     title="Iniciar sesión"
                     />
-                <SignIn
-                    handleClick={handleClick}
-                    handleClose={handleClose}
+                {open && <SignIn
+                    setOpen={setOpen}
                     open={open}
-                    />
+                    />}
             </ContainerN>
             {openCart && <ModalCart setOpenCart={setOpenCart} />}
-            <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} />
+            <BurgerMenu  openCart={openCart} setOpenCart={setOpenCart} setOpen={setOpen} open={open}/>
         </>
     )
 }

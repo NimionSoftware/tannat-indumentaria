@@ -88,7 +88,8 @@ const Context = ({ children }) => {
         popUp,
         setPopUp,
         formData,
-        setFormData}}>{children}</Provider>
+        setFormData,
+        }}>{children}</Provider>
   );
 };
 
