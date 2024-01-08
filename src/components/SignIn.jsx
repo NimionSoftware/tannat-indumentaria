@@ -105,8 +105,9 @@ const SignIn = ({ setOpen }) => {
   const { verifyUser, errorMessage } = useContext(providerContext);
 
   const onSubmit = async (data) => {
-    await verifyUser(data);
-    navigate('/admin')
+    if(!!verifyUser(data)){
+      navigate('/admin')
+    };
   };
 
 

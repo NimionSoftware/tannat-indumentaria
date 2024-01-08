@@ -19,9 +19,10 @@ const ProviderContextComponent = ({ children }) => {
         sessionStorage.setItem('rol', JSON.stringify(role));
         setErrorMessage(false);
         setRol(role);
-
+      return true
     } else {
         setErrorMessage(true);
+      return false
     }
   };
 
