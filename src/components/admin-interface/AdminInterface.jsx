@@ -48,6 +48,22 @@ const AdminInterface = () => {
 
   }, [!apiData])
 
+  const filters = [
+    'Temporada',
+    'Genero',
+    'Categoria'
+  ];
+
+// La Palabras tienen que coincidir exactamente entre filters y checks para que funcione.
+// Ej: 'temporada !== Temporada' o 'Temporada === Temporada'.
+
+  const checks = {
+    'Temporada': ['Primavera', 'Verano', 'Otoño', 'Invierno'],
+    'Genero': ['Hombre', 'Mujer', 'Unisex', 'Niño', 'Niña'],
+    'Categoria': ['Camisas', 'Pantalones', 'Camperas', 'Vestidos', 'Remeras']
+  };
+
+
 
   return (
     <AdminContainer>
@@ -72,7 +88,10 @@ const AdminInterface = () => {
               />
               ))}
         </Wall>
-        <FilterComponent />
+        <FilterComponent
+          filters={filters}
+          checks={checks}
+        />
       </ContainerDashboard>
     </ AdminContainer>
   )

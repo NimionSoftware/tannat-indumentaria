@@ -22,63 +22,58 @@ const ContainerFilters = styled('div')({
   padding:'1rem'
 })
 
-const FilterComponent = () => {
+const FilterComponent = ({ filters, checks }) => {
+  const [checked, setChecked] = React.useState({});
 
-  const [checked, setChecked] = React.useState([0]);
+  const handleToggle = (filterType, value) => () => {
+    const newChecked = { ...checked };
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+    if (newChecked[filterType]?.includes(value)) {
+      newChecked[filterType] = newChecked[filterType].filter((val) => val !== value);
     } else {
-      newChecked.splice(currentIndex, 1);
+      newChecked[filterType] = newChecked[filterType] ? [...newChecked[filterType], value] : [value];
     }
 
     setChecked(newChecked);
   };
 
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState({});
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleChange = (panel) => (e, isExpanded) => {
+    setExpanded({ ...expanded, [panel]: isExpanded });
   };
 
-  const seasons = [
-    'Invierno',
-    'Verano',
-    'Otoño',
-    'Primavera'
-  ]
-
   return (
-          <ContainerFilters >
-        <SearchComponent />
-            <div style={{width:'15rem'}}>
-              <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2bh-content"
-                  id="panel2bh-header"
-                >
-                  <Typography sx={{ width: '33%', flexShrink: 0 }}>Temporada</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
+    <ContainerFilters>
+      <SearchComponent />
+      <div style={{ width: '15rem' }}>
+        {filters.map((filter, index) => {
+          const panelId = `panel${index + 1}`;
+          const filterValues = checks[filter];
+          return (
+            <Accordion
+              key={index}
+              expanded={expanded[panelId]}
+              onChange={handleChange(panelId)}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`${panelId}bh-content`}
+                id={`${panelId}bh-header`}
+              >
+                <Typography sx={{ width: '33%', flexShrink: 0 }}>{filter}</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                  {seasons.map((value) => {
+                  {filterValues.map((value, indexx) => {
                     const labelId = `checkbox-list-label-${value}`;
-
                     return (
-                      <ListItem
-                        key={value}
-                        disablePadding
-                      >
-                        <ListItemButton role={undefined} onClick={handleToggle(value)} dense>
+                      <ListItem key={indexx} disablePadding>
+                        <ListItemButton role={undefined} onClick={handleToggle(filter.toLowerCase(), value)} dense>
                           <ListItemIcon>
                             <Checkbox
                               edge="start"
-                              checked={checked.indexOf(value) !== -1}
+                              checked={(checked[filter.toLowerCase()] || []).includes(value)}
                               tabIndex={-1}
                               disableRipple
                               inputProps={{ 'aria-labelledby': labelId }}
@@ -90,11 +85,13 @@ const FilterComponent = () => {
                     );
                   })}
                 </List>
-                </AccordionDetails>
-              </Accordion>
-            </div>
-          </ContainerFilters>
-  )
-}
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
+      </div>
+    </ContainerFilters>
+  );
+};
 
 export default FilterComponent;
