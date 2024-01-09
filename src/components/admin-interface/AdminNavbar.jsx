@@ -34,7 +34,7 @@ const AdminNavbar = () => {
       sx={{
         width: '250px',
         backgroundColor: '#1C2536',
-        height: '100vh'
+        height: '100vh',
     }}
     >
       <List sx={{
@@ -42,7 +42,7 @@ const AdminNavbar = () => {
         flexDirection: 'column',
         height:'90%'
       }}>
-        {['Agregar Producto', 'Modificar Producto', 'Eliminar Producto'].map((text, index) => (
+        {['Todos mis Productos' ,'Agregar Producto' /*,'Modificar Producto'*/, 'Eliminar Producto'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ToggleButtonGroup
                 color="primary"
@@ -51,7 +51,7 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
+            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === /*'Modificar Producto' ? '/admin/update'*/ 'Todos mis Productos' ? '/admin' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}>
             <ToggleButton sx={{color: '#9AA1AB'}} value={text} aria-label={option}>
 
               <ListItemIcon>
@@ -60,7 +60,7 @@ const AdminNavbar = () => {
               <ListItemText primary={text} />
 
             </ToggleButton>
-            {/* </Link> */}
+            </Link>
             </ToggleButtonGroup>
           </ListItem>
         ))}
@@ -72,24 +72,20 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
-            <ToggleButton sx={{color: '#9AA1AB'}} value={'Volver al inicio'} aria-label={option}>
+              <ToggleButton sx={{color: '#9AA1AB'}} value={'Volver al inicio'} aria-label={option}>
 
-              <ListItemIcon>
-                {/* <img style={{width: '25px'}} src={''} alt="list icon" /> */}
-                <p style={{color: '#9AA1AB', fontSize:'1.5rem', fontWeight:'bolder'}}>↩</p>
-              </ListItemIcon>
-              <Link to={'/'}
-              style={{
-                textDecoration:'none',
-                color:'#9AA1AB',
-                fontSize:'1.1rem',
-              }}>
-                Volver al inicio
-            </Link>
-
-            </ToggleButton>
-            {/* </Link> */}
+                <ListItemIcon>
+                  <p style={{color: '#9AA1AB', fontSize:'1.5rem', fontWeight:'bolder'}}>↩</p>
+                </ListItemIcon>
+                <Link to={'/'}
+                  style={{
+                    textDecoration:'none',
+                    color:'#9AA1AB',
+                    fontSize:'1.1rem',
+                }}>
+                  Volver al inicio
+                </Link>
+              </ToggleButton>
             </ToggleButtonGroup>
           </ListItem>
           <ListItem sx={{color: '#9AA1AB', position: 'absolute', bottom: '10px', display:'flex', flexDirection:'column', gap:'3rem'}}disablePadding>

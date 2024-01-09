@@ -15,12 +15,13 @@ const FormContainer = styled(Box)({
     alignItems: 'flex-start',
     width: '100%',
     padding: '30px 0',
-    overflowY: 'scroll',
     maxHeight: '100vh'
 })
 
 const Form = styled(Box)({
-    width: '350px'
+    width: '350px',
+    paddingBottom:'3rem',
+
 })
 
 const Text = styled(Typography)({
