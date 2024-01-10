@@ -3,7 +3,6 @@ import { styled } from "@mui/material";
 import CreateProductForm from "../admin-interface/CreateProductForm";
 import UpdateProduct from "../admin-interface/UpdateProduct";
 import AdminNavbar from "../admin-interface/AdminNavbar";
-import DeleteProductForm from "../admin-interface/DeleteProductForm";
 import AdminInterface from "../admin-interface/AdminInterface";
 
 
@@ -23,7 +22,6 @@ const AdminNavRoutes = () => {
             <Route path="/" element={<AdminInterface />} />
             <Route path="/create" element={<CreateProductForm />} />
             <Route path='/update/:id' element={<UpdateProduct />} />
-            <Route path='/delete' element={<DeleteProductForm />} />
           </Routes>
         </CointainerRoutes>
     )

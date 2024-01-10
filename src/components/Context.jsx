@@ -10,12 +10,14 @@ const Context = ({ children }) => {
   const [openCart, setOpenCart] = useState(false);
   const [itemW, setItemW] = useState(``);
   const [popUp, setPopUp] = useState(false);
+  const [updateData, setUpdateData] = useState(null);
   const [formData, setFormData] = useState({
     nombre: '',
     numero: '',
     direccion: '',
     paymentMethod: ''
 });
+
 
 
   useEffect(() => {
@@ -89,6 +91,8 @@ const Context = ({ children }) => {
         setPopUp,
         formData,
         setFormData,
+        updateData,
+        setUpdateData
         }}>{children}</Provider>
   );
 };

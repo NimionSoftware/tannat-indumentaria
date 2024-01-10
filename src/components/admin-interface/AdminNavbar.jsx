@@ -42,7 +42,7 @@ const AdminNavbar = () => {
         flexDirection: 'column',
         height:'90%'
       }}>
-        {['Todos mis Productos' , 'Agregar Producto', 'Eliminar Producto'].map((text, index) => (
+        {['Todos mis Productos' , 'Agregar Producto'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ToggleButtonGroup
                 color="primary"
@@ -51,7 +51,7 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Todos mis Productos' ? '/admin' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}>
+            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Todos mis Productos' ? '/admin' : '/'}>
             <ToggleButton sx={{
               color: '#9AA1AB',
               transition:'.1s all',

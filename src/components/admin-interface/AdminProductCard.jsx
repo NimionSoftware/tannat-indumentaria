@@ -8,6 +8,8 @@ import {
 import { cartContext } from '../Context'
 import Loader from '../Loader';
 import edit from '../../assets/editar.png';
+import trush from '../../assets/delete-product.png';
+import { Link } from 'react-router-dom';
 
 const Title = styled(Typography)({
   display: 'flex',
@@ -79,11 +81,23 @@ const ContainerTextsCard = styled('div')({
       }
   })
 
+  const ContainerEditDelete = styled('div')({
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    width:'100%',
+    height:'100%',
+    '@media (max-width: 650px)': {
+        gap:'1rem',
+      }
+  })
+
 
 const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [imageLoaded, setImageLoaded] = useState(true);
 
-  const {addItem, qty} = useContext(cartContext);
+  const {setUpdateData} = useContext(cartContext);
 
   return (
     <Box
@@ -115,27 +129,51 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
             </div>
       </ContainerCardImage>
       <ContainerTextsCard>
-                  <div
-                    style={{
-                        display:'flex',
-                        justifyContent:'flex-end',
-                        width:'100%',
-                        margin:3
-                    }}
-                  >
-                      <Button
-                          sx={{
-                              gap: 1,
-                              background: "#1a1a1a",
-                              fontSize: 8,
-                              margin:1
-                          }}
-                          variant='contained'
-                          onClick={()=>{}}
-                      >
-                          <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
-                      </Button>
-                  </div>
+        <ContainerEditDelete>
+          <Link
+            to={`/admin/update/${card._id}`}
+            style={{
+                display:'flex',
+                justifyContent:'flex-end',
+                width:'100%',
+                margin:3
+            }}
+          >
+              <Button
+                  sx={{
+                      gap: 1,
+                      background: "#1a1a1a",
+                      fontSize: 8,
+                      margin:1
+                  }}
+                  variant='contained'
+                  onClick={()=>{
+                    setUpdateData(card)
+                  }}
+              >
+                  <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
+              </Button>
+          </Link>
+          <Button
+                  sx={{
+                      gap: 1,
+                      background: "#1a1a1a",
+                      fontSize: 8,
+                      margin:1,
+                      transition:'.2s all',
+                      '&:hover':{
+                        background: "#960303",
+                        filter:'brightness(1.4)'
+                      }
+                  }}
+                  variant='contained'
+                  onClick={()=>{
+                    prompt("Seguro/a que sea eliminar este producto?")
+                  }}
+              >
+                  <img src={trush} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
+          </Button>
+        </ContainerEditDelete>
         <Title>
           <TextTitle>
             {productName}
