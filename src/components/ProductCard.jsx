@@ -135,7 +135,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
                   width: "100%",
                   maxHeight: "550px",
                   }}
-                  src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
+                  src={imgId}
                   alt="card Img"
               />
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -195,7 +195,9 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
             fontSize: 11
           }}
           variant='contained'
-          onClick={()=>{addItem(card, qty)}}
+          onClick={()=>{
+            addItem(card, qty)
+            console.log(card)}}
         >
           <img src={cartImg} alt="imagen del carrito" />
           Al Carrito

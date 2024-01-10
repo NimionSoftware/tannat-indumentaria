@@ -84,7 +84,7 @@ const PopUp = ({setPopUp}) => {
             setItemW(cart.map((item, index) => {
                 let newIndex = index + 1
                 return (
-                    `${newIndex}%2D%20%2A${item.productName}%2C%20T%3A%20${item.productSizes}${( item.color ? `%2C%20Color%3A%20${item.color}` : '')}%2C%20%24${item.productPrice}%2C%20X${item.qty}%2A%0A-%0A`
+                    `${newIndex}%2D%20%2A${item.title}%2C%20T%3A%20${item.sizes}${( item.color ? `%2C%20Color%3A%20${item.color}` : '')}%2C%20%24${item.price}%2C%20X${item.qty}%2A%0A-%0A`
                 );
             }))
         }
