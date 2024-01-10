@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { user } from '../mockup/superadmin';
-import { isValidPassword } from './hashPassword/Hash';
+import axios from "axios";
 
 export const providerContext = createContext();
 
@@ -10,20 +9,39 @@ const ProviderContextComponent = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [rol, setRol] = useState(JSON.parse(sessionStorage.getItem('rol')));
 
-  const verifyUser = (data) => {
+  const postURL = 'http://localhost:4000/api/auth'
 
-    const isPasswordValid = isValidPassword(data.password, user.password);
+  const verifyUser = async (user) => {
 
-    const role = 'SUPER_ADMIN';
-    if (data.email === user.email && isPasswordValid) {
-        sessionStorage.setItem('rol', JSON.stringify(role));
-        setErrorMessage(false);
-        setRol(role);
-      return true
-    } else {
-        setErrorMessage(true);
-      return false
+    try {
+
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+
+      const config = {
+        method: 'POST',
+        url: postURL,
+        headers:headers,
+        data: user,
+      };
+      const { data: response } = await axios(config);
+
+      const role = 'ADMIN';
+      if (response.data.role === role) {
+          sessionStorage.setItem('rol', JSON.stringify(role));
+          setErrorMessage(false);
+          setRol(role);
+        return true
+      } else {
+          setErrorMessage(true);
+        return false
+      }
+    }catch (error) {
+      setErrorMessage(true);
+      console.error('Error en la solicitud:', error);
     }
+
   };
 
   useEffect(() => {
