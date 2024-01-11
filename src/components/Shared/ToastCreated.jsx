@@ -4,11 +4,11 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-import { useEffect } from 'react';
+import Countdown from './Countdown';
 
-export default function ToastCreated({success, setSuccess}) {
+export default function ToastCreated({success, setSuccess, text}) {
 
-  useEffect(() => {
+  React.useEffect(() => {
     const timer = setTimeout(() => {
       setSuccess(!success);
     }, 6000);
@@ -34,9 +34,10 @@ export default function ToastCreated({success, setSuccess}) {
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }
-          sx={{ mb: 2 }}
+          sx={{ mb: 2, fontSize:'1.1rem' }}
         >
-          ¡Muy bien! Agregaste un nuevo producto a tu tienda!
+          {text}
+          <Countdown />
         </Alert>
       </Collapse>
     </Box>

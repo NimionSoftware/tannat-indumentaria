@@ -71,6 +71,8 @@ const CreateProductForm = () => {
     }
   }
 
+  const text = '¡Muy bien! Agregaste un nuevo producto a tu tienda!';
+
   return (
     <FormContainer>
         <Form>
@@ -265,7 +267,7 @@ const CreateProductForm = () => {
                 </Button>
             </form>
         </Form>
-        {success && <ToastCreated success={success} setSuccess={setSuccess} />}
+        {success && <ToastCreated success={success} setSuccess={setSuccess} text={text} />}
     </ FormContainer>
   )
 }

@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import {
     Box,
     Button,
     styled,
     Typography,
 } from "@mui/material"
-import { cartContext } from '../Context'
 import Loader from '../Loader';
 import edit from '../../assets/editar.png';
 import trush from '../../assets/delete-product.png';
@@ -97,8 +96,6 @@ const ContainerTextsCard = styled('div')({
 const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [imageLoaded, setImageLoaded] = useState(true);
 
-  const {setUpdateData} = useContext(cartContext);
-
   return (
     <Box
       sx={{
@@ -147,9 +144,6 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                       margin:1
                   }}
                   variant='contained'
-                  onClick={()=>{
-                    setUpdateData(card)
-                  }}
               >
                   <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
               </Button>

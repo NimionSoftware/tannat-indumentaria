@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   styled,
   Typography,
@@ -6,7 +6,9 @@ import {
   Button,
   Box
 } from '@mui/material'
-import { cartContext } from '../Context'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import ToastCreated from '../Shared/ToastCreated'
 
 const FormContainer = styled(Box)({
   display: 'flex',
@@ -40,24 +42,51 @@ const Description = styled (Typography)({
 
 const UpdateProduct = () => {
 
-  const { updateData } = useContext(cartContext);
-  const [productData, setProductData] = useState({
-    title: updateData.title,
-    description: updateData.description,
-    sizes: updateData.sizes,
-    image: updateData.image,
-    price: updateData.price,
-    category: updateData.category,
-    gender: updateData.gender,
-    season: updateData.season
-  });
+  const [productData, setProductData] = useState({});
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setProductData({ ...productData, [name]: value });
+  const fetchProductData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:4000/api/product/${dinamicParams.id}`
+      );
+      setProductData(response.data.data);
+    } catch (error) {
+      console.error('Error fetching product data', error);
+    }
   };
 
-  console.log(updateData)
+  useEffect(() => {
+    fetchProductData();
+  }, []);
+
+  const [success, setSuccess] = useState(false);
+
+  const dinamicParams = useParams();
+
+  const URL = `http://localhost:4000/api/product/${dinamicParams.id}`
+  const token = JSON.parse(sessionStorage.getItem('token'))
+
+  const onSubmit = async () => {
+    try {
+        const headers = {
+            'Content-Type': 'application/json',
+            token: token
+          }
+
+          const config = {
+            method: 'PUT',
+            url: URL,
+            headers:headers,
+            data: productData,
+          };
+          await axios(config);
+          setSuccess(true);
+    } catch (error) {
+        console.error('There was with sent data', error)
+    }
+  }
+
+  const text = '¡Listo! El producto fue modificado con exito!';
 
   return (
     <FormContainer>
@@ -67,7 +96,10 @@ const UpdateProduct = () => {
                 flexDirection: 'column',
                 alignItems: 'center'
                 }}
-                action=""
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    onSubmit()
+                }}
             >
 
                 <Text
@@ -78,7 +110,7 @@ const UpdateProduct = () => {
                         textDecoration: 'underline'
                     }}
                 >
-                    Modificar Producto
+                    Añadir un Producto
                 </Text>
 
                 <Text
@@ -90,9 +122,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(Nombre de la prenda/ nombre prenda + Marca, etc)</Description>
                 <TextField
-                    name="title"
                     value={productData.title}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, title: e.target.value })}
                     sx={{
                         width: '50%',
                         marginTop: '10px',
@@ -108,9 +139,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(Breve descripcion de la prenda, puede incluir detalles de costura, tipo de tela, etc)</Description>
                 <TextField
-                    name="description"
                     value={productData.description}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, description: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -122,13 +152,12 @@ const UpdateProduct = () => {
                         marginTop: '20px',
                     }}
                 >
-                    Talles
+                    Talle/s
                 </Text>
                 <Description>(Talles en los que estará disponible la prenda)</Description>
                 <TextField
-                    name="sizes"
                     value={productData.sizes}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, sizes: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -144,9 +173,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(link-cloud)</Description>
                 <TextField
-                    name="image"
                     value={productData.image}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, image: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -162,9 +190,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description></Description>
                 <TextField
-                    name="price"
                     value={productData.price}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, price: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -180,9 +207,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(Categorías en las que entra la prenda. Ej: "Remera", "Manga Corta", "Vestido", etc)</Description>
                 <TextField
-                    name="category"
                     value={productData.category}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, category: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -198,9 +224,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(Hombre, Mujer, Unisex)</Description>
                 <TextField
-                    name="gender"
                     value={productData.gender}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, gender: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -216,9 +241,8 @@ const UpdateProduct = () => {
                 </Text>
                 <Description>(Verano, Otoño, etc)</Description>
                 <TextField
-                    name="season"
                     value={productData.season}
-                    onChange={handleInputChange}
+                    onChange={(e) => setProductData({ ...productData, season: e.target.value })}
                     sx={{
                         width: '50%',
                         background: 'white',
@@ -228,16 +252,16 @@ const UpdateProduct = () => {
                 <Button
                     variant='contained'
                     sx={{
-                        width: '30%',
-                        minWidth:'7rem',
+                        width: 100,
                         marginTop: '20px'
                     }}
                     type='submit'
                     onClick={() => {}}>
-                    Confirmar edicion
+                    Modificar
                 </Button>
             </form>
         </Form>
+        {success && <ToastCreated success={success} setSuccess={setSuccess} text={text} />}
     </ FormContainer>
 )}
 
