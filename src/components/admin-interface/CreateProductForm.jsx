@@ -67,7 +67,7 @@ const CreateProductForm = () => {
           setSuccess(true);
           reset();
     } catch (error) {
-        console.error('Hubo un error con el envio de datos', error)
+        console.error('There was an error sending data', error)
     }
   }
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
   const Countdown = () => {
-    const [countdown, setCountdown] = useState(4);
+    const [countdown, setCountdown] = useState(3);
 
     const navigate = useNavigate()
 
@@ -26,7 +26,7 @@ import { Typography } from '@mui/material';
               paddingTop:'.6rem'
           }}
         >
-          A "Mis Productos" en <span style={{fontSize:'1.1rem', fontWeight:'600'}}>{countdown}s</span>
+          A "Todos mis Productos" en <span style={{fontSize:'1.1rem', fontWeight:'600'}}>{countdown}s</span>
         </Typography>
       </div>
     );

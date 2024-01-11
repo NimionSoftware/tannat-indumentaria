@@ -4,14 +4,16 @@ import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
-import Countdown from './Countdown';
-import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { cartContext } from '../Context';
 
-export default function ToastCreated({success, setSuccess, text}) {
+export default function ToastCreated() {
+
+  const { succ, setSucc } = useContext(cartContext);
 
   React.useEffect(() => {
     const timer = setTimeout(() => {
-      setSuccess(!success);
+      setSucc(!succ);
     }, 6000);
 
     return () => {
@@ -19,11 +21,9 @@ export default function ToastCreated({success, setSuccess, text}) {
     };
   }, []);
 
-  const location = useLocation().pathname;
-
   return (
     <Box sx={{minWidth:'20rem', width: '35%', position:'fixed', bottom:'0', right:'0' }}>
-      <Collapse in={success}>
+      <Collapse in={succ}>
         <Alert
           action={
             <IconButton
@@ -31,7 +31,7 @@ export default function ToastCreated({success, setSuccess, text}) {
               color="inherit"
               size="small"
               onClick={() => {
-                setSuccess(!success);
+                setSucc(!succ);
               }}
             >
               <CloseIcon fontSize="inherit" />
@@ -39,8 +39,7 @@ export default function ToastCreated({success, setSuccess, text}) {
           }
           sx={{ mb: 2, fontSize:'1.1rem' }}
         >
-          {text}
-          {location !== "/admin/create" && <Countdown />}
+            ¡Listo! El producto fue eliminado con exito!
         </Alert>
       </Collapse>
     </Box>

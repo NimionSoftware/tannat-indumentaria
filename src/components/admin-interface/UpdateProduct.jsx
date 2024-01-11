@@ -82,7 +82,7 @@ const UpdateProduct = () => {
           await axios(config);
           setSuccess(true);
     } catch (error) {
-        console.error('There was with sent data', error)
+        console.error('There was an error updating data', error)
     }
   }
 
@@ -256,7 +256,7 @@ const UpdateProduct = () => {
                         marginTop: '20px'
                     }}
                     type='submit'
-                    onClick={() => {}}>
+                    >
                     Modificar
                 </Button>
             </form>

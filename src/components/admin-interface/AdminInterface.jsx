@@ -1,8 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {styled} from '@mui/material'
 import { useAxiosFetch } from '../custom-hooks/useAxios';
 import AdminProductCard from './AdminProductCard'
 import FilterComponent from '../Shared/FilterComponent';
+import ToastDelete from '../Shared/ToastDelete';
+import { cartContext } from '../Context';
+import { useState } from 'react';
 
 const AdminContainer = styled('div')({
   display: 'flex',
@@ -41,12 +44,12 @@ const ContainerAdminSearch = styled('div')({
 const AdminInterface = () => {
 
   const {fetchData, apiData} = useAxiosFetch();
-
+  const { succ } = useContext(cartContext);
 
   useEffect(() => {
-    fetchData('http://localhost:4000/api/product')
+   fetchData('http://localhost:4000/api/product')
 
-  }, [!apiData])
+  }, [!apiData, apiData?.data])
 
   const filters = [
     'Temporada',
@@ -93,6 +96,7 @@ const AdminInterface = () => {
           checks={checks}
         />
       </ContainerDashboard>
+      {succ && <ToastDelete />}
     </ AdminContainer>
   )
 }

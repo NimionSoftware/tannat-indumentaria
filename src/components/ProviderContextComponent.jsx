@@ -57,13 +57,15 @@ const ProviderContextComponent = ({ children }) => {
 
   }, [rol]);
 
+ 
+
   return (
     <Provider
       value={{
         verifyUser,
         errorMessage,
         rol,
-        setRol
+        setRol,
       }}
     >
       {children}

@@ -9,6 +9,7 @@ import Loader from '../Loader';
 import edit from '../../assets/editar.png';
 import trush from '../../assets/delete-product.png';
 import { Link } from 'react-router-dom';
+import ModalDelete from '../Shared/ModalDelete';
 
 const Title = styled(Typography)({
   display: 'flex',
@@ -96,6 +97,16 @@ const ContainerTextsCard = styled('div')({
 const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [imageLoaded, setImageLoaded] = useState(true);
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpenDeleteModal = () => {
+    setOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -143,6 +154,7 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                       fontSize: 8,
                       margin:1
                   }}
+                  title="Editar producto"
                   variant='contained'
               >
                   <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
@@ -160,9 +172,10 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                         filter:'brightness(1.4)'
                       }
                   }}
+                  title="Eliminar producto"
                   variant='contained'
                   onClick={()=>{
-                    prompt("Seguro/a que sea eliminar este producto?")
+                    handleOpenDeleteModal()
                   }}
               >
                   <img src={trush} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
@@ -189,6 +202,11 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
             </Price>
         </ContainerDetailsProducts>
       </ContainerTextsCard>
+      {open && <ModalDelete
+        open={open}
+        handleClose={handleCloseDeleteModal}
+        card={card}
+      />}
     </Box>
   )
 }
