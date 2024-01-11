@@ -49,7 +49,7 @@ const useAxiosPost = () => {
       const config = {
         method: 'POST',
         url: url,
-        headers:headers,
+        headers: headers,
         data: body,
       };
 

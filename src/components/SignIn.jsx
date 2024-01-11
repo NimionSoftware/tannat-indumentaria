@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Typography,
   Divider,
   Button,
-  Link,
   styled,
   FormHelperText
 } from '@mui/material';
@@ -60,32 +59,20 @@ const SignIn = ({ setOpen }) => {
         top:35,
         right: 50,
       }
-    // animation: `open ease-in-out .3s`,
-    // transition: 'all',
-    // animationFillMode: 'both',
-    // transformOrigin: 'top right',
-    // '@keyframes open': {
-    //   '0%': {
-    //     transform: 'scale(0)'
-    //   },
-    //   '100%': {
-    //     transform: 'scale(1)'
-    //   }
-    // }
   });
 
   const navigate = useNavigate();
 
   const schema = Joi.object({
-    email: Joi.string()
-      .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-      .required()
+    username: Joi.string()
+      .max(10)
+      .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{3,11}$/)
       .messages({
-        'string.base': 'El correo electrónico debe ser una cadena de texto',
-        'string.empty': 'Ingrese un correo electrónico',
-        'string.email': 'El correo electrónico debe ser una dirección de correo válida',
-        'string.tlds.allow': 'El correo electrónico debe tener un dominio de nivel superior válido (.com o .net)'
-      }),
+        'string.base': 'El usuario debe contener letras y numeros',
+        'string.empty': 'El usuario es un campo obligatorio',
+        'string.max': 'El usuario debe tener como máximo 10 caracteres',
+      })
+      .required(),
     password: Joi.string()
       .min(8)
       .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)
@@ -105,8 +92,11 @@ const SignIn = ({ setOpen }) => {
   const { verifyUser, errorMessage } = useContext(providerContext);
 
   const onSubmit = async (data) => {
-    await verifyUser(data);
-    navigate('/admin')
+    const isAuth = await verifyUser(data);
+
+    if(!!isAuth){
+      navigate('/admin');
+    }
   };
 
 
@@ -116,11 +106,7 @@ const SignIn = ({ setOpen }) => {
   const handleShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    <Menu
-    //   sx={{
-    //     display: open ? 'absolute' : 'none'
-    //   }}
-    >
+    <Menu>
       <form
         style={{
           display: 'flex',
@@ -145,7 +131,7 @@ const SignIn = ({ setOpen }) => {
         >
           Ingresa!
         </Text>
-        <Text sx={{ marginTop: '20px' }}>Email</Text>
+        <Text sx={{ marginTop: '20px' }}>Usuario</Text>
         <FormControl
           sx={{
             m: 1,
@@ -156,10 +142,10 @@ const SignIn = ({ setOpen }) => {
             },
           }}
           variant="filled"
-          error={!!errors.email}
+          error={!!errors.username}
         >
           <Input
-            {...register('email')}
+            {...register('username')}
             sx={{
               height: '2.5rem',
               width: '100%',
@@ -169,9 +155,9 @@ const SignIn = ({ setOpen }) => {
             }}
             type="text"
           />
-          {errors.email && (
+          {errors.username && (
             <FormHelperText sx={{ color: '#c52828' }}>
-              {errors.email?.message ? errors.email.message.toString() : ''}
+              {errors.username?.message ? errors.username.message.toString() : ''}
             </FormHelperText>
           )}
         </FormControl>
@@ -230,7 +216,7 @@ const SignIn = ({ setOpen }) => {
         >
           Ingresar
         </Button>
-        {errorMessage && <p style={{color:'#c52828'}}>La contraseña o el email son incorrectos</p>}
+        {errorMessage && <p style={{color:'#c52828'}}>La contraseña o el usuario son incorrectos</p>}
         <Divider
           variant='middle'
           sx={{
@@ -241,15 +227,6 @@ const SignIn = ({ setOpen }) => {
             opacity: '0.5'
           }}
         />
-        <Text
-          sx={{
-            textAlign: 'center',
-            fontSize: '12px'
-          }}
-        >
-          ¿Todavía no tienes cuenta?{' '}
-          <Link href='./SignUp.jsx'>Regístrate!</Link>
-        </Text>
       </form>
     </Menu>
   );

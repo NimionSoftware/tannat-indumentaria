@@ -16,6 +16,8 @@ const Context = ({ children }) => {
     direccion: '',
     paymentMethod: ''
 });
+const [succ, setSucc] = useState(false);
+
 
 
   useEffect(() => {
@@ -89,6 +91,8 @@ const Context = ({ children }) => {
         setPopUp,
         formData,
         setFormData,
+        succ,
+        setSucc
         }}>{children}</Provider>
   );
 };

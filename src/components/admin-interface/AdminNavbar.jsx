@@ -34,7 +34,7 @@ const AdminNavbar = () => {
       sx={{
         width: '250px',
         backgroundColor: '#1C2536',
-        height: '100vh'
+        height: '100vh',
     }}
     >
       <List sx={{
@@ -42,7 +42,7 @@ const AdminNavbar = () => {
         flexDirection: 'column',
         height:'90%'
       }}>
-        {['Agregar Producto', 'Modificar Producto', 'Eliminar Producto'].map((text, index) => (
+        {['Todos mis Productos' , 'Agregar Producto'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ToggleButtonGroup
                 color="primary"
@@ -51,16 +51,22 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
-            <ToggleButton sx={{color: '#9AA1AB'}} value={text} aria-label={option}>
-
+            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Todos mis Productos' ? '/admin' : '/'}>
+            <ToggleButton sx={{
+              color: '#9AA1AB',
+              transition:'.1s all',
+              '&:hover': {
+                filter:'brightness(2)'
+              }}}
+              value={text} aria-label={option}
+              >
               <ListItemIcon>
                 <img style={{width: '25px'}} src={index === 0 ? addClothesIcon : index === 1 ? updateClothesIcon : deleteClothesIcon} alt="list icon" />
               </ListItemIcon>
               <ListItemText primary={text} />
 
             </ToggleButton>
-            {/* </Link> */}
+            </Link>
             </ToggleButtonGroup>
           </ListItem>
         ))}
@@ -72,27 +78,47 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            {/* <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Modificar Producto' ? '/admin/update' : text === 'Eliminar Producto' ? '/admin/delete' : '/'}> */}
-            <ToggleButton sx={{color: '#9AA1AB'}} value={'Volver al inicio'} aria-label={option}>
+              <ToggleButton sx={{
+                color: '#9AA1AB',
+                transition:'.1s all',
+                '&:hover': {
+                  filter:'brightness(2)'
+                }
+              }}
+                value={'Volver al inicio'} aria-label={option}>
 
-              <ListItemIcon>
-                {/* <img style={{width: '25px'}} src={''} alt="list icon" /> */}
-                <p style={{color: '#9AA1AB', fontSize:'1.5rem', fontWeight:'bolder'}}>↩</p>
-              </ListItemIcon>
-              <Link to={'/'}
-              style={{
-                textDecoration:'none',
-                color:'#9AA1AB',
-                fontSize:'1.1rem',
-              }}>
-                Volver al inicio
-            </Link>
-
-            </ToggleButton>
-            {/* </Link> */}
+                <ListItemIcon>
+                  <p style={{
+                    color: '#9AA1AB',
+                    fontSize:'1.5rem',
+                    fontWeight:'bolder',
+                    }}>↩</p>
+                </ListItemIcon>
+                <Link to={'/'}
+                  style={{
+                    textDecoration:'none',
+                    fontSize:'1.1rem',
+                    color:'#9AA1AB',
+                  }}
+                >
+                  Volver al inicio
+                </Link>
+              </ToggleButton>
             </ToggleButtonGroup>
           </ListItem>
-          <ListItem sx={{color: '#9AA1AB', position: 'absolute', bottom: '10px', display:'flex', flexDirection:'column', gap:'3rem'}}disablePadding>
+          <ListItem sx={{
+            color: '#9AA1AB',
+            position: 'absolute',
+            bottom: '10px',
+            display:'flex',
+            flexDirection:'column',
+            gap:'3rem',
+            transition:'.1s all',
+                '&:hover': {
+                  filter:'brightness(2)'
+                }
+          }}
+            disablePadding>
             <ListItemButton>
               <ListItemIcon>
                 <img style={{width: '25px'}} src={logOutIcon} alt="list icon" />
