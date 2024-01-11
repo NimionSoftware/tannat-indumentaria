@@ -195,9 +195,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
             fontSize: 11
           }}
           variant='contained'
-          onClick={()=>{
-            addItem(card, qty)
-            console.log(card)}}
+          onClick={()=>{addItem(card, qty)}}
         >
           <img src={cartImg} alt="imagen del carrito" />
           Al Carrito
