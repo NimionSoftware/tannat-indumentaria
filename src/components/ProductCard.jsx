@@ -57,7 +57,7 @@ const Price = styled(Typography)({
   fontSize: 28,
   fontWeight: '600',
   color: '#F4F4F4',
-  marginBottom: 15,
+  marginBottom: 5,
   textAlign: 'center',
   letterSpacing: 1
 })
@@ -118,10 +118,11 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         maxWidth: "250px",
         maxHeight: !expanded && "630px",
+        height: '100%',
         transition: 'all .250s',
         gap: 1,
         margin: 3,
