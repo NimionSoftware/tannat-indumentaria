@@ -28,7 +28,7 @@ const Context = ({ children }) => {
   }, []);
 
   const isInCart = (id) => {
-    return cart.some((item) => item.id === id);
+    return cart.some((item) => item._id === id);
   };
 
   const addItem = (product, qty) => {
@@ -37,9 +37,9 @@ const Context = ({ children }) => {
       qty,
     };
 
-    if (isInCart(newItem.id)) {
+    if (isInCart(newItem._id)) {
       const updatedCart = cart.map((item) =>
-        item.id === newItem.id ? { ...item, qty: item.qty + qty } : item
+        item._id === newItem._id ? { ...item, qty: item.qty + qty } : item
       );
       setCart(updatedCart);
       localStorage.setItem('cart', JSON.stringify(updatedCart));
@@ -51,7 +51,7 @@ const Context = ({ children }) => {
   };
 
   const deleteItem = (id) => {
-    const updatedCart = cart.filter((item) => item.id !== id);
+    const updatedCart = cart.filter((item) => item._id !== id);
     setCart(updatedCart);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
@@ -66,7 +66,7 @@ const Context = ({ children }) => {
   };
 
   const total = () => {
-    return cart.reduce((acc, product) => acc + product.productPrice * product.qty, 0);
+    return cart.reduce((acc, product) => acc + product.price * product.qty, 0);
   };
 
   return (

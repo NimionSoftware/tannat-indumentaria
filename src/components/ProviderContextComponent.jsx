@@ -1,6 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { user } from '../mockup/superadmin';
-import { isValidPassword } from './hashPassword/Hash';
 
 export const providerContext = createContext();
 
@@ -9,6 +7,8 @@ const { Provider } = providerContext;
 const ProviderContextComponent = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [rol, setRol] = useState(JSON.parse(sessionStorage.getItem('rol')));
+  const isValidPassword = true
+  const user = {email: 'pichiculin', password: 'pichiculon' }
 
   const verifyUser = (data) => {
 

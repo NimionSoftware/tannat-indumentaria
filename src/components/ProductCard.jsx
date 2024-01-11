@@ -135,7 +135,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
                   width: "100%",
                   maxHeight: "550px",
                   }}
-                  src={/*`http://drive.google.com/uc?export=view&id=`*/imgId}
+                  src={imgId}
                   alt="card Img"
               />
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

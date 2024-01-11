@@ -23,7 +23,7 @@ const ProductWall = ({cards}) => {
       {cards?.map((card) => (
           <ProductCard
           key={card?._id}
-          imgId={`http://drive.google.com/uc?export=view&id=${card?.image}`}
+          imgId={card?.image}
           productName={card?.title}
           productDescription={card?.description}
           productSizes={card?.sizes}
