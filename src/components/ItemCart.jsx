@@ -1,6 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { cartContext } from "./Context";
 import { styled } from "@mui/material";
+import InputOption from "./Shared/InputOption";
 
 const ContainerTable = styled('div')({
     boxShadow: '0 0 2px black',
@@ -40,7 +41,14 @@ const Td = styled('td')({
 
 const ItemCart = ({item}) => {
 
-    const {deleteItem} = useContext(cartContext);
+    const {deleteItem, setProductSizes} = useContext(cartContext);
+
+    const handleSizeChange = (productId, newSize) => {
+        setProductSizes((prevSizes) => ({
+        ...prevSizes,
+        [productId]: newSize,
+        }));
+    };
 
     return(
         <ContainerTable>
@@ -60,7 +68,14 @@ const ItemCart = ({item}) => {
                     <tr>
                         <td style={{minWidth:'7rem', width:'7rem'}}><img src={item.image} style={{width:'70%'}} alt="Imagen del Producto" /></td>
                         <Td>{item.title}</Td>
-                        <Td>{item.sizes}</Td>
+                        <Td>
+                            <InputOption
+                                key={item._id}
+                                sizes={item.sizes}
+                                productId={item._id}
+                                onSizeChange={handleSizeChange}
+                                />
+                        </Td>
                         {item.color && <Td>{item.color}</Td>}
                         <Td>${item.price}</Td>
                         <Td>X{item.qty}</Td>

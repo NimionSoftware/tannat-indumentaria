@@ -17,8 +17,7 @@ const Context = ({ children }) => {
     paymentMethod: ''
 });
 const [succ, setSucc] = useState(false);
-
-
+const [productSizes, setProductSizes] = useState({});
 
   useEffect(() => {
     const get = JSON.parse(localStorage.getItem('cart'));
@@ -92,7 +91,9 @@ const [succ, setSucc] = useState(false);
         formData,
         setFormData,
         succ,
-        setSucc
+        setSucc,
+        productSizes,
+        setProductSizes
         }}>{children}</Provider>
   );
 };
