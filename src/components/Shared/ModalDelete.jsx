@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Button, DialogActions, DialogContent, DialogTitle, styled } from '@mui/material';
 import axios from 'axios';
 import { cartContext } from '../Context';
+import { useAxiosFetch } from '../custom-hooks/useAxios';
+import { providerContext } from '../ProviderContextComponent';
 
 const ContainerDelete = styled('div')({
     display:'flex',
@@ -47,6 +49,8 @@ const ModalDelete = ({ open, handleClose, card }) => {
 
   const URL = `http://localhost:4000/api/product/${card._id}`
   const token = JSON.parse(sessionStorage.getItem('token'))
+  const {fetchData, apiData} = useAxiosFetch();
+  const { shouldFetchData, setShouldFetchData } = useContext(providerContext);
 
   const Delete = async () => {
     try {
@@ -62,10 +66,16 @@ const ModalDelete = ({ open, handleClose, card }) => {
             data: productData,
           };
           await axios(config);
+          if(shouldFetchData) {
+            setShouldFetchData(false)
+            setTimeout(() => {
+              setShouldFetchData(true)
+            }, 100);
+          }
           setSucc(true);
           handleClose();
     } catch (error) {
-        console.error('There was a error traying delete data', error)
+        console.error('There was an error traying delete data', error)
     }
   }
 

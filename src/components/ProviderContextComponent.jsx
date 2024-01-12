@@ -8,6 +8,7 @@ const { Provider } = providerContext;
 const ProviderContextComponent = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [rol, setRol] = useState(JSON.parse(sessionStorage.getItem('rol')));
+  const [shouldFetchData, setShouldFetchData] = useState(true);
 
   const postURL = 'http://localhost:4000/api/auth'
 
@@ -64,6 +65,8 @@ const ProviderContextComponent = ({ children }) => {
         errorMessage,
         rol,
         setRol,
+        shouldFetchData,
+        setShouldFetchData
       }}
     >
       {children}

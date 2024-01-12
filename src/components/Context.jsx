@@ -17,7 +17,12 @@ const Context = ({ children }) => {
     paymentMethod: ''
 });
 const [succ, setSucc] = useState(false);
-const [productSizes, setProductSizes] = useState({});
+const [productSizes, setProductSizes] = useState(() => {
+
+  const storedSizes = localStorage.getItem('sizes');
+
+  return storedSizes ? JSON.parse(storedSizes) : {};
+});
 
   useEffect(() => {
     const get = JSON.parse(localStorage.getItem('cart'));
@@ -27,6 +32,15 @@ const [productSizes, setProductSizes] = useState({});
       localStorage.setItem('cart', JSON.stringify([]));
     }
   }, []);
+
+  useEffect(() => {
+      const getSizes = JSON.parse(localStorage.getItem('sizes'))
+        if (getSizes) {
+          setProductSizes(getSizes);
+        } else {
+          localStorage.setItem('sizes', JSON.stringify(productSizes));
+        }
+      }, []);
 
   const isInCart = (id) => {
     return cart.some((item) => item._id === id);
@@ -60,6 +74,8 @@ const [productSizes, setProductSizes] = useState({});
   const emptyCart = () => {
     setCart([]);
     localStorage.setItem('cart', JSON.stringify([]));
+    setProductSizes({});
+    localStorage.setItem('sizes', JSON.stringify({}));
   };
 
   const quantity = () => {

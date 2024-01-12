@@ -5,6 +5,8 @@ import AdminProductCard from './AdminProductCard'
 import FilterComponent from '../Shared/FilterComponent';
 import ToastDelete from '../Shared/ToastDelete';
 import { cartContext } from '../Context';
+import { providerContext } from '../ProviderContextComponent';
+import Loader from '../Loader';
 
 const AdminContainer = styled('div')({
   display: 'flex',
@@ -17,12 +19,20 @@ const Wall = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   background: `white`,
+  minWidth:'45rem',
+  '@media (max-width: 650px)': {
+    minWidth:'0',
+  }
 })
 
 const ContainerDashboard = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent:'space-around'
+  justifyContent:'space-around',
+  minHeight:'65rem',
+  '@media (max-width: 700px)': {
+    minHeight:'0',
+  }
 })
 
 const BannerGreeting = styled('div')({
@@ -44,11 +54,14 @@ const AdminInterface = () => {
 
   const {fetchData, apiData} = useAxiosFetch();
   const { succ } = useContext(cartContext);
+  const { shouldFetchData } = useContext(providerContext);
 
   useEffect(() => {
-   fetchData('http://localhost:4000/api/product')
+    if(shouldFetchData) {
+      fetchData('http://localhost:4000/api/product');
+    }
 
-  }, [!apiData, apiData?.data])
+  }, [!apiData]);
 
   const filters = [
     'Temporada',
@@ -57,7 +70,7 @@ const AdminInterface = () => {
   ];
 
 // La Palabras tienen que coincidir exactamente entre filters y checks para que funcione.
-// Ej: 'temporada !== Temporada' o 'Temporada === Temporada'.
+// Ej: 'temporada !== Temporada' y 'Temporada === Temporada'.
 
   const checks = {
     'Temporada': ['Primavera', 'Verano', 'Otoño', 'Invierno'],
@@ -76,6 +89,7 @@ const AdminInterface = () => {
         <h3>Mis productos</h3>
       </ContainerAdminSearch>
       <ContainerDashboard>
+        {!shouldFetchData && <Loader />}
         <Wall>
           {apiData?.data.map((card) => (
               <AdminProductCard
