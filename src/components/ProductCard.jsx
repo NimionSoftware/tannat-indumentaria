@@ -175,7 +175,10 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
             {productDescription}
           </Description>
           <Size>
-            <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
+            <span style={{color: 'black', fontWeight: "400"}}>
+              Talles:
+            </span>
+            {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
           </Size>
         </Collapse>
           <Price

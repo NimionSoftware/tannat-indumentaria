@@ -5,7 +5,6 @@ import AdminProductCard from './AdminProductCard'
 import FilterComponent from '../Shared/FilterComponent';
 import ToastDelete from '../Shared/ToastDelete';
 import { cartContext } from '../Context';
-import { useState } from 'react';
 
 const AdminContainer = styled('div')({
   display: 'flex',
