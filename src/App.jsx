@@ -18,7 +18,7 @@ function App() {
     <Router>
       <Context>
         <Routes>
-          <Route path='/' element={<MainWall />} />
+          <Route path='/*' element={<MainWall />} />
           <Route path='/admin/not-allowed' element={<NotAllowed />} />
           <Route path="/admin/*" element={<AdminRoute />} />
         </Routes>
