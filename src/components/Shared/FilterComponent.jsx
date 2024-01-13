@@ -19,7 +19,7 @@ const ContainerFilters = styled('div')({
   flexDirection:'column',
   backgroundColor:'#f3f3f3',
   width:'18rem',
-  padding:'1rem'
+  padding:'1rem',
 })
 
 const FilterComponent = ({ filters, checks }) => {

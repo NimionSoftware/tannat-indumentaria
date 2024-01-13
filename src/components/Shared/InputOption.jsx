@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
-const InputOption = ({sizes, label, productId, onSizeChange}) => {
-    const [itemSizes, setItemSizes] = useState('');
+const InputOption = ({sizes, label, productId, onSizeChange }) => {
 
-    const handleChange = (event) => {
-        const newSize = event.target.value;
-        setItemSizes(newSize);
-        onSizeChange(productId, newSize);
-      };
+  const localStorageData = JSON.parse(localStorage.getItem('sizes')) || {};
+  const initialSizeFromLocalStorage = localStorageData[productId] || '';
+
+  const [itemSizes, setItemSizes] = useState(initialSizeFromLocalStorage);
+
+  const handleChange = (event) => {
+    const newSize = event.target.value;
+    setItemSizes(newSize);
+    onSizeChange(productId, newSize);
+
+    localStorage.setItem('sizes', JSON.stringify({
+      ...localStorageData,
+      [productId]: newSize,
+    }));
+  };
+
+  useEffect(() => {
+    const newInitialSizeFromLocalStorage = localStorageData[productId] || '';
+    if (newInitialSizeFromLocalStorage !== initialSizeFromLocalStorage) {
+      setItemSizes(newInitialSizeFromLocalStorage);
+    }
+  }, [productId, initialSizeFromLocalStorage, localStorageData]);
 
   return (
     <FormControl>
@@ -18,7 +34,6 @@ const InputOption = ({sizes, label, productId, onSizeChange}) => {
         id="select"
         value={itemSizes}
         onChange={handleChange}
-        label={label}
         MenuProps={{
             style: {
                 zIndex: 9999,
