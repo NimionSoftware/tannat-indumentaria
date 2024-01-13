@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { cartContext } from "./Context";
 import { styled } from "@mui/material";
 import InputOption from "./Shared/InputOption";
+import { useEffect } from "react";
 
 const ContainerTable = styled('div')({
     boxShadow: '0 0 2px black',
@@ -41,13 +42,15 @@ const Td = styled('td')({
 
 const ItemCart = ({item}) => {
 
-    const {deleteItem, setProductSizes} = useContext(cartContext);
+    const { deleteItem, setProductSizes } = useContext(cartContext);
 
     const handleSizeChange = (productId, newSize) => {
-        setProductSizes((prevSizes) => ({
-        ...prevSizes,
-        [productId]: newSize,
-        }));
+        setProductSizes((prevSizes) => {
+            const newSizes = { ...prevSizes, [productId]: newSize };
+            localStorage.setItem('sizes', JSON.stringify(newSizes));
+
+            return newSizes;
+          });
     };
 
     return(
@@ -57,7 +60,7 @@ const ItemCart = ({item}) => {
                     <tr>
                         <th></th>
                         <Th>Nombre</Th>
-                        <Th>Talles</Th>
+                        <Th>Talle</Th>
                         {item.color && <Th>Color</Th>}
                         <Th>Precio</Th>
                         <Th>Cant.</Th>
