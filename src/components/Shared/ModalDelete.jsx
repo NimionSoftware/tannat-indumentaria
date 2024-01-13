@@ -24,6 +24,7 @@ const ContainerModalDelete = styled('div')({
     height:'25%',
     minWidth:'18rem',
     maxWidth:'28rem',
+    maxHeight:'12rem',
   })
 
 const ModalDelete = ({ open, handleClose, card }) => {

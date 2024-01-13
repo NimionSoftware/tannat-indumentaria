@@ -17,28 +17,52 @@ const FormContainer = styled(Box)({
   width: '100%',
   padding: '30px 0',
   maxHeight: '100vh',
+  '@media (max-width: 1100px)': {
+    margin:'4rem 0',
+  }
 })
 
 const Form = styled(Box)({
   width: '50%',
   padding:'1rem',
   backgroundColor:'#f3f3f3',
-  borderRadius:'6px'
+  borderRadius:'6px',
+  '@media (max-width: 1100px)': {
+    width: '80%',
+  }
 })
 
 const Text = styled(Typography)({
   width: '50%',
   fontSize: '14px',
   color: 'black',
-  textAlign: 'start'
+  textAlign: 'start',
+  '@media (max-width: 1100px)': {
+    width: '80%',
+    maxWidth:'20rem'
+  }
 })
 
 const Description = styled (Typography)({
   width: '50%',
   fontSize: '10px',
   color: 'black',
-  textAlign: 'start'
+  textAlign: 'start',
+  '@media (max-width: 1100px)': {
+    width: '80%',
+    maxWidth:'20rem'
+  }
 })
+
+const TextFieldInput = styled (TextField)({
+    width: '50%',
+    marginTop: '10px',
+    background: 'white',
+    '@media (max-width: 1100px)': {
+      width: '80%',
+      maxWidth:'20rem'
+    }
+  })
 
 const UpdateProduct = () => {
 
@@ -67,7 +91,9 @@ const UpdateProduct = () => {
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async () => {
-    productData.sizes = productData.sizes.split(',')
+    if (typeof productData.sizes === 'string') {
+        productData.sizes = productData.sizes.split(',');
+      }
     try {
         const headers = {
             'Content-Type': 'application/json',
@@ -111,7 +137,7 @@ const UpdateProduct = () => {
                         textDecoration: 'underline'
                     }}
                 >
-                    Añadir un Producto
+                    Modificar Producto
                 </Text>
 
                 <Text
@@ -122,14 +148,9 @@ const UpdateProduct = () => {
                     Titulo
                 </Text>
                 <Description>(Nombre de la prenda/ nombre prenda + Marca, etc)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.title}
                     onChange={(e) => setProductData({ ...productData, title: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        marginTop: '10px',
-                        background: 'white',
-                    }}
                 />
                 <Text
                     sx={{
@@ -139,14 +160,9 @@ const UpdateProduct = () => {
                     Descripcion
                 </Text>
                 <Description>(Breve descripcion de la prenda, puede incluir detalles de costura, tipo de tela, etc)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.description}
                     onChange={(e) => setProductData({ ...productData, description: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -156,14 +172,9 @@ const UpdateProduct = () => {
                     Talle/s
                 </Text>
                 <Description>(Talles en los que estará disponible la prenda)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.sizes}
                     onChange={(e) => setProductData({ ...productData, sizes: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -173,14 +184,9 @@ const UpdateProduct = () => {
                     Imagen
                 </Text>
                 <Description>(link-cloud)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.image}
                     onChange={(e) => setProductData({ ...productData, image: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -190,14 +196,9 @@ const UpdateProduct = () => {
                     Precio
                 </Text>
                 <Description></Description>
-                <TextField
+                <TextFieldInput
                     value={productData.price}
                     onChange={(e) => setProductData({ ...productData, price: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -207,14 +208,9 @@ const UpdateProduct = () => {
                     Categoría
                 </Text>
                 <Description>(Categorías en las que entra la prenda. Ej: "Remera", "Manga Corta", "Vestido", etc)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.category}
                     onChange={(e) => setProductData({ ...productData, category: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -224,14 +220,9 @@ const UpdateProduct = () => {
                     Genero
                 </Text>
                 <Description>(Hombre, Mujer, Unisex)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.gender}
                     onChange={(e) => setProductData({ ...productData, gender: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Text
                     sx={{
@@ -241,14 +232,9 @@ const UpdateProduct = () => {
                     Temporada
                 </Text>
                 <Description>(Verano, Otoño, etc)</Description>
-                <TextField
+                <TextFieldInput
                     value={productData.season}
                     onChange={(e) => setProductData({ ...productData, season: e.target.value })}
-                    sx={{
-                        width: '50%',
-                        background: 'white',
-                        marginTop: '10px'
-                    }}
                 />
                 <Button
                     variant='contained'

@@ -16,29 +16,53 @@ const FormContainer = styled(Box)({
     alignItems: 'flex-start',
     width: '100%',
     padding: '30px 0',
-    maxHeight: '100vh'
+    maxHeight: '100vh',
+    '@media (max-width: 1100px)': {
+        margin:'4rem 0',
+      }
 })
 
 const Form = styled(Box)({
     width: '50%',
     padding:'1rem',
     backgroundColor:'#f3f3f3',
-    borderRadius:'6px'
+    borderRadius:'6px',
+    '@media (max-width: 1100px)': {
+        width: '80%',
+      }
   })
 
-const Text = styled(Typography)({
+  const Text = styled(Typography)({
     width: '50%',
     fontSize: '14px',
     color: 'black',
-    textAlign: 'start'
+    textAlign: 'start',
+    '@media (max-width: 1100px)': {
+      width: '80%',
+      maxWidth:'20rem'
+    }
   })
 
-const Description = styled (Typography)({
+  const Description = styled (Typography)({
     width: '50%',
     fontSize: '10px',
     color: 'black',
-    textAlign: 'start'
+    textAlign: 'start',
+    '@media (max-width: 1100px)': {
+      width: '80%',
+      maxWidth:'20rem'
+    }
   })
+
+  const TextFieldInput = styled (TextField)({
+      width: '50%',
+      marginTop: '10px',
+      background: 'white',
+      '@media (max-width: 1100px)': {
+        width: '80%',
+        maxWidth:'20rem'
+      }
+    })
 
 const CreateProductForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -104,7 +128,7 @@ const CreateProductForm = () => {
                     Titulo
                 </Text>
                 <Description>(Nombre de la prenda/ nombre prenda + Marca, etc)</Description>
-                <TextField
+                <TextFieldInput
                     sx={{
                         width: '50%',
                         marginTop: '10px',
@@ -124,7 +148,7 @@ const CreateProductForm = () => {
                     Descripcion
                 </Text>
                 <Description>(Breve descripcion de la prenda, puede incluir detalles de costura, tipo de tela, etc)</Description>
-                <TextField
+                <TextFieldInput
                     label="Descripcion"
                     {...register('description', { required: 'Este campo es requerido' })}
                     sx={{
@@ -144,7 +168,7 @@ const CreateProductForm = () => {
                     Talle/s
                 </Text>
                 <Description>(Talles en los que estará disponible la prenda)</Description>
-                <TextField
+                <TextFieldInput
                     label="Talles"
                     {...register('sizes', { required: 'Este campo es requerido' })}
                     sx={{
@@ -164,7 +188,7 @@ const CreateProductForm = () => {
                     Imagen
                 </Text>
                 <Description>(link-cloud)</Description>
-                <TextField
+                <TextFieldInput
                     label="Imagen"
                     {...register('image', { required: 'Este campo es requerido' })}
                     sx={{
@@ -184,7 +208,7 @@ const CreateProductForm = () => {
                     Precio
                 </Text>
                 <Description></Description>
-                <TextField
+                <TextFieldInput
                     label="Precio"
                     {...register('price', { required: 'Este campo es requerido' })}
                     sx={{
@@ -204,7 +228,7 @@ const CreateProductForm = () => {
                     Categoría
                 </Text>
                 <Description>(Categorías en las que entra la prenda. Ej: "Remera", "Manga Corta", "Vestido", etc)</Description>
-                <TextField
+                <TextFieldInput
                     label="Categoria"
                     {...register('category', { required: 'Este campo es requerido' })}
                     sx={{
@@ -224,7 +248,7 @@ const CreateProductForm = () => {
                     Genero
                 </Text>
                 <Description>(Hombre, Mujer, Unisex)</Description>
-                <TextField
+                <TextFieldInput
                     label="Genero"
                     {...register('gender', { required: 'Este campo es requerido' })}
                     sx={{
@@ -244,7 +268,7 @@ const CreateProductForm = () => {
                     Temporada
                 </Text>
                 <Description>(Verano, Otoño, etc)</Description>
-                <TextField
+                <TextFieldInput
                     label="Temporada"
                     {...register('season', { required: 'Este campo es requerido' })}
                     sx={{

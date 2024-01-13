@@ -55,7 +55,6 @@ const Price = styled(Typography)({
 })
 
 const ContainerCardImage = styled('div')({
-  width:'12.5rem',
   height:'13.5rem'
 })
 
@@ -77,7 +76,7 @@ const ContainerTextsCard = styled('div')({
     height:'100%',
     '@media (max-width: 650px)': {
         flexDirection:'row-reverse',
-        gap:'1rem',
+        gap:'1rem'
       }
   })
 
@@ -88,9 +87,6 @@ const ContainerTextsCard = styled('div')({
     alignItems:'center',
     width:'100%',
     height:'100%',
-    '@media (max-width: 650px)': {
-        gap:'1rem',
-      }
   })
 
 
@@ -112,21 +108,19 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center',
         transition: 'all .250s',
         gap: 1,
         margin: 1,
         background: '#f1f1f1',
         boxShadow: 5,
-        width:'100%',
+        // width:'95%',
         height:'13.5rem'
       }}
     >
       <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
             <img style={{
-                position: 'relative',
-                  width: "100%",
+                  position: 'relative',
                   height:'100%'
                   }}
                   src={imgId}
@@ -191,7 +185,7 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
         </Description>
         <ContainerDetailsProducts>
             <Size>
-            <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
+              <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size}</span>))}
             </Size>
             <Price
             style={{
