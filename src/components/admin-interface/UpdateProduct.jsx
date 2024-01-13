@@ -91,9 +91,9 @@ const UpdateProduct = () => {
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async () => {
-    if (typeof productData.sizes === 'string') {
-        productData.sizes = productData.sizes.split(',');
-      }
+    if(!Array.isArray(productData.sizes)){
+        productData.sizes = productData.sizes.split(',')
+    }
     try {
         const headers = {
             'Content-Type': 'application/json',

@@ -75,7 +75,9 @@ const CreateProductForm = () => {
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async (data) => {
-    data.sizes = data.sizes.split(',')
+    if(!Array.isArray(data.sizes)){
+        data.sizes = data.sizes.split(',')
+    }
     try {
         const headers = {
             'Content-Type': 'application/json',
