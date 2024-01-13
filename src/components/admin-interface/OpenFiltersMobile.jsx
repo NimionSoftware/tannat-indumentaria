@@ -66,6 +66,7 @@ const OpenFilterMobile = ({ filters, checks }) => {
               overflowY: 'scroll',
               backgroundColor: '#f3f3f3',
               height: '40rem',
+              marginTop:'6rem',
             }}
           >
             <FilterComponent filters={filters} checks={checks} />

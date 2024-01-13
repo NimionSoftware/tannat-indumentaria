@@ -20,10 +20,6 @@ const Wall = styled('div')({
   display: 'flex',
   flexDirection: 'column',
   background: `white`,
-  minWidth:'45rem',
-  '@media (max-width: 650px)': {
-    minWidth:'0',
-  }
 })
 
 const ContainerDashboard = styled('div')({
@@ -33,7 +29,10 @@ const ContainerDashboard = styled('div')({
   minHeight:'65rem',
   '@media (max-width: 700px)': {
     minHeight:'0',
-  }
+    // minWidth:'24.5rem',
+    // maxWidth:'50rem',
+    // width:'100%'
+  },
 })
 
 const BannerGreeting = styled('div')({
@@ -58,7 +57,8 @@ const TextBannerGreeting = styled('p')({
   '@media (max-width: 1100px)': {
     fontSize:'1rem',
     fontWeight:'bolder',
-    textAlign:'center'
+    textAlign:'center',
+
   }
 })
 
@@ -113,7 +113,6 @@ const AdminInterface = () => {
     'Genero': ['Hombre', 'Mujer', 'Unisex', 'Niño', 'Niña'],
     'Categoria': ['Camisas', 'Pantalones', 'Camperas', 'Vestidos', 'Remeras']
   };
-
   return (
     <AdminContainer>
       <BannerGreeting>

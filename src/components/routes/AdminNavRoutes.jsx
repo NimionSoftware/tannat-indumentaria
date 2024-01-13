@@ -8,7 +8,7 @@ import AdminNavbarMobile from "../admin-interface/AdminNavbarMobile";
 
 
 const CointainerRoutes = styled('div')({
-  display: 'flex'
+  display: 'flex',
 })
 
 const CointainerNavbar = styled('div')({
@@ -26,7 +26,7 @@ const AdminNavRoutes = () => {
               <AdminNavbar />
             </div>
           </CointainerNavbar>
-        <AdminNavbarMobile />
+          <AdminNavbarMobile />
           <Routes>
             <Route path="/" element={<AdminInterface />} />
             <Route path="/create" element={<CreateProductForm />} />

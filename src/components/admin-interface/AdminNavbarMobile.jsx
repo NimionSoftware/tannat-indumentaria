@@ -40,7 +40,12 @@ function AdminNavbarMobile() {
       }}
       >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            gap:'2rem',
+          }}
+          >
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -93,7 +98,9 @@ function AdminNavbarMobile() {
             sx={{
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              minWidth:'17.5rem'
+              '@media (max-width: 500px)': {
+                display:'none'
+              }
             }}
           >
             ¡Holaa! Que vamos a hacer hoy?
@@ -115,8 +122,9 @@ function AdminNavbarMobile() {
               </Link>
             ))}
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{
+            flexGrow: 0,
+            }}>
             <ListItemButton>
               <ListItemIcon>
                 <img style={{width: '25px'}} src={logOutIcon} alt="list icon" />
