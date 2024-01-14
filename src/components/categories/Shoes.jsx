@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import ProductCard from '../ProductCard'
-import bodyImg from '../../assets/body.jpeg'
 
 import {
     styled,
