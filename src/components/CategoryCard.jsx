@@ -18,7 +18,8 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
   return (
     <Link
         sx={{
-            position: 'relative'
+            position: 'relative',
+            margin: '20px',
         }}
         href={`/${categoryLink}`}
         underline="none"
@@ -32,10 +33,9 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                width: '400px',
-                height: '600px',
-                margin: '50px',
-                borderRadius: '7px',
+                maxWidth: '500px',
+                maxHeight: '700px',
+                borderRadius: '1px',
                 boxShadow: 5,
                 animation: loaded && 'fade-in 1s',
                 transition: "transform 0.6s",
@@ -59,7 +59,7 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                 style={{
                     width: '100%',
                     height: '100%',
-                    borderRadius: '7px'
+                    borderRadius: '1px'
                 }}
                 src={categoryImg} alt="imagen categoria" />
                 <h3 style={{
@@ -70,7 +70,6 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                     fontSize: '30px',
                 }}>{categoryTitle}</h3>
         </CategoryContainer>
-        
     </Link>
   )
 }

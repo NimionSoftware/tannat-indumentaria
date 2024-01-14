@@ -1,6 +1,5 @@
 import React from 'react'
 import CategoryCard from './CategoryCard'
-import bodyImg from '../assets/body.jpeg'
 
 import {
     styled,
@@ -11,8 +10,6 @@ const Wall = styled('div')({
   flexDirection: 'row',
   justifyContent: 'space-around',
   flexWrap: 'wrap',
-  background: `linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)),
-    url(${bodyImg})`,
 })
 
 const ProductWall = ({categoryData}) => {
@@ -29,7 +26,6 @@ const ProductWall = ({categoryData}) => {
           />
         ))
       }
-
     </Wall>
   )
 }
