@@ -1,28 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import LoaderCategory from './LoaderCategory'
 
 import {
-    Box,
+    styled,
     Link
 } from '@mui/material'
 
-const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
-  const [load, setLoad] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => {
-        setLoad(true);
-    }, 1250);
-  }, [])
+const CategoryContainer = styled('div')({
+    width:'100%',
+    height:'100%',
+})
+
+const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <Link
+        sx={{
+            position: 'relative'
+        }}
         href={`/${categoryLink}`}
         underline="none"
     >
-        <Box
+        {!loaded && <LoaderCategory/>}
+        <CategoryContainer
+            onLoad={() => setLoaded(true)}
             sx={{
                 position: 'relative',
-                opacity: !load && 0,
+                opacity: !loaded && 0,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -31,7 +37,7 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                 margin: '50px',
                 borderRadius: '7px',
                 boxShadow: 5,
-                animation: load && 'fade-in 1s',
+                animation: loaded && 'fade-in 1s',
                 transition: "transform 0.6s",
                 "&:hover":{
                     transform: 'scale(1.02)',
@@ -47,7 +53,6 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                         transform: 'translateY(0)'
                     }
                 },
-
             }}
         >
                 <img
@@ -64,7 +69,8 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                     color: 'white',
                     fontSize: '30px',
                 }}>{categoryTitle}</h3>
-        </Box>
+        </CategoryContainer>
+        
     </Link>
   )
 }

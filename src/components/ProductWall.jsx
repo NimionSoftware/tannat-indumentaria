@@ -22,11 +22,11 @@ const ProductWall = ({categoryData}) => {
       {
         categoryData?.map(category => (
           <CategoryCard
-          key={category?._id}
-          categoryTitle={category?.title}
-          categoryImg={category?.image}
-          categoryLink={category?.link}
-        />
+            key={category?._id}
+            categoryTitle={category?.title}
+            categoryImg={category?.image}
+            categoryLink={category?.link}
+          />
         ))
       }
 

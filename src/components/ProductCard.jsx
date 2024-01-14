@@ -63,6 +63,7 @@ const Price = styled(Typography)({
 })
 
 const ContainerCardImage = styled('div')({
+  position: 'relative',
   width:'100%',
   height:'100%',
 })
