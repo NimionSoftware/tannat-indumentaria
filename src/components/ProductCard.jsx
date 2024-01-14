@@ -119,7 +119,6 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
       maxWidth: "380px",
       maxHeight: !expanded && "780px",
       height: '100%',
-      transition: 'all .250s',
     }}>
       {!loaded && <Loader />}
       <Box

@@ -91,7 +91,7 @@ const ContainerTextsCard = styled('div')({
 
 
 const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
-  const [imageLoaded, setImageLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -104,103 +104,116 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
   };
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        transition: 'all .250s',
-        gap: 1,
-        margin: 1,
-        background: '#f1f1f1',
-        boxShadow: 5,
-        // width:'95%',
-        height:'13.5rem'
-      }}
-    >
-      <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
-            <img style={{
-                  position: 'relative',
-                  height:'100%'
-                  }}
-                  src={imgId}
-                  alt="card Img"
-              />
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                {imageLoaded && <Loader />}
-            </div>
-      </ContainerCardImage>
-      <ContainerTextsCard>
-        <ContainerEditDelete>
-          <Link
-            to={`/admin/update/${card._id}`}
-            style={{
-                display:'flex',
-                justifyContent:'flex-end',
-                width:'100%',
-                margin:3
-            }}
-          >
-              <Button
-                  sx={{
-                      gap: 1,
-                      background: "#1a1a1a",
-                      fontSize: 8,
-                      margin:1
-                  }}
-                  title="Editar producto"
-                  variant='contained'
-              >
-                  <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
-              </Button>
-          </Link>
-          <Button
-                  sx={{
-                      gap: 1,
-                      background: "#1a1a1a",
-                      fontSize: 8,
-                      margin:1,
-                      transition:'.2s all',
-                      '&:hover':{
-                        background: "#960303",
-                        filter:'brightness(1.4)'
-                      }
-                  }}
-                  title="Eliminar producto"
-                  variant='contained'
-                  onClick={()=>{
-                    handleOpenDeleteModal()
-                  }}
-              >
-                  <img src={trush} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
-          </Button>
-        </ContainerEditDelete>
-        <Title>
-          <TextTitle>
-            {productName}
-          </TextTitle>
-        </Title>
-        <Description>
-        {productDescription}
-        </Description>
-        <ContainerDetailsProducts>
-            <Size>
-              <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size}</span>))}
-            </Size>
-            <Price
-            style={{
-                padding:'0 10px',
-                background: 'brown'
-            }}>
-            ${productPrice}
-            </Price>
-        </ContainerDetailsProducts>
-      </ContainerTextsCard>
-      {open && <ModalDelete
-        open={open}
-        handleClose={handleCloseDeleteModal}
-        card={card}
-      />}
+    <Box sx={{
+      position: 'relative',
+    }}>
+      {!loaded && <Loader />}
+      <Box
+        sx={{
+          opacity: !loaded && 0,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          transition: 'all .250s',
+          gap: 1,
+          margin: 1,
+          background: '#f1f1f1',
+          boxShadow: 5,
+          height:'13.5rem',
+          animation: loaded && 'fade-in 1s',
+          "@keyframes fade-in": {
+            "0%": {
+            opacity: 0,
+            transform: 'translateY(15px)'
+            },
+            "100%": {
+                opacity: 1,
+                transform: 'translateY(0)'
+            }
+          },
+        }}
+      >
+        <ContainerCardImage onLoad={()=>setLoaded(true)}>
+              <img style={{
+                    position: 'relative',
+                    height:'100%'
+                    }}
+                    src={imgId}
+                    alt="card Img"
+                />
+        </ContainerCardImage>
+        <ContainerTextsCard>
+          <ContainerEditDelete>
+            <Link
+              to={`/admin/update/${card._id}`}
+              style={{
+                  display:'flex',
+                  justifyContent:'flex-end',
+                  width:'100%',
+                  margin:3
+              }}
+            >
+                <Button
+                    sx={{
+                        gap: 1,
+                        background: "#1a1a1a",
+                        fontSize: 8,
+                        margin:1
+                    }}
+                    title="Editar producto"
+                    variant='contained'
+                >
+                    <img src={edit} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
+                </Button>
+            </Link>
+            <Button
+                    sx={{
+                        gap: 1,
+                        background: "#1a1a1a",
+                        fontSize: 8,
+                        margin:1,
+                        transition:'.2s all',
+                        '&:hover':{
+                          background: "#960303",
+                          filter:'brightness(1.4)'
+                        }
+                    }}
+                    title="Eliminar producto"
+                    variant='contained'
+                    onClick={()=>{
+                      handleOpenDeleteModal()
+                    }}
+                >
+                    <img src={trush} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
+            </Button>
+          </ContainerEditDelete>
+          <Title>
+            <TextTitle>
+              {productName}
+            </TextTitle>
+          </Title>
+          <Description>
+          {productDescription}
+          </Description>
+          <ContainerDetailsProducts>
+              <Size>
+                <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size}</span>))}
+              </Size>
+              <Price
+              style={{
+                  padding:'0 10px',
+                  background: 'brown'
+              }}>
+              ${productPrice}
+              </Price>
+          </ContainerDetailsProducts>
+        </ContainerTextsCard>
+        {open && <ModalDelete
+          open={open}
+          handleClose={handleCloseDeleteModal}
+          card={card}
+        />}
+      </Box>
     </Box>
   )
 }
