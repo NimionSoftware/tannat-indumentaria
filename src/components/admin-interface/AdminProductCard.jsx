@@ -90,7 +90,7 @@ const ContainerTextsCard = styled('div')({
   })
 
 
-const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
+const AdminProductCard = ({ card, index }) => {
   const [imageLoaded, setImageLoaded] = useState(true);
 
   const [open, setOpen] = useState(false);
@@ -114,8 +114,17 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
         margin: 1,
         background: '#f1f1f1',
         boxShadow: 5,
-        // width:'95%',
-        height:'13.5rem'
+        height:'13.5rem',
+        minWidth:'40rem',
+        '@media (max-width: 1280px)': {
+          minWidth:'30rem',
+        },
+        '@media (max-width: 1150px)': {
+          minWidth:'27rem',
+        },
+        '@media (max-width: 900px)': {
+          minWidth:'0',
+        }
       }}
     >
       <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
@@ -123,7 +132,7 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                   position: 'relative',
                   height:'100%'
                   }}
-                  src={imgId}
+                  src={card.image}
                   alt="card Img"
               />
             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
@@ -177,22 +186,22 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
         </ContainerEditDelete>
         <Title>
           <TextTitle>
-            {productName}
+            {card.title}
           </TextTitle>
         </Title>
         <Description>
-        {productDescription}
+        {card.description}
         </Description>
         <ContainerDetailsProducts>
             <Size>
-              <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size}</span>))}
+              <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {card.sizes?.map((size, index) => (<span key={index}>{size}</span>))}
             </Size>
             <Price
             style={{
                 padding:'0 10px',
                 background: 'brown'
             }}>
-            ${productPrice}
+            ${card.price}
             </Price>
         </ContainerDetailsProducts>
       </ContainerTextsCard>
