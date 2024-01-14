@@ -26,7 +26,7 @@ const ContainerModalDelete = styled('div')({
     maxHeight:'12rem',
   })
 
-const ModalDelete = ({ open, handleClose, card }) => {
+const ModalCategoryDelete = ({ open, handleClose, card }) => {
 
     const [productData, setProductData] = useState({});
     const { setSucc } = useContext(cartContext);
@@ -34,7 +34,7 @@ const ModalDelete = ({ open, handleClose, card }) => {
   const fetchProductData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/product/${card._id}`
+        `http://localhost:4000/api/category/${card._id}`
       );
       setProductData(response.data.data);
     } catch (error) {
@@ -47,7 +47,7 @@ const ModalDelete = ({ open, handleClose, card }) => {
   }, []);
 
 
-  const URL = `http://localhost:4000/api/product/${card._id}`
+  const URL = `http://localhost:4000/api/category/${card._id}`
   const token = JSON.parse(sessionStorage.getItem('token'))
   const { shouldFetchData, setShouldFetchData } = useContext(providerContext);
 
@@ -100,4 +100,4 @@ const ModalDelete = ({ open, handleClose, card }) => {
   );
 };
 
-export default ModalDelete;
+export default ModalCategoryDelete;

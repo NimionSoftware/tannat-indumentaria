@@ -1,8 +1,9 @@
 import React, { useContext } from 'react';
-import addClothesIcon from '../../assets/clothes-icon.png'
-import updateClothesIcon from '../../assets/update-product.png'
-import deleteClothesIcon from '../../assets/delete-product.png'
-import logOutIcon from '../../assets/log-out.png'
+import addClothesIcon from '../../assets/clothes-icon.png';
+import updateClothesIcon from '../../assets/update-product.png';
+import categoriesIcon from '../../assets/category-icon.svg';
+import addCategoryIcon from '../../assets/add-category-icon.svg';
+import logOutIcon from '../../assets/log-out.png';
 import { Link, useNavigate } from 'react-router-dom';
 import {
 Box,
@@ -42,7 +43,7 @@ const AdminNavbar = () => {
         flexDirection: 'column',
         height:'90%'
       }}>
-        {['Todos mis Productos' , 'Agregar Producto'].map((text, index) => (
+        {['Todos mis Productos' , 'Agregar Producto', 'Mis Categorias', 'Agregar Categoria'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ToggleButtonGroup
                 color="primary"
@@ -51,7 +52,7 @@ const AdminNavbar = () => {
                 onChange={handleChange}
                 aria-label="Platform"
             >
-            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Todos mis Productos' ? '/admin' : '/'}>
+            <Link to={text === 'Agregar Producto' ? '/admin/create' : text === 'Todos mis Productos' ? '/admin' : text === 'Mis Categorias' ? '/admin/category' : text === 'Agregar Categoria' ? '/admin/category/create' : '/'}>
             <ToggleButton sx={{
               color: '#9AA1AB',
               transition:'.1s all',
@@ -61,7 +62,7 @@ const AdminNavbar = () => {
               value={text} aria-label={option}
               >
               <ListItemIcon>
-                <img style={{width: '25px'}} src={index === 0 ? addClothesIcon : index === 1 ? updateClothesIcon : deleteClothesIcon} alt="list icon" />
+                <img style={{width: '25px'}} src={index === 0 ? addClothesIcon : index === 1 ? updateClothesIcon : index === 2 ? categoriesIcon : addCategoryIcon} alt="list icon" />
               </ListItemIcon>
               <ListItemText primary={text} />
 

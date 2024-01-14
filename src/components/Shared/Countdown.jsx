@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
 
   const Countdown = () => {
     const [countdown, setCountdown] = useState(3);
+
+    const location = useLocation().pathname;
 
     const navigate = useNavigate()
 
@@ -12,7 +14,11 @@ import { Typography } from '@mui/material';
         if (countdown > 1) {
           setCountdown(countdown - 1);
         } else {
-          navigate('/admin');
+          if(location.includes('category')){
+            navigate('/admin/category')
+          }else{
+            navigate('/admin');
+          }
         }
       }, 1000);
 
