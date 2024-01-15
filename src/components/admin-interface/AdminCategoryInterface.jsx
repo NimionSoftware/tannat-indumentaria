@@ -10,9 +10,10 @@ import AdminCategoryCard from './AdminCategoryCard';
 
 const AdminContainer = styled('div')({
   display: 'flex',
-  justifyContent: 'flex-start',
+  justifyContent: 'space-between',
   flexDirection:'column',
   width:'100%',
+  height: '100%'
 })
 
 const Wall = styled('div')({
@@ -91,20 +92,6 @@ const AdminCategoryInterface = () => {
 
   }, [!apiData]);
 
-  const filters = [
-    'Temporada',
-    'Genero',
-    'Categoria'
-  ];
-
-// La Palabras tienen que coincidir exactamente entre filters y checks para que funcione.
-// Ej: 'temporada !== Temporada' y 'Temporada === Temporada'.
-
-  const checks = {
-    'Temporada': ['Primavera', 'Verano', 'Otoño', 'Invierno'],
-    'Genero': ['Hombre', 'Mujer', 'Unisex', 'Niño', 'Niña'],
-    'Categoria': ['Camisas', 'Pantalones', 'Camperas', 'Vestidos', 'Remeras']
-  };
   return (
     <AdminContainer>
       <BannerGreeting>
@@ -113,7 +100,6 @@ const AdminCategoryInterface = () => {
       <AdminSubContainer>
         <ContainerAdminSearch>
           <h3>Mis Categorías</h3>
-          <OpenFilterMobile filters={filters} checks={checks}/>
         </ContainerAdminSearch>
         <ContainerDashboard>
           {!shouldFetchData && <Loader />}
