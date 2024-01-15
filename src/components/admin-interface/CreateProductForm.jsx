@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {
     styled,
@@ -9,6 +9,8 @@ import {
 } from '@mui/material'
 import axios from 'axios';
 import ToastCreated from '../Shared/ToastCreated';
+import { providerContext } from '../ProviderContextComponent';
+import PopUpExpired from './PopUpExpired';
 
 const FormContainer = styled(Box)({
     display: 'flex',
@@ -16,7 +18,6 @@ const FormContainer = styled(Box)({
     alignItems: 'flex-start',
     width: '100%',
     padding: '30px 0',
-    maxHeight: '100vh',
     '@media (max-width: 1100px)': {
         margin:'4rem 0',
       }
@@ -70,6 +71,7 @@ const CreateProductForm = () => {
   });
 
   const [success, setSuccess] = useState(false);
+  const { tokenExpired, setTokenExpired } = useContext(providerContext);
 
   const URL = 'http://localhost:4000/api/product'
   const token = JSON.parse(sessionStorage.getItem('token'))
@@ -94,6 +96,9 @@ const CreateProductForm = () => {
           setSuccess(true);
           reset();
     } catch (error) {
+        if(error.response.status === 403) {
+            setTokenExpired(true);
+        }
         console.error('There was an error sending data', error)
     }
   }
@@ -295,6 +300,7 @@ const CreateProductForm = () => {
             </form>
         </Form>
         {success && <ToastCreated success={success} setSuccess={setSuccess} text={text} />}
+        {tokenExpired && <PopUpExpired />}
     </ FormContainer>
   )
 }

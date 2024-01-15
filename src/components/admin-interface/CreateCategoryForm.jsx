@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {
     styled,
@@ -9,6 +9,8 @@ import {
 } from '@mui/material'
 import axios from 'axios';
 import ToastCreated from '../Shared/ToastCreated';
+import PopUpExpired from './PopUpExpired';
+import { providerContext } from '../ProviderContextComponent';
 
 const FormContainer = styled(Box)({
     display: 'flex',
@@ -68,6 +70,8 @@ const CreateCategoryForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm({
     mode: 'onBlur',
   });
+
+  const { tokenExpired } = useContext(providerContext);
 
   const [success, setSuccess] = useState(false);
 
@@ -192,6 +196,7 @@ const CreateCategoryForm = () => {
             </form>
         </Form>
         {success && <ToastCreated success={success} setSuccess={setSuccess} text={text} />}
+        {tokenExpired && <PopUpExpired />}
     </ FormContainer>
   )
 }

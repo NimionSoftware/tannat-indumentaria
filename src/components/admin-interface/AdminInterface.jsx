@@ -176,7 +176,7 @@ const AdminInterface = () => {
                 />
                 ))}
           </Wall>
-          {isEmpty && 
+          {isEmpty &&
             <>
               <div
                 style={{
