@@ -71,18 +71,18 @@ const CreateProductForm = () => {
 
   const [success, setSuccess] = useState(false);
 
-  const URL = 'http://localhost:4000/api/product'
-  const token = JSON.parse(sessionStorage.getItem('token'))
+  const URL = 'http://localhost:4000/api/product';
+  const token = JSON.parse(sessionStorage.getItem('token'));
 
   const onSubmit = async (data) => {
     if(!Array.isArray(data.sizes)){
-        data.sizes = data.sizes.split(',')
-    }
+        data.sizes = data.sizes.split(',');
+    };
     try {
         const headers = {
             'Content-Type': 'application/json',
             token: token
-          }
+          };
 
           const config = {
             method: 'POST',
@@ -94,7 +94,7 @@ const CreateProductForm = () => {
           setSuccess(true);
           reset();
     } catch (error) {
-        console.error('There was an error sending data', error)
+        console.error('There was an error sending data', error);
     }
   }
 
