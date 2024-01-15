@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import ProductCard from '../ProductCard'
-import bodyImg from '../../assets/body.jpeg'
 
 import {
     styled,
@@ -11,8 +10,6 @@ const Wall = styled('div')({
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    background: `linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)),
-      url(${bodyImg})`,
   })
 
 

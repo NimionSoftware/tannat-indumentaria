@@ -71,7 +71,7 @@ const ContainerCardImage = styled('div')({
 const ProductCard = ({index, isExpanded, imgId, productName, productDescription, productSizes, productPrice, card}) => {
   const [expanded, setExpanded] = useState(false);
   const [expandedPress, setExpandedPress] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(true);
+  const [loaded, setLoaded] = useState(false);
   const {isExpandedIndex, setIsExpandedIndex} = isExpanded
 
   const handleExpandClick = () => {
@@ -114,104 +114,121 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
   }, [isExpandedIndex])
 
   return (
-    <Box
+    <Box sx={{
+      position: 'relative',
+      maxWidth: "380px",
+      maxHeight: !expanded && "780px",
+      height: '100%',
+    }}>
+      {!loaded && <Loader />}
+      <Box
       sx={{
         display: 'flex',
+        opacity: !loaded && 0,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        maxWidth: "250px",
-        maxHeight: !expanded && "630px",
+        maxWidth: "380px",
+        maxHeight: !expanded && "780px",
         height: '100%',
         transition: 'all .250s',
         gap: 1,
         margin: 3,
         background: '#f1f1f1',
         boxShadow: 5,
-      }}
-    >
-      <ContainerCardImage onLoad={()=>setImageLoaded(false)}>
+        animation: loaded && 'fade-in 1s',
+        "@keyframes fade-in": {
+          "0%": {
+          opacity: 0,
+          transform: 'translateY(15px)'
+          },
+          "100%": {
+              opacity: 1,
+              transform: 'translateY(0)'
+          }
+        },
+        }}
+      >
+          <ContainerCardImage onLoad={()=>setLoaded(true)}>
             <img style={{
-                  position: 'relative',
-                  width: "100%",
-                  maxHeight: "550px",
-                  }}
-                  src={imgId}
-                  alt="card Img"
-              />
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                {imageLoaded && <Loader />}
-            </div>
-      </ContainerCardImage>
-        <Divider
-          variant="middle"
-          style={{
-            width: '70%',
-            height: '.5px',
-            marginTop: 10,
-            backgroundColor: '#121212',
-            opacity: '0.5',
-          }}
-        />
-        <Title>
-          <TextTitle>
-            {productName}
-          </TextTitle>
-        </Title>
-        <Divider
-          variant="middle"
-          style={{
-            width: '70%',
-            height: '.5px',
-            marginBottom: 10,
-            backgroundColor: '#121212',
-            opacity: '0.5',
-          }}
-        />
-        <Collapse
-          in={expanded}
-        >
-          <Description>
-            {productDescription}
-          </Description>
-          <Size>
-            <span style={{color: 'black', fontWeight: "400"}}>
-              Talles:
-            </span>
-            {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
-          </Size>
-        </Collapse>
-          <Price
-          style={{
-            width:'100%',
-            paddingTop: 10,
-            paddingBottom: 10,
-            background: 'brown'
-          }}>
-          ${productPrice}
-        </Price>
+              position: 'relative',
+              width: "100%",
+              maxHeight: "550px",
+              }}
+              src={imgId}
+              alt="card Img"
+            />
 
+          </ContainerCardImage>
+          <Divider
+            variant="middle"
+            style={{
+              width: '70%',
+              height: '.5px',
+              marginTop: 10,
+              backgroundColor: '#121212',
+              opacity: '0.5',
+            }}
+          />
+          <Title>
+            <TextTitle>
+              {productName}
+            </TextTitle>
+          </Title>
+          <Divider
+            variant="middle"
+            style={{
+              width: '70%',
+              height: '.5px',
+              marginBottom: 10,
+              backgroundColor: '#121212',
+              opacity: '0.5',
+            }}
+          />
+          <Collapse
+            in={expanded}
+          >
+            <Description>
+              {productDescription}
+            </Description>
+            <Size>
+              <span style={{color: 'black', fontWeight: "400"}}>
+                Talles:
+              </span>
+              {productSizes?.map((size, index) => (<span key={index}>{size} </span>))}
+            </Size>
+          </Collapse>
+            <Price
+            style={{
+              width:'100%',
+              paddingTop: 10,
+              paddingBottom: 10,
+              background: 'brown'
+            }}>
+            ${productPrice}
+          </Price>
           <Button
-          sx={{
-            gap: 1,
-            marginBottom: "-20px",
-            background: "#3c3c3c",
-            fontSize: 11
-          }}
-          variant='contained'
-          onClick={()=>{addItem(card, qty)}}
-        >
-          <img src={cartImg} alt="imagen del carrito" />
-          Al Carrito
-        </Button>
-        <ExpandMore
-          expand={expanded}
-          aria-expanded={expanded}
-          aria-label="show more"
-          onClick={handleExpandClick}
-        >
-          <img src={expandMoreIcon} alt="expand icon" />
-        </ExpandMore>
+            sx={{
+              gap: 1,
+              marginBottom: "-20px",
+              background: "#3c3c3c",
+              fontSize: 11
+            }}
+            variant='contained'
+            onClick={()=>{addItem(card, qty)}}
+          >
+            <img src={cartImg} alt="imagen del carrito" />
+            Al Carrito
+          </Button>
+          <ExpandMore
+            expand={expanded}
+            aria-expanded={expanded}
+            aria-label="show more"
+            onClick={handleExpandClick}
+          >
+            <img src={expandMoreIcon} alt="expand icon" />
+          </ExpandMore>
+      </Box>
     </Box>
   )
 }

@@ -9,7 +9,7 @@ import Loader from '../Loader';
 import edit from '../../assets/editar.png';
 import trush from '../../assets/delete-product.png';
 import { Link } from 'react-router-dom';
-import ModalDelete from '../Shared/ModalDelete';
+import ModalCategoryDelete from '../Shared/ModalCategoryDelete';
 
 const Title = styled(Typography)({
   display: 'flex',
@@ -34,26 +34,6 @@ const Description = styled(Typography)({
   width:'100%',
 })
 
-const Size = styled(Typography)({
-  margin: "15px 0",
-  fontSize: 15,
-  fontWeight: '600',
-  color: 'green',
-  textAlign: 'center',
-})
-
-const Price = styled(Typography)({
-  fontSize: 16,
-  fontWeight: '600',
-  color: '#F4F4F4',
-  marginBottom: 15,
-  textAlign: 'center',
-  letterSpacing: 1,
-  '@media (max-width: 650px)': {
-    margin: "0",
-  }
-})
-
 const ContainerCardImage = styled('div')({
   height:'13.5rem'
 })
@@ -67,19 +47,6 @@ const ContainerTextsCard = styled('div')({
     height:'100%',
   })
 
-  const ContainerDetailsProducts = styled('div')({
-    display:'flex',
-    flexDirection:'column',
-    justifyContent:'center',
-    alignItems:'center',
-    width:'100%',
-    height:'100%',
-    '@media (max-width: 650px)': {
-        flexDirection:'row-reverse',
-        gap:'1rem'
-      }
-  })
-
   const ContainerEditDelete = styled('div')({
     display:'flex',
     flexDirection:'row',
@@ -90,7 +57,7 @@ const ContainerTextsCard = styled('div')({
   })
 
 
-const AdminProductCard = ({index, imgId, productName, productDescription, productSizes, productPrice, card}) => {
+const AdminCategoryCard = ({title, image, link, category}) => {
   const [loaded, setLoaded] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -138,14 +105,14 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                     position: 'relative',
                     height:'100%'
                     }}
-                    src={imgId}
+                    src={image}
                     alt="card Img"
                 />
         </ContainerCardImage>
         <ContainerTextsCard>
           <ContainerEditDelete>
             <Link
-              to={`/admin/update/${card._id}`}
+              to={`/admin/category/update/${category._id}`}
               style={{
                   display:'flex',
                   justifyContent:'flex-end',
@@ -184,38 +151,26 @@ const AdminProductCard = ({index, imgId, productName, productDescription, produc
                       handleOpenDeleteModal()
                     }}
                 >
-                    <img src={trush} alt="imagen de editar" style={{width:'1.3rem', height:'1.3rem'}} />
+                    <img src={trush} alt="imagen de eliminar" style={{width:'1.3rem', height:'1.3rem'}} />
             </Button>
           </ContainerEditDelete>
           <Title>
             <TextTitle>
-              {productName}
+            <span>Titulo: {title}</span>
             </TextTitle>
           </Title>
           <Description>
-          {productDescription}
+            <span>Link: {link}</span>
           </Description>
-          <ContainerDetailsProducts>
-              <Size>
-                <span style={{color: 'black', fontWeight: "400"}}>Talles:</span> {productSizes?.map((size, index) => (<span key={index}>{size}</span>))}
-              </Size>
-              <Price
-              style={{
-                  padding:'0 10px',
-                  background: 'brown'
-              }}>
-              ${productPrice}
-              </Price>
-          </ContainerDetailsProducts>
         </ContainerTextsCard>
-        {open && <ModalDelete
+        {open && <ModalCategoryDelete
           open={open}
           handleClose={handleCloseDeleteModal}
-          card={card}
+          card={category}
         />}
       </Box>
     </Box>
   )
 }
 
-export default AdminProductCard
+export default AdminCategoryCard;

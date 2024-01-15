@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const useAxiosFetch = () => {
@@ -26,15 +26,7 @@ const useAxiosFetch = () => {
       }
     };
 
-    useEffect(() => {
-      // console.log({
-      //   apiData: apiData,
-      //   isLoading: isLoading,
-      //   serverError:serverError
-      // })
-    }, [apiData, isLoading, serverError]);
-
-      return { fetchData, isLoading, apiData, serverError };
+      return { fetchData, isLoading, apiData, serverError};
 }
 
 const useAxiosPost = () => {
@@ -61,15 +53,7 @@ const useAxiosPost = () => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log({
-      apiData: apiData,
-      isLoading: isLoading,
-      serverError:serverError
-    })
-  }, [apiData, isLoading, serverError]);
-
+  
   return { postData, isLoading, apiData, serverError };
 }
 
