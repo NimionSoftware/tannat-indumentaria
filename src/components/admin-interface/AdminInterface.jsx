@@ -126,7 +126,6 @@ const AdminInterface = () => {
 
     let newApiData = [...apiData.data];
 
-    if(Object.keys(checked).length > 0) {
       Object.keys(checked).forEach((filter) => {
         if (checked[filter] && checked[filter].length > 0) {
           newApiData = newApiData.filter((data) => {
@@ -143,20 +142,21 @@ const AdminInterface = () => {
           });
         }
       });
-    } else {
-        const filters = apiData?.data.filter((item) => {
+
+      if(clotheSearched.length > 0) {
+        const filteres = newApiData?.filter((item) => {
           if (item.title && item.title.toLowerCase().trim().includes(clotheSearched)) {
             return true;
           }
         })
-      return filters;
-    }
+        newApiData = filteres;
+      }
 
-    if (newApiData.length === 0) {
-      setIsEmpty(true);
-    } else {
-      setIsEmpty(false);
-    }
+      if (newApiData.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setIsEmpty(false);
+      }
 
     return newApiData;
   };
@@ -175,7 +175,13 @@ const AdminInterface = () => {
       <AdminSubContainer>
         <ContainerAdminSearch>
           <h3>Mis productos</h3>
-          <OpenFilterMobile setClotheSearched={setClotheSearched} filters={filters} checks={checks}/>
+          <OpenFilterMobile
+            setClotheSearched={setClotheSearched}
+            filters={filters}
+            checks={checks}
+            checked={checked}
+            setChecked={setChecked}
+            />
         </ContainerAdminSearch>
         <ContainerDashboard>
           {!shouldFetchData && <Loader />}
