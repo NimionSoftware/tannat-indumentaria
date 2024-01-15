@@ -13,7 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { providerContext } from '../ProviderContextComponent';
 import logOutIcon from '../../assets/log-out.png'
 
-const pages = ['Todos mis Productos', 'Agregar Producto', 'Volver a inicio'];
+const pages = ['Todos mis Productos', 'Agregar Producto', 'Mis Categorias', 'Agregar Categoria', 'Volver a inicio'];
 
 function AdminNavbarMobile() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -83,9 +83,11 @@ function AdminNavbarMobile() {
                     color:'black'
                   }}
                   to={
-                        text === 'Agregar Producto' ? '/admin/create' :
-                        text === 'Todos mis Productos' ? '/admin' :
-                        text === 'Volver a inicio' ? '/' : '/'
+                    text === 'Agregar Producto' ? '/admin/create' :
+                    text === 'Todos mis Productos' ? '/admin' :
+                    text === 'Mis Categorias' ? '/admin/category' :
+                    text === 'Agregar Categoria' ? '/admin/category/create' :
+                    text === 'Volver a inicio' ? '/' : '/'
                       }>
                         {text}
                   </Link>
@@ -117,6 +119,8 @@ function AdminNavbarMobile() {
                 to={
                       text === 'Agregar Producto' ? '/admin/create' :
                       text === 'Todos mis Productos' ? '/admin' :
+                      text === 'Mis Categorias' ? '/admin/category' :
+                      text === 'Agregar Categoria' ? '/admin/category/create' :
                       text === 'Volver a inicio' ? '/' : '/'
                     }>
                     {text}

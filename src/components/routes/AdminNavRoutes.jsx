@@ -5,6 +5,9 @@ import UpdateProduct from "../admin-interface/UpdateProduct";
 import AdminNavbar from "../admin-interface/AdminNavbar";
 import AdminInterface from "../admin-interface/AdminInterface";
 import AdminNavbarMobile from "../admin-interface/AdminNavbarMobile";
+import CreateCategoryForm from "../admin-interface/CreateCategoryForm";
+import AdminCategoryInterface from "../admin-interface/AdminCategoryInterface";
+import UpdateCategory from "../admin-interface/UpdateCategory";
 
 
 const CointainerRoutes = styled('div')({
@@ -31,6 +34,9 @@ const AdminNavRoutes = () => {
             <Route path="/" element={<AdminInterface />} />
             <Route path="/create" element={<CreateProductForm />} />
             <Route path='/update/:id' element={<UpdateProduct />} />
+            <Route path='/category' exact element={<AdminCategoryInterface />} />
+            <Route path='/category/create' exact element={<CreateCategoryForm />} />
+            <Route path='/category/update/:id' exact element={<UpdateCategory />} />
           </Routes>
         </CointainerRoutes>
     )

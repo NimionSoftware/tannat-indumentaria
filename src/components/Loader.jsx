@@ -40,14 +40,13 @@ const RingLoaderChild = styled('div')({
 
 const Loader = () => {
   return (
-    <>
-      <RingLoader>
-        <RingLoaderChild></RingLoaderChild>
-        <RingLoaderChild></RingLoaderChild>
-        <RingLoaderChild></RingLoaderChild>
-        <RingLoaderChild></RingLoaderChild>
+      <RingLoader sx={{
+        position: "absolute",
+        bottom: '50%',
+        left: '30%',
+      }}>
+        <RingLoaderChild />
       </RingLoader>
-    </>
   );
 };
 

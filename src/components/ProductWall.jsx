@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import ProductCard from './ProductCard'
-import bodyImg from '../assets/body.jpeg'
+import React from 'react'
+import CategoryCard from './CategoryCard'
 
 import {
     styled,
@@ -9,30 +8,24 @@ import {
 const Wall = styled('div')({
   display: 'flex',
   flexDirection: 'row',
-  justifyContent: 'center',
+  justifyContent: 'space-around',
   flexWrap: 'wrap',
-  background: `linear-gradient(rgba(255, 255, 255, .6), rgba(255, 255, 255, .6)),
-    url(${bodyImg})`,
 })
 
-const ProductWall = ({cards}) => {
-  const [isExpandedIndex, setIsExpandedIndex] = useState(null)
+const ProductWall = ({categoryData}) => {
 
   return (
     <Wall>
-      {cards?.map((card) => (
-          <ProductCard
-          key={card?._id}
-          imgId={card?.image}
-          productName={card?.title}
-          productDescription={card?.description}
-          productSizes={card?.sizes}
-          productPrice={card?.price}
-          card={card}
-          index={card?._id}
-          isExpanded={{isExpandedIndex, setIsExpandedIndex}}
+      {
+        categoryData?.map(category => (
+          <CategoryCard
+            key={category?._id}
+            categoryTitle={category?.title}
+            categoryImg={category?.image}
+            categoryLink={category?.link}
           />
-      ))}
+        ))
+      }
     </Wall>
   )
 }

@@ -40,7 +40,7 @@ export default function ToastCreated({success, setSuccess, text}) {
           sx={{ mb: 2, fontSize:'1.1rem' }}
         >
           {text}
-          {location !== "/admin/create" && <Countdown />}
+          {location !== "/admin/create" && location !== "/admin/category/create" && <Countdown />}
         </Alert>
       </Collapse>
     </Box>
