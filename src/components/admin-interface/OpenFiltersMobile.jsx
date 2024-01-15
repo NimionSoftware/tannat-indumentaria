@@ -34,7 +34,7 @@ const ContainerModalFilter = styled('div')({
         },
   });
 
-const OpenFilterMobile = ({ filters, checks }) => {
+const OpenFilterMobile = ({ filters, checks, setClotheSearched, checked, setChecked }) => {
   const [openFilters, setOpenFilters] = useState(false);
 
   const handleOpen = () => {
@@ -69,7 +69,13 @@ const OpenFilterMobile = ({ filters, checks }) => {
               marginTop:'6rem',
             }}
           >
-            <FilterComponent filters={filters} checks={checks} />
+            <FilterComponent
+              filters={filters}
+              checks={checks}
+              checked={checked}
+              setChecked={setChecked}
+              setClotheSearched={setClotheSearched}
+            />
           </div>
         </ContainerModalFilter>
       )}

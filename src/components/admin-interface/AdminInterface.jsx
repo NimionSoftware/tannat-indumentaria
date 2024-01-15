@@ -88,7 +88,7 @@ const AdminInterface = () => {
 
   const {fetchData, apiData} = useAxiosFetch();
   const { succ } = useContext(cartContext);
-  const { shouldFetchData, checked } = useContext(providerContext);
+  const { shouldFetchData } = useContext(providerContext);
 
   useEffect(() => {
     if(shouldFetchData) {
@@ -116,6 +116,8 @@ const AdminInterface = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const [clothe, setClothe] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [clotheSearched, setClotheSearched] = useState('');
+  const [checked, setChecked] = useState({});
 
   const handleFilters = () => {
     if (!apiData?.data) {
@@ -124,28 +126,37 @@ const AdminInterface = () => {
 
     let newApiData = [...apiData.data];
 
-    Object.keys(checked).forEach((filter) => {
-      if (checked[filter] && checked[filter].length > 0) {
-        newApiData = newApiData.filter((data) => {
-          const dataFiltered = data[filter.toLowerCase()];
+      Object.keys(checked).forEach((filter) => {
+        if (checked[filter] && checked[filter].length > 0) {
+          newApiData = newApiData.filter((data) => {
+            const dataFiltered = data[filter.toLowerCase()];
 
-          if(Array.isArray(dataFiltered)){
-            return checked[filter].some(selectedCategory =>
-              dataFiltered.some(productCategory => productCategory.includes(selectedCategory))
-            );
-          } else {
-            return checked[filter].every(value => dataFiltered.includes(value));
+            if(Array.isArray(dataFiltered)){
+              return checked[filter].some(selectedCategory =>
+                dataFiltered.some(productCategory => productCategory.includes(selectedCategory))
+              );
+            } else {
+              return checked[filter].every(value => dataFiltered.includes(value));
+            }
+
+          });
+        }
+      });
+
+      if(clotheSearched.length > 0) {
+        const filteres = newApiData?.filter((item) => {
+          if (item.title && item.title.toLowerCase().trim().includes(clotheSearched)) {
+            return true;
           }
-
-        });
+        })
+        newApiData = filteres;
       }
-    });
 
-    if (newApiData.length === 0) {
-      setIsEmpty(true);
-    } else {
-      setIsEmpty(false);
-    }
+      if (newApiData.length === 0) {
+        setIsEmpty(true);
+      } else {
+        setIsEmpty(false);
+      }
 
     return newApiData;
   };
@@ -154,7 +165,7 @@ const AdminInterface = () => {
     if (apiData?.data) {
       setClothe(handleFilters());
     }
-  }, [checked, apiData]);
+  }, [checked, apiData, clotheSearched]);
 
   return (
     <AdminContainer>
@@ -164,7 +175,13 @@ const AdminInterface = () => {
       <AdminSubContainer>
         <ContainerAdminSearch>
           <h3>Mis productos</h3>
-          <OpenFilterMobile filters={filters} checks={checks}/>
+          <OpenFilterMobile
+            setClotheSearched={setClotheSearched}
+            filters={filters}
+            checks={checks}
+            checked={checked}
+            setChecked={setChecked}
+            />
         </ContainerAdminSearch>
         <ContainerDashboard>
           {!shouldFetchData && <Loader />}
@@ -200,8 +217,11 @@ const AdminInterface = () => {
           }
           <ContainerFilterDesktop>
             <FilterComponent
+              setClotheSearched={setClotheSearched}
               filters={filters}
               checks={checks}
+              checked={checked}
+              setChecked={setChecked}
             />
           </ContainerFilterDesktop>
         </ContainerDashboard>

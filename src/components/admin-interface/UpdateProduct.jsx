@@ -118,7 +118,6 @@ const UpdateProduct = () => {
     }
   }
 
-  console.log(tokenExpired)
   const text = '¡Listo! El producto fue modificado con exito!';
 
   return (
