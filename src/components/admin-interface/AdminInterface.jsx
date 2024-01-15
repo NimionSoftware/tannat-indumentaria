@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useAxiosFetch } from '../custom-hooks/useAxios';
 import AdminProductCard from './AdminProductCard'
 import FilterComponent from '../Shared/FilterComponent';
@@ -14,6 +14,7 @@ const AdminContainer = styled('div')({
   justifyContent: 'space-between',
   flexDirection:'column',
   width:'100%',
+  height:'100%'
 })
 
 const Wall = styled('div')({
@@ -28,10 +29,7 @@ const ContainerDashboard = styled('div')({
   gap:'3rem',
   minHeight:'65rem',
   '@media (max-width: 700px)': {
-    minHeight:'0',
-    // minWidth:'24.5rem',
-    // maxWidth:'50rem',
-    // width:'100%'
+    minHeight:'0'
   },
 })
 
@@ -90,7 +88,7 @@ const AdminInterface = () => {
 
   const {fetchData, apiData} = useAxiosFetch();
   const { succ } = useContext(cartContext);
-  const { shouldFetchData } = useContext(providerContext);
+  const { shouldFetchData, checked } = useContext(providerContext);
 
   useEffect(() => {
     if(shouldFetchData) {
@@ -100,19 +98,64 @@ const AdminInterface = () => {
   }, [!apiData]);
 
   const filters = [
-    'Temporada',
-    'Genero',
-    'Categoria'
+    'Season',
+    'Gender',
+    'Category',
   ];
 
 // La Palabras tienen que coincidir exactamente entre filters y checks para que funcione.
 // Ej: 'temporada !== Temporada' y 'Temporada === Temporada'.
 
-  const checks = {
-    'Temporada': ['Primavera', 'Verano', 'Otoño', 'Invierno'],
-    'Genero': ['Hombre', 'Mujer', 'Unisex', 'Niño', 'Niña'],
-    'Categoria': ['Camisas', 'Pantalones', 'Camperas', 'Vestidos', 'Remeras']
+  const checks = [
+    {Season: ['Primavera', 'Verano', 'Otoño', 'Invierno']},
+    {Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña']},
+    {Category: ['Camisas', 'Pantalones', 'Camperas', 'Vestido', 'Remeras']}
+  ];
+
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const [clothe, setClothe] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  const handleFilters = () => {
+    if (!apiData?.data) {
+      return [];
+    }
+
+    let newApiData = [...apiData.data];
+
+    Object.keys(checked).forEach((filter) => {
+      if (checked[filter] && checked[filter].length > 0) {
+        newApiData = newApiData.filter((data) => {
+          const dataFiltered = data[filter.toLowerCase()];
+
+          if(Array.isArray(dataFiltered)){
+            return checked[filter].some(selectedCategory =>
+              dataFiltered.some(productCategory => productCategory.includes(selectedCategory))
+            );
+          } else {
+            return checked[filter].every(value => dataFiltered.includes(value));
+          }
+
+        });
+      }
+    });
+
+    if (newApiData.length === 0) {
+      setIsEmpty(true);
+    } else {
+      setIsEmpty(false);
+    }
+
+    return newApiData;
   };
+
+  useEffect(() => {
+    if (apiData?.data) {
+      setClothe(handleFilters());
+    }
+  }, [checked, apiData]);
+
   return (
     <AdminContainer>
       <BannerGreeting>
@@ -126,19 +169,35 @@ const AdminInterface = () => {
         <ContainerDashboard>
           {!shouldFetchData && <Loader />}
           <Wall>
-            {apiData?.data.map((card) => (
+            {clothe?.map((card) => (
                 <AdminProductCard
-                key={card?._id}
-                imgId={card?.image}
-                productName={card?.title}
-                productDescription={card?.description}
-                productSizes={card?.sizes}
-                productPrice={card?.price}
-                card={card}
-                index={card?._id}
+                  key={card?._id}
+                  card={card}
                 />
                 ))}
           </Wall>
+          {isEmpty && 
+            <>
+              <div
+                style={{
+                  minWidth:'30rem',
+                  '@media (max-width: 1280px)': {
+                    minWidth:'27rem',
+                  },
+                  '@media (max-width: 1150px)': {
+                    minWidth:'25rem',
+                  },
+                  '@media (max-width: 900px)': {
+                    minWidth:'0',
+                  }
+                }}
+              >
+                <div>
+                  <p>No existen coincidencias.</p>
+                </div>
+              </div>
+            </>
+          }
           <ContainerFilterDesktop>
             <FilterComponent
               filters={filters}

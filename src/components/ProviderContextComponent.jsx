@@ -9,6 +9,7 @@ const ProviderContextComponent = ({ children }) => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [rol, setRol] = useState(JSON.parse(sessionStorage.getItem('rol')));
   const [shouldFetchData, setShouldFetchData] = useState(true);
+  const [checked, setChecked] = useState({});
 
   const postURL = 'http://localhost:4000/api/auth'
 
@@ -66,7 +67,9 @@ const ProviderContextComponent = ({ children }) => {
         rol,
         setRol,
         shouldFetchData,
-        setShouldFetchData
+        setShouldFetchData,
+        checked,
+        setChecked
       }}
     >
       {children}

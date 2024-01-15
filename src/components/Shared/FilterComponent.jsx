@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { styled } from '@mui/material';
 import SearchComponent from '../Shared/SearchComponent';
+import { providerContext } from '../ProviderContextComponent';
 
 const ContainerFilters = styled('div')({
   display:'flex',
@@ -23,7 +24,7 @@ const ContainerFilters = styled('div')({
 })
 
 const FilterComponent = ({ filters, checks }) => {
-  const [checked, setChecked] = React.useState({});
+  const { checked, setChecked } = useContext(providerContext);
 
   const handleToggle = (filterType, value) => () => {
     const newChecked = { ...checked };
@@ -49,7 +50,7 @@ const FilterComponent = ({ filters, checks }) => {
       <div style={{ width: '15rem' }}>
         {filters.map((filter, index) => {
           const panelId = `panel${index + 1}`;
-          const filterValues = checks[filter];
+          const filterValues = checks.find((check) => check.hasOwnProperty(filter))[filter];
           return (
             <Accordion
               key={index}
@@ -77,6 +78,10 @@ const FilterComponent = ({ filters, checks }) => {
                               tabIndex={-1}
                               disableRipple
                               inputProps={{ 'aria-labelledby': labelId }}
+                              onChange={(event) => {
+                                event.preventDefault();
+                                handleToggle(filter.toLowerCase(), value)();
+                              }}
                             />
                           </ListItemIcon>
                           <ListItemText id={labelId} primary={`${value}`} />

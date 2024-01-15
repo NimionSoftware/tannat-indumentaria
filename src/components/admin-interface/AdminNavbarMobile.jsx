@@ -108,8 +108,9 @@ function AdminNavbarMobile() {
             ¡Holaa! Que vamos a hacer hoy?
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((text) => (
+            {pages.map((text, index) => (
               <Link
+                key={index}
                 style={{
                   textDecoration:'none',
                   color:'white',
