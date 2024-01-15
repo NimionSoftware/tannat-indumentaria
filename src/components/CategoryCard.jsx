@@ -37,11 +37,13 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
                 maxHeight: '700px',
                 borderRadius: '1px',
                 boxShadow: 5,
+                background: 'rgba(0, 0, 0, 0.7)',
                 animation: loaded && 'fade-in 1s',
-                transition: "transform 0.6s",
+                transition: "transform 0.6s, background 0.6s",
                 "&:hover":{
                     transform: 'scale(1.02)',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    background: 'rgba(0, 0, 0, 0.3)'
                 },
                 "@keyframes fade-in": {
                     "0%": {
@@ -57,9 +59,10 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
         >
                 <img
                 style={{
+                    opacity: '0.6',
                     width: '100%',
                     height: '100%',
-                    borderRadius: '1px'
+                    borderRadius: '1px',
                 }}
                 src={categoryImg} alt="imagen categoria" />
                 <h3 style={{
