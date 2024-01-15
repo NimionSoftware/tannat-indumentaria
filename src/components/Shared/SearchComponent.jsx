@@ -40,7 +40,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+
+export default function PrimarySearchAppBar({setClotheSearched}) {
+
+  const handlerChange = (e) => {
+    const searchValue = e.target.value.toLowerCase().trim();
+    setClotheSearched(searchValue)
+  };
+
 
   return (
     <Search>
@@ -50,6 +57,7 @@ export default function PrimarySearchAppBar() {
         <StyledInputBase
             placeholder="Search…"
             inputProps={{ 'aria-label': 'search' }}
+            onChange={(e)=> handlerChange(e)}
         />
     </Search>
   );

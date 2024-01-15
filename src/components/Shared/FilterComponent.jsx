@@ -23,8 +23,7 @@ const ContainerFilters = styled('div')({
   padding:'1rem',
 })
 
-const FilterComponent = ({ filters, checks }) => {
-  const { checked, setChecked } = useContext(providerContext);
+const FilterComponent = ({ filters, checks, setClotheSearched, checked, setChecked }) => {
 
   const handleToggle = (filterType, value) => () => {
     const newChecked = { ...checked };
@@ -46,7 +45,7 @@ const FilterComponent = ({ filters, checks }) => {
 
   return (
     <ContainerFilters>
-      <SearchComponent />
+      <SearchComponent setClotheSearched={setClotheSearched} />
       <div style={{ width: '15rem' }}>
         {filters.map((filter, index) => {
           const panelId = `panel${index + 1}`;
