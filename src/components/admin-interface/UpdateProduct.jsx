@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   styled,
   Typography,
@@ -9,6 +9,8 @@ import {
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import ToastCreated from '../Shared/ToastCreated'
+import { providerContext } from '../ProviderContextComponent'
+import PopUpExpired from './PopUpExpired'
 
 const FormContainer = styled(Box)({
   display: 'flex',
@@ -67,6 +69,8 @@ const TextFieldInput = styled (TextField)({
 const UpdateProduct = () => {
 
   const [productData, setProductData] = useState({});
+  const [success, setSuccess] = useState(false);
+  const { tokenExpired, setTokenExpired } = useContext(providerContext);
 
   const fetchProductData = async () => {
     try {
@@ -82,8 +86,6 @@ const UpdateProduct = () => {
   useEffect(() => {
     fetchProductData();
   }, []);
-
-  const [success, setSuccess] = useState(false);
 
   const dinamicParams = useParams();
 
@@ -109,10 +111,14 @@ const UpdateProduct = () => {
           await axios(config);
           setSuccess(true);
     } catch (error) {
+        if(error.response.status === 403) {
+            setTokenExpired(true);
+        }
         console.error('There was an error updating data', error)
     }
   }
 
+  console.log(tokenExpired)
   const text = '¡Listo! El producto fue modificado con exito!';
 
   return (
@@ -249,6 +255,7 @@ const UpdateProduct = () => {
             </form>
         </Form>
         {success && <ToastCreated success={success} setSuccess={setSuccess} text={text} />}
+        {tokenExpired && <PopUpExpired />}
     </ FormContainer>
 )}
 
