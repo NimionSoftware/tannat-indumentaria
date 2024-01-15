@@ -120,6 +120,16 @@ const AdminProductCard = ({card}) => {
           background: '#f1f1f1',
           boxShadow: 5,
           height:'13.5rem',
+          minWidth:'40rem',
+          '@media (max-width: 1280px)': {
+            minWidth:'30rem',
+          },
+          '@media (max-width: 1150px)': {
+            minWidth:'27rem',
+          },
+          '@media (max-width: 900px)': {
+            minWidth:'0',
+          },
           animation: loaded && 'fade-in 1s',
           "@keyframes fade-in": {
             "0%": {
