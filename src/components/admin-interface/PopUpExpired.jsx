@@ -5,6 +5,7 @@ import { providerContext } from "../ProviderContextComponent";
 import { useContext } from "react";
 
 const ContainerPopUp= styled(Box)({
+    zIndex:99999999999999,
     position:'fixed',
     top:0,
     left:0,
@@ -76,7 +77,7 @@ const PopUpExpired = () => {
                             cursor:'pointer',
                         }}
                     >
-                        Iniciar sesion
+                        Aceptar
                     </Button>
                 </LinkContainer>
             </Modal>

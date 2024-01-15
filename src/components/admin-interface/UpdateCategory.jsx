@@ -16,7 +16,6 @@ const FormContainer = styled(Box)({
   alignItems: 'flex-start',
   width: '100%',
   padding: '30px 0',
-  maxHeight: '100vh',
   '@media (max-width: 1100px)': {
     margin:'4rem 0',
   }
