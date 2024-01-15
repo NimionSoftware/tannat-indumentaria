@@ -22,7 +22,7 @@ const Wall = styled('div')({
   marginLeft: '5%',
   background: `white`,
   '@media (max-width: 1099px)': {
-    width: 'auto',
+    width: '100%',
     marginLeft: 'auto',
   }
 })
@@ -199,8 +199,11 @@ const AdminInterface = () => {
           {!shouldFetchData && <Loader />}
           {isEmpty ?
             (
-            <Wall >
-                  <p style={{textAlign: 'center'}}>No existen coincidencias.</p>
+            <Wall style={{margin: 0}}>
+                  <p style={{
+                    textAlign: 'center',
+                    width: '100%'
+                    }}>No existen coincidencias.</p>
             </Wall>
             ) :
             (
