@@ -3,6 +3,7 @@ import { Button, DialogActions, DialogContent, DialogTitle, styled } from '@mui/
 import axios from 'axios';
 import { cartContext } from '../Context';
 import { providerContext } from '../ProviderContextComponent';
+import PopUpExpired from '../admin-interface/PopUpExpired';
 
 const ContainerDelete = styled('div')({
     display:'flex',
@@ -24,12 +25,14 @@ const ContainerModalDelete = styled('div')({
     minWidth:'18rem',
     maxWidth:'28rem',
     maxHeight:'12rem',
+    minHeight:'12rem',
   })
 
 const ModalDelete = ({ open, handleClose, card }) => {
 
     const [productData, setProductData] = useState({});
     const { setSucc } = useContext(cartContext);
+    const { tokenExpired, setTokenExpired } = useContext(providerContext);
 
   const fetchProductData = async () => {
     try {
@@ -74,6 +77,9 @@ const ModalDelete = ({ open, handleClose, card }) => {
           setSucc(true);
           handleClose();
     } catch (error) {
+        if(error.response.status === 403 || error.response.status === 401) {
+          setTokenExpired(true);
+        }
         console.error('There was an error traying delete data', error)
     }
   }
@@ -96,6 +102,7 @@ const ModalDelete = ({ open, handleClose, card }) => {
                 </DialogActions>
             </ContainerModalDelete>
         </ContainerDelete>
+        {tokenExpired && <PopUpExpired />}
     </>
   );
 };

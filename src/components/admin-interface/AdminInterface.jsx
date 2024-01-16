@@ -101,6 +101,33 @@ const AdminInterface = () => {
   const {fetchData, apiData} = useAxiosFetch();
   const { succ } = useContext(cartContext);
   const { shouldFetchData } = useContext(providerContext);
+  const [clothe, setClothe] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [clotheSearched, setClotheSearched] = useState('');
+  const [checked, setChecked] = useState({});
+  const [visibleProducts, setVisibleProducts] = useState(10);
+
+
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight === scrollHeight) {
+      setVisibleProducts((prevVisibleProducts) => prevVisibleProducts + 10);
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if(shouldFetchData) {
@@ -126,11 +153,6 @@ const AdminInterface = () => {
 
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const [clothe, setClothe] = useState([]);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [clotheSearched, setClotheSearched] = useState('');
-  const [checked, setChecked] = useState({});
-
   const handleFilters = () => {
     if (!apiData?.data) {
       return [];
@@ -175,9 +197,24 @@ const AdminInterface = () => {
 
   useEffect(() => {
     if (apiData?.data) {
-      setClothe(handleFilters());
+      setClothe(handleFilters().slice(0, visibleProducts));
     }
-  }, [checked, apiData, clotheSearched]);
+  }, [checked, apiData, clotheSearched, visibleProducts]);
+
+
+  const handleTimeOff = () => {
+    return <p style={{fontSize:'.8rem' ,textAlign:'center', color:'gray', margin:0, paddingTop:10}} >No se encontraron mas productos.</p>
+  }
+
+  const handleLoading = () => {
+
+    if(isLoading){
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 6000);
+      return <p style={{fontSize:'.8rem' ,textAlign:'center', color:'gray', margin:0, paddingTop:10}} >Cargando mas productos...</p>
+    }
+  }
 
   return (
     <AdminContainer>
@@ -214,6 +251,15 @@ const AdminInterface = () => {
                     card={card}
                   />
                   ))}
+                <div
+                  style={{
+                    width:'100%',
+                    height:'3rem'
+                  }}
+                >
+                  {isLoading && handleLoading()}
+                  {!isLoading && handleTimeOff()}
+                </div>
             </Wall>
             )
           }

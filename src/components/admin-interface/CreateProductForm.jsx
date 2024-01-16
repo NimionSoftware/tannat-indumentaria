@@ -96,7 +96,7 @@ const CreateProductForm = () => {
           setSuccess(true);
           reset();
     } catch (error) {
-        if(error.response.status === 403) {
+        if(error.response.status === 403 || error.response.status === 401) {
             setTokenExpired(true);
         }
         console.error('There was an error sending data', error)

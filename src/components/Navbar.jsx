@@ -166,11 +166,11 @@ const Navbar = () => {
                     <BaloonCount>{quantity()}</BaloonCount>
                     <Icon src={cart} alt='Icono carrito de compras' title="Abrir carrito de compras" />
                 </ContainerBaloonCount>
-                <Icon
+                {!rol && <Icon
                     onClick={()=>setOpen(true)}
                     src={log} alt='Icono Login'
                     title="Iniciar sesión"
-                    />
+                    />}
                 {open && <SignIn
                     setOpen={setOpen}
                     open={open}

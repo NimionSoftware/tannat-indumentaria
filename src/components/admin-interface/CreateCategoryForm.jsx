@@ -71,7 +71,7 @@ const CreateCategoryForm = () => {
     mode: 'onBlur',
   });
 
-  const { tokenExpired } = useContext(providerContext);
+  const { tokenExpired, setTokenExpired } = useContext(providerContext);
 
   const [success, setSuccess] = useState(false);
 
@@ -95,11 +95,14 @@ const CreateCategoryForm = () => {
           setSuccess(true);
           reset();
     } catch (error) {
+        if(error.response.status === 403 || error.response.status === 401) {
+            setTokenExpired(true);
+        }
         console.error('There was an error sending data', error)
     }
   }
 
-  const text = '¡Muy bien! Agregaste un nuevo producto a tu tienda!';
+  const text = '¡Muy bien! Agregaste una nueva categoria a tu tienda!';
 
   return (
     <FormContainer>

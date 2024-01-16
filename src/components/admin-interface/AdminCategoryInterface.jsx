@@ -4,7 +4,6 @@ import ToastDelete from '../Shared/ToastDelete';
 import { cartContext } from '../Context';
 import { providerContext } from '../ProviderContextComponent';
 import Loader from '../Loader';
-import OpenFilterMobile from './OpenFiltersMobile';
 import styled from '@emotion/styled';
 import AdminCategoryCard from './AdminCategoryCard';
 
@@ -29,9 +28,6 @@ const ContainerDashboard = styled('div')({
   minHeight:'65rem',
   '@media (max-width: 700px)': {
     minHeight:'0',
-    // minWidth:'24.5rem',
-    // maxWidth:'50rem',
-    // width:'100%'
   },
 })
 

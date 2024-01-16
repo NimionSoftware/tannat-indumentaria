@@ -18,7 +18,6 @@ const FormContainer = styled(Box)({
   alignItems: 'flex-start',
   width: '100%',
   padding: '30px 0',
-  maxHeight: '100vh',
   '@media (max-width: 1100px)': {
     margin:'4rem 0',
   }
@@ -111,7 +110,7 @@ const UpdateProduct = () => {
           await axios(config);
           setSuccess(true);
     } catch (error) {
-        if(error.response.status === 403) {
+        if(error.response.status === 403 || error.response.status === 401) {
             setTokenExpired(true);
         }
         console.error('There was an error updating data', error)
