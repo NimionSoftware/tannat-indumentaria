@@ -13,12 +13,13 @@ const ContainerCart = styled('div')({
     alignItems:'center',
     textAlign:'center',
     height:'29.5rem',
+    overflow:'hidden'
 })
 
 const ContainerProducts = styled('div')({
     boxShadow: '0 0 10px #1b1b1b8c inset',
     overflowY: 'scroll',
-    width:'98%',
+    width:'100%',
      '::-webkit-scrollbar': {
         width: '8px',
     },
