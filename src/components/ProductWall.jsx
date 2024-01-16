@@ -10,6 +10,7 @@ const Wall = styled('div')({
   flexDirection: 'row',
   justifyContent: 'space-around',
   flexWrap: 'wrap',
+  minHeight: '70vh',
 })
 
 const ProductWall = ({categoryData}) => {

@@ -18,14 +18,20 @@ const AdminContainer = styled('div')({
 })
 
 const Wall = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
+  width: '60%',
+  marginLeft: '5%',
   background: `white`,
+  '@media (max-width: 1099px)': {
+    width: '100%',
+    marginLeft: 'auto',
+  }
 })
 
 const ContainerDashboard = styled('div')({
   display: 'flex',
   flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '100%',
   gap:'3rem',
   minHeight:'65rem',
   '@media (max-width: 700px)': {
@@ -69,15 +75,21 @@ const ContainerAdminSearch = styled('div')({
 })
 
 const AdminSubContainer = styled('div')({
+  width: '100%',
   maxWidth:'1440px',
   minWidth:'400px',
   margin:'0 auto',
   '@media (max-width: 1099px)': {
+    width: 'auto',
     marginTop:'4rem'
+
   }
 })
 
 const ContainerFilterDesktop = styled('div')({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '40%',
     '@media (max-width: 1100px)': {
       display:'none'
     }
@@ -185,35 +197,25 @@ const AdminInterface = () => {
         </ContainerAdminSearch>
         <ContainerDashboard>
           {!shouldFetchData && <Loader />}
-          <Wall>
-            {clothe?.map((card) => (
-                <AdminProductCard
-                  key={card?._id}
-                  card={card}
-                />
-                ))}
-          </Wall>
-          {isEmpty &&
-            <>
-              <div
-                style={{
-                  minWidth:'30rem',
-                  '@media (max-width: 1280px)': {
-                    minWidth:'27rem',
-                  },
-                  '@media (max-width: 1150px)': {
-                    minWidth:'25rem',
-                  },
-                  '@media (max-width: 900px)': {
-                    minWidth:'0',
-                  }
-                }}
-              >
-                <div>
-                  <p>No existen coincidencias.</p>
-                </div>
-              </div>
-            </>
+          {isEmpty ?
+            (
+            <Wall style={{margin: 0}}>
+                  <p style={{
+                    textAlign: 'center',
+                    width: '100%'
+                    }}>No existen coincidencias.</p>
+            </Wall>
+            ) :
+            (
+              <Wall>
+              {clothe?.map((card) => (
+                  <AdminProductCard
+                    key={card?._id}
+                    card={card}
+                  />
+                  ))}
+            </Wall>
+            )
           }
           <ContainerFilterDesktop>
             <FilterComponent

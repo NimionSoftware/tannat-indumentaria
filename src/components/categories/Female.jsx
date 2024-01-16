@@ -11,6 +11,7 @@ const Wall = styled('div')({
     flexDirection: 'row',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    minHeight: '70vh',
   })
 
 const Female = ({cards}) => {

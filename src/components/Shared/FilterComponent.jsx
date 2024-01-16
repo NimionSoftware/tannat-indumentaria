@@ -19,8 +19,8 @@ const ContainerFilters = styled('div')({
   alignItems:'center',
   flexDirection:'column',
   backgroundColor:'#f3f3f3',
-  width:'18rem',
-  padding:'1rem',
+  width:'280px',
+  padding: '1rem'
 })
 
 const FilterComponent = ({ filters, checks, setClotheSearched, checked, setChecked }) => {
