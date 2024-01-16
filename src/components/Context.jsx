@@ -86,6 +86,16 @@ const [productSizes, setProductSizes] = useState(() => {
     return cart.reduce((acc, product) => acc + product.price * product.qty, 0);
   };
 
+  const updateQty = (productId, newQty) => {
+    const updatedCart = cart.map((item) => {
+      const updatedQty = item.qty + newQty;
+      const minQty = Math.max(1, updatedQty);
+      return item._id === productId ? { ...item, qty: minQty } : item;
+    });
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
   return (
     <Provider
       value={{
@@ -109,7 +119,8 @@ const [productSizes, setProductSizes] = useState(() => {
         succ,
         setSucc,
         productSizes,
-        setProductSizes
+        setProductSizes,
+        updateQty,
         }}>{children}</Provider>
   );
 };
