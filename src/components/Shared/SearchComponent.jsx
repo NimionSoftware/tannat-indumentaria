@@ -55,7 +55,7 @@ export default function PrimarySearchAppBar({setClotheSearched}) {
             <SearchIcon />
         </SearchIconWrapper>
         <StyledInputBase
-            placeholder="Search…"
+            placeholder="Buscar"
             inputProps={{ 'aria-label': 'search' }}
             onChange={(e)=> handlerChange(e)}
         />

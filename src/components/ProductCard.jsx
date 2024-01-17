@@ -119,6 +119,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
       maxWidth: "380px",
       maxHeight: !expanded && "780px",
       height: '100%',
+      marginBottom:3,
     }}>
       {!loaded && <Loader />}
       <Box
@@ -129,8 +130,6 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
         justifyContent: 'flex-start',
         alignItems: 'center',
         maxWidth: "380px",
-        maxHeight: !expanded && "780px",
-        height: '100%',
         transition: 'all .250s',
         gap: 1,
         margin: 3,
@@ -154,6 +153,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
               position: 'relative',
               width: "100%",
               maxHeight: "550px",
+              marginBottom: '1.5rem',
               }}
               src={imgId}
               alt="card Img"

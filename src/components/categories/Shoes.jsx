@@ -6,34 +6,52 @@ import {
 } from '@mui/material'
 
 const Wall = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    minHeight: '70vh',
-  })
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  flexWrap: 'wrap',
+  minHeight: '70vh',
+  '@media (max-width: 1100px)': {
+    margin:'auto'
 
-const Shoes = ({cards}) => {
+  },
+})
+
+const Shoes = ({cards, isEmpty}) => {
   const [isExpandedIndex, setIsExpandedIndex] = useState(null)
   return (
-    <Wall>
-    {cards?.map(card => {
-           return (
-            (card?.gender === 'Shoes' || card?.gender === 'shoes') &&
-            <ProductCard
-            key={card?._id}
-            imgId={card?.image}
-            productName={card?.title}
-            productDescription={card?.description}
-            productSizes={card?.sizes}
-            productPrice={card?.price}
-            card={card}
-            index={card?._id}
-            isExpanded={{isExpandedIndex, setIsExpandedIndex}}
-            />)
-            }
-    )}
-    </Wall>
+    <>
+      {isEmpty ?
+        (
+        <Wall style={{margin: 'auto'}}>
+              <p style={{
+                textAlign: 'center',
+                width: '100%'
+                }}>No existen coincidencias.</p>
+        </Wall>
+        ) :
+        (
+          <Wall>
+            {cards?.map(card => {
+                  return (
+                    (card?.gender === 'Shoes' || card?.gender === 'shoes') &&
+                    <ProductCard
+                    key={card?._id}
+                    imgId={card?.image}
+                    productName={card?.title}
+                    productDescription={card?.description}
+                    productSizes={card?.sizes}
+                    productPrice={card?.price}
+                    card={card}
+                    index={card?._id}
+                    isExpanded={{isExpandedIndex, setIsExpandedIndex}}
+                    />)
+                    }
+            )}
+            </Wall>
+        )
+      }
+    </>
   )
 }
 
