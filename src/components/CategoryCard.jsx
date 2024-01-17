@@ -28,6 +28,7 @@ const CategoryCard = ({categoryTitle, categoryImg, categoryLink}) => {
         <CategoryContainer
             onLoad={() => setLoaded(true)}
             sx={{
+                zIndex:'0',
                 position: 'relative',
                 opacity: !loaded && 0,
                 display: 'flex',
