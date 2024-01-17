@@ -148,9 +148,8 @@ const AdminInterface = () => {
   const checks = [
     {Season: ['Primavera', 'Verano', 'Otoño', 'Invierno']},
     {Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña']},
-    {Category: ['Camisas', 'Pantalones', 'Camperas', 'Vestido', 'Remeras']}
+    {Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter']}
   ];
-
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFilters = () => {

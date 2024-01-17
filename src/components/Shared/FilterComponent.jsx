@@ -43,6 +43,12 @@ const FilterComponent = ({ filters, checks, setClotheSearched, checked, setCheck
     setExpanded({ ...expanded, [panel]: isExpanded });
   };
 
+  const translate = {
+    'Season': 'Temporada',
+    'Gender': 'Género',
+    'Category': 'Categoría',
+  };
+
   return (
     <ContainerFilters>
       <SearchComponent setClotheSearched={setClotheSearched} />
@@ -61,7 +67,7 @@ const FilterComponent = ({ filters, checks, setClotheSearched, checked, setCheck
                 aria-controls={`${panelId}bh-content`}
                 id={`${panelId}bh-header`}
               >
-                <Typography sx={{ width: '33%', flexShrink: 0 }}>{filter}</Typography>
+                <Typography sx={{ width: '33%', flexShrink: 0 }}>{translate[filter] || filter}</Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>

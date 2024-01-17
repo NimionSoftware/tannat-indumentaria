@@ -48,26 +48,37 @@ const MainWall = () => {
     }
   }
 
-  const ContainerMainWall = styled('div')({
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: handleLocation() ? 'space-between' : 'center',
-    marginTop:'1rem',
-    marginBottom:'4rem',
-  })
-
   const filters = [
     'Season',
     'Gender',
     'Category',
   ];
 
-  const checks = [
-    {Season: ['Primavera', 'Verano', 'Otoño', 'Invierno']},
-    {Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña']},
-    {Category: ['Camisas', 'Pantalones', 'Camperas', 'Vestido', 'Remeras']}
-  ];
+  const checks = [];
 
+  switch (locate) {
+    case '/hombres':
+      checks.push(
+        { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
+        { Gender: ['Unisex', 'Niño'] },
+        { Category: ['Camisa', 'Pantalon', 'Campera', 'Sueter', 'Remera'] }
+      );
+      break;
+    case '/mujeres':
+      checks.push(
+        { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
+        { Gender: ['Unisex', 'Niña'] },
+        { Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter'] }
+      );
+      break;
+    default:
+      checks.push(
+        { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
+        { Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña'] },
+        { Category: ['Camisas', 'Pantalones', 'Camperas', 'Vestido', 'Remeras'] }
+      );
+      break;
+  }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleFilters = () => {
@@ -163,7 +174,16 @@ const MainWall = () => {
               <Route path="/" element={<ProductWall categoryData={categoryData?.data}/>} />
             </Routes>
             ) :
-            (<ContainerMainWall>
+            (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginTop:'1rem',
+                marginBottom:'4rem',
+              }}
+            >
              {handleLocation() && <ContainerFilter>
                 <FilterComponent
                     setClotheSearched={setClotheSearched}
@@ -173,12 +193,18 @@ const MainWall = () => {
                     setChecked={setChecked}
                   />
               </ContainerFilter>}
-              <Routes>
-                <Route path="/hombres" element={<Male cards={clothe} isEmpty={isEmpty} />} />
-                <Route path='/mujeres' element={<Female cards={clothe} isEmpty={isEmpty} />} />
-                <Route path='/calzados' element={<Shoes cards={clothe} isEmpty={isEmpty} />} />
-              </Routes>
-            </ContainerMainWall>
+              <div
+                style={{
+                  width:'100%'
+                }}
+              >
+                <Routes>
+                  <Route path="/hombres" element={<Male cards={clothe} isEmpty={isEmpty} />} />
+                  <Route path='/mujeres' element={<Female cards={clothe} isEmpty={isEmpty} />} />
+                  <Route path='/calzados' element={<Shoes cards={clothe} isEmpty={isEmpty} />} />
+                </Routes>
+              </div>
+            </div>
             )
           }
           <Footer />
