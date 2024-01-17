@@ -129,7 +129,6 @@ const Navbar = () => {
         { path: '/hombres', label: 'Hombres' },
         { path: '/mujeres', label: 'Mujeres' },
         { path: '/calzados', label: 'Calzados' },
-        { path: '/novedades', label: 'Novedades' }
       ];
 
     return (
