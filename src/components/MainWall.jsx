@@ -41,7 +41,6 @@ const MainWall = () => {
     switch (locate) {
       case "/hombres":
       case "/mujeres":
-      case "/otros":
         return true;
       default:
         return false;
@@ -50,7 +49,6 @@ const MainWall = () => {
 
   const filters = [
     'Season',
-    'Gender',
     'Category',
   ];
 
@@ -60,22 +58,19 @@ const MainWall = () => {
     case '/hombres':
       checks.push(
         { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
-        { Gender: ['Unisex', 'Niño'] },
         { Category: ['Camisa', 'Pantalon', 'Campera', 'Sueter', 'Remera'] }
       );
       break;
     case '/mujeres':
       checks.push(
         { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
-        { Gender: ['Unisex', 'Niña'] },
         { Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter'] }
       );
       break;
     default:
       checks.push(
         { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
-        { Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña'] },
-        { Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter'] }
+        { Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter', 'Niño', 'Niña'] }
       );
       break;
   }
