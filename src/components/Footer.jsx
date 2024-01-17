@@ -5,6 +5,7 @@ import twi from "../assets/twitter.png";
 import facebook from "../assets/facebook.png";
 import insta from "../assets/instagram.png";
 import copy from "../assets/copyright.png";
+import nimion from "../assets/nimion.png";
 import { Grid, Link, Typography, styled } from '@mui/material';
 
 const Container = styled('div')({
@@ -141,9 +142,9 @@ export default function Footer() {
     <Container>
         <ContainerSections>
             <ContainerImages>
-                <Link href="https://es-la.facebook.com/"><Images src={facebook} alt="Icon Facebook" /></Link>
-                <Link href="https://www.instagram.com/"><Images src={insta} alt="Icon Instagram" /></Link>
-                <Link href="https://www.instagram.com/"><Images src={twi} alt="Icon Twitter" /></Link>
+                <Link href="https://www.instagram.com/tannatindumentaria/"><Images src={facebook} alt="Icon Facebook" /></Link>
+                <Link href="https://www.instagram.com/tannatindumentaria/"><Images src={insta} alt="Icon Instagram" /></Link>
+                <Link href="https://www.instagram.com/tannatindumentaria/"><Images src={twi} alt="Icon Twitter" /></Link>
             </ContainerImages>
             <HrT />
             <GridP container>
@@ -171,8 +172,8 @@ export default function Footer() {
             </ContainerCards>
             <HrT />
             <ContainerInfo>
-                <LastText><Copy src={copy} alt='Copyright' />Copyright 2023 Tannat Indumentaria</LastText>
-                <LastText>Developed by: Nimion Software Solutions</LastText>
+                <LastText><Copy src={copy} alt='Copyright' />Copyright 2024 Tannat Indumentaria</LastText>
+                <LastText>Developed by <a href='https://nimionsoftware.com.ar/' target="_blank" rel="noreferrer" style={{color:'white', display:'flex',justifyContent:'center', alignItems:'center', gap:'.5rem'}}>Nimion Software Solutions <img src={nimion} alt='Icono de Nimion' width='30px' height='30px' /></a></LastText>
             </ContainerInfo>
         </ContainerSections>
     </Container>

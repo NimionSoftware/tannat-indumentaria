@@ -29,7 +29,7 @@ const ProviderContextComponent = ({ children }) => {
       };
       const { data: response } = await axios(config);
 
-      const role = 'ADMIN';
+      const role = process.env.REACT_APP_USER;
       if (response.data.role === role) {
           sessionStorage.setItem('rol', JSON.stringify(role));
           sessionStorage.setItem('token', JSON.stringify(response.data.token));
