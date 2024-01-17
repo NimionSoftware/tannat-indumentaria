@@ -156,23 +156,31 @@ const MainWall = () => {
               />
             </div>
           </div>
-          <ContainerMainWall>
-           {handleLocation() && <ContainerFilter>
-              <FilterComponent
-                  setClotheSearched={setClotheSearched}
-                  filters={filters}
-                  checks={checks}
-                  checked={checked}
-                  setChecked={setChecked}
-                />
-            </ContainerFilter>}
+          {
+          locate === "/" ?
+            (
             <Routes>
               <Route path="/" element={<ProductWall categoryData={categoryData?.data}/>} />
-              <Route path="/hombres" element={<Male cards={clothe} isEmpty={isEmpty} />} />
-              <Route path='/mujeres' element={<Female cards={clothe} isEmpty={isEmpty} />} />
-              <Route path='/calzados' element={<Shoes cards={clothe} isEmpty={isEmpty} />} />
             </Routes>
-          </ContainerMainWall>
+            ) :
+            (<ContainerMainWall>
+             {handleLocation() && <ContainerFilter>
+                <FilterComponent
+                    setClotheSearched={setClotheSearched}
+                    filters={filters}
+                    checks={checks}
+                    checked={checked}
+                    setChecked={setChecked}
+                  />
+              </ContainerFilter>}
+              <Routes>
+                <Route path="/hombres" element={<Male cards={clothe} isEmpty={isEmpty} />} />
+                <Route path='/mujeres' element={<Female cards={clothe} isEmpty={isEmpty} />} />
+                <Route path='/calzados' element={<Shoes cards={clothe} isEmpty={isEmpty} />} />
+              </Routes>
+            </ContainerMainWall>
+            )
+          }
           <Footer />
         </div>
     </div>
