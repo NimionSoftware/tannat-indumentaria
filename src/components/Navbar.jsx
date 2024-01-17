@@ -96,9 +96,6 @@ const ContainerBaloonCount = styled('div')({
     display:'flex',
     cursor: 'pointer',
     transition: '.3s all',
-    "&:hover": {
-        transform: 'scale(1.1)'
-    },
     '@media (max-width: 768px)': {
         display: 'none'
       }

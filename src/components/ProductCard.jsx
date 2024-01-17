@@ -154,6 +154,7 @@ const ProductCard = ({index, isExpanded, imgId, productName, productDescription,
               position: 'relative',
               width: "100%",
               maxHeight: "550px",
+              marginBottom: '1.5rem',
               }}
               src={imgId}
               alt="card Img"
