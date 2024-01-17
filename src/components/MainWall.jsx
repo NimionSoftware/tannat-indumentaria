@@ -141,7 +141,7 @@ const MainWall = () => {
         <div>
           <Navbar />
           <Banner img={BannerImg} />
-          {!locate === "/" &
+          {!locate !== "/" &&
             <div
             style={{
               width:'100%',
