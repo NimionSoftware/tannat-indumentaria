@@ -131,7 +131,7 @@ const AdminInterface = () => {
 
   useEffect(() => {
     if(shouldFetchData) {
-      fetchData('http://localhost:4000/api/product');
+      fetchData(`${process.env.REACT_APP_API_URL}/product`);
     }
 
   }, [!apiData]);

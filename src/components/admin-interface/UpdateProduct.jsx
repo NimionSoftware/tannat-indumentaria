@@ -74,7 +74,7 @@ const UpdateProduct = () => {
   const fetchProductData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/product/${dinamicParams.id}`
+        `${process.env.REACT_APP_API_URL}/product/${dinamicParams.id}`
       );
       setProductData(response.data.data);
     } catch (error) {
@@ -88,7 +88,7 @@ const UpdateProduct = () => {
 
   const dinamicParams = useParams();
 
-  const URL = `http://localhost:4000/api/product/${dinamicParams.id}`
+  const URL = `${process.env.REACT_APP_API_URL}/product/${dinamicParams.id}`
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async () => {

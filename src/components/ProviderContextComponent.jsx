@@ -11,7 +11,7 @@ const ProviderContextComponent = ({ children }) => {
   const [shouldFetchData, setShouldFetchData] = useState(true);
   const [tokenExpired, setTokenExpired] = useState(false);
 
-  const postURL = 'http://localhost:4000/api/auth'
+  const postURL = `${process.env.REACT_APP_API_URL}/auth`
 
   const verifyUser = async (user) => {
 

@@ -125,11 +125,11 @@ const MainWall = () => {
   }, [checked, cardData, clotheSearched]);
 
   useEffect(() => {
-      fetchData1('http://localhost:4000/api/category');
+      fetchData1(`${process.env.REACT_APP_API_URL}/category`);
       setCategoryData(apiData1);
 
       if(shouldFetchData) {
-        fetchData2('http://localhost:4000/api/product');
+        fetchData2(`${process.env.REACT_APP_API_URL}/product`);
         setCardData(apiData2);
       }
   }, [!apiData1, !apiData2])
