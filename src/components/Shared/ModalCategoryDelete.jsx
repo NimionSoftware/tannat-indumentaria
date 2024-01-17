@@ -34,7 +34,7 @@ const ModalCategoryDelete = ({ open, handleClose, card }) => {
   const fetchProductData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/category/${card._id}`
+        `${process.env.REACT_APP_API_URL}/category/${card._id}`
       );
       setProductData(response.data.data);
     } catch (error) {
@@ -47,7 +47,7 @@ const ModalCategoryDelete = ({ open, handleClose, card }) => {
   }, []);
 
 
-  const URL = `http://localhost:4000/api/category/${card._id}`
+  const URL = `${process.env.REACT_APP_API_URL}/category/${card._id}`
   const token = JSON.parse(sessionStorage.getItem('token'))
   const { shouldFetchData, setShouldFetchData } = useContext(providerContext);
 

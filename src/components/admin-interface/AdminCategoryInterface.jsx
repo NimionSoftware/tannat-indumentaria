@@ -83,7 +83,7 @@ const AdminCategoryInterface = () => {
 
   useEffect(() => {
     if(shouldFetchData) {
-      fetchData('http://localhost:4000/api/category');
+      fetchData(`${process.env.REACT_APP_API_URL}/category`);
     }
 
   }, [!apiData]);

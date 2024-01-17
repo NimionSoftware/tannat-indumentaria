@@ -73,7 +73,7 @@ const CreateProductForm = () => {
   const [success, setSuccess] = useState(false);
   const { tokenExpired, setTokenExpired } = useContext(providerContext);
 
-  const URL = 'http://localhost:4000/api/product'
+  const URL = `${process.env.REACT_APP_API_URL}/product`
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async (data) => {

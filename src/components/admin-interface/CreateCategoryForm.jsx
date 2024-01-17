@@ -75,7 +75,7 @@ const CreateCategoryForm = () => {
 
   const [success, setSuccess] = useState(false);
 
-  const URL = 'http://localhost:4000/api/category'
+  const URL = `${process.env.REACT_APP_API_URL}/category`
   const token = JSON.parse(sessionStorage.getItem('token'))
 
   const onSubmit = async (data) => {

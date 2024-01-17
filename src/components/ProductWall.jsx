@@ -25,8 +25,8 @@ const ProductWall = ({categoryData}) => {
             categoryImg={category?.image}
             categoryLink={category?.link}
           />
-        ))
-      }
+          ))
+        }
     </Wall>
   )
 }

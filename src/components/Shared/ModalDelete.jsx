@@ -37,7 +37,7 @@ const ModalDelete = ({ open, handleClose, card }) => {
   const fetchProductData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/product/${card._id}`
+        `${process.env.REACT_APP_API_URL}/product/${card._id}`
       );
       setProductData(response.data.data);
     } catch (error) {
@@ -50,7 +50,7 @@ const ModalDelete = ({ open, handleClose, card }) => {
   }, []);
 
 
-  const URL = `http://localhost:4000/api/product/${card._id}`
+  const URL = `${process.env.REACT_APP_API_URL}/product/${card._id}`
   const token = JSON.parse(sessionStorage.getItem('token'))
   const { shouldFetchData, setShouldFetchData } = useContext(providerContext);
 
