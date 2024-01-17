@@ -11,7 +11,7 @@ import { providerContext } from './ProviderContextComponent';
 
 
 const ContainerN = styled('nav')({
-    zIndex: '99',
+    zIndex: 999,
     display: 'flex',
     justifyContent:'space-between',
     minHeight:'1rem',
@@ -125,7 +125,6 @@ const BurgerMenu = ({openCart, setOpenCart, open, setOpen}) => {
         { path: '/hombres', label: 'Hombres' },
         { path: '/mujeres', label: 'Mujeres' },
         { path: '/calzados', label: 'Calzados' },
-        { path: '/novedades', label: 'Novedades' }
       ];
 
     return (

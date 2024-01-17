@@ -11,7 +11,7 @@ function App() {
   const { rol } = useContext(providerContext);
 
   const AdminRoute = () => {
-      return rol === 'ADMIN' ? <AdminNavRoutes /> : <Navigate to='/admin/not-allowed' replace={true} />
+      return rol === process.env.REACT_APP_USER ? <AdminNavRoutes /> : <Navigate to='/admin/not-allowed' replace={true} />
   }
 
   return (

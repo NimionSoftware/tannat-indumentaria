@@ -120,7 +120,7 @@ const DataCustomer = () => {
     };
 
       const onSubmit = (data) => {
-        window.open(`https://wa.me/5493413869246?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2C%20Pago%20con:%20${data.paymentMethod}%2E%0A-%0A${itemW}`, '_blank');
+        window.open(`https://wa.me/${process.env.REACT_APP_CONCTACT}?text=ID:%20${data.nombre}%2C%20Tel:%20${data.numero}%2C%20Dir:%20${data.direccion}%2C%20Pago%20con:%20${data.paymentMethod}%2E%0A-%0A${itemW}`, '_blank');
         setPopUp(!popUp)
     };
 

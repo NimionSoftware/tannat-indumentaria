@@ -141,7 +141,8 @@ const MainWall = () => {
         <div>
           <Navbar />
           <Banner img={BannerImg} />
-          <div
+          {!locate === "/" &&
+            <div
             style={{
               width:'100%',
             }}
@@ -162,6 +163,7 @@ const MainWall = () => {
               />
             </div>
           </div>
+          }
           {
           locate === "/" ?
             (
