@@ -41,7 +41,7 @@ const MainWall = () => {
     switch (locate) {
       case "/hombres":
       case "/mujeres":
-      case "/calzados":
+      case "/otros":
         return true;
       default:
         return false;
@@ -75,7 +75,7 @@ const MainWall = () => {
       checks.push(
         { Season: ['Primavera', 'Verano', 'Otoño', 'Invierno'] },
         { Gender: ['Masculino', 'Femenino', 'Unisex', 'Niño', 'Niña'] },
-        { Category: ['Camisas', 'Pantalones', 'Camperas', 'Vestido', 'Remeras'] }
+        { Category: ['Camisa', 'Pantalon', 'Campera', 'Vestido', 'Remera', 'Blusa', 'Enterizo', 'Sueter'] }
       );
       break;
   }
